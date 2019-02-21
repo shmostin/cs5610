@@ -29,6 +29,12 @@ import { WidgetHeaderComponent } from './views/widget/widget-edit/widget-header/
 import { WidgetImageComponent } from './views/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
 
+// services
+import {UserService} from './services/user.service.client';
+import {PageService} from './services/page.service.client';
+import {WebsiteService} from './services/website.service.client';
+import {WidgetService} from './services/widget.service.client';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -53,8 +59,9 @@ import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtub
     BrowserModule,
     AppRoutingModule,
       routing,
+      FormsModule,
   ],
-  providers: [],
+  providers: [UserService, WebsiteService, PageService, WidgetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

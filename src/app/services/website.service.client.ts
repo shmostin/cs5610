@@ -39,7 +39,6 @@ export class WebsiteService {
                 return this.websites[i];
             }
         }
-        return 0;
     }
 
     findWebsiteById(websiteId: String) {
@@ -48,7 +47,6 @@ export class WebsiteService {
                 return this.websites[i];
             }
         }
-        return 0;
     }
 
     updateWebsite(websiteId, website) {

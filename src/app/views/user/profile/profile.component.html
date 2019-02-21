@@ -1,6 +1,8 @@
-<!DOCTYPE html>
+<h1>Profile</h1>
 
+<h2> user: {{user.username}}</h2>
 
+{{user._id}}
 
 <nav class="navbar navbar-dark bg-primary fixed-top">
     <div class="container-fluid">
@@ -11,6 +13,12 @@
         </i>
     </div>
 </nav>
+
+
+<a routerLink="/profile/{{user._id}}/website">Websites</a>
+<br/>
+
+
 
 <div class="container-fluid">
     <form>

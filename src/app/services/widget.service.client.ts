@@ -27,7 +27,6 @@ export class WidgetService {
                 return this.widgets[i];
             }
         }
-        return 0;
     }
 
 
@@ -37,7 +36,6 @@ export class WidgetService {
                 return this.widgets[i];
             }
         }
-        return 0;
     }
 
     updateWidget(widgetId, widget) {

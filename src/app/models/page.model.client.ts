@@ -8,7 +8,6 @@ export class Page {
     constructor(_id, name, websiteId, description) {
         this._id = _id;
         this.name = name;
-        this.name = name;
         this.title = description;
         this.websiteId = websiteId;
     }

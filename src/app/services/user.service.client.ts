@@ -11,10 +11,10 @@ export class UserService {
 
      users: User[] =
         [
-            new User('123', 'alice', 'alice'),
-            new User('234', 'bob', 'bob'),
-            new User('345', 'charly', 'charly'),
-            new User('456', 'jannunzi', 'jannunzi'),
+            new User('123', 'alice', 'alice', 'alice', 'alice', 'a@a.com'),
+            new User('234', 'bob', 'bob', 'bob', 'bob', 'b@b.com'),
+            new User('345', 'charly', 'charly', 'charly', 'charly', 'c@c.com'),
+            new User('456', 'jannunzi', 'jannunzi', 'jannunzi', 'jannunzi', 'j@j.com'),
 
         ];
 
@@ -24,7 +24,7 @@ export class UserService {
      * @param user is the user we want to add to the array.
      */
     createUser(user: User) {
-        this.users.push(new User(user._id, user.username, user.password));
+        this.users.push(new User(user._id, user.username, user.password, user.firstName, user.lastName, user.email));
     }
 
 
@@ -38,7 +38,6 @@ export class UserService {
                 return entry;
             }
         }
-        return 0;
     }
 
     /**
@@ -51,7 +50,6 @@ export class UserService {
                 return entry;
             }
         }
-        return 0;
     }
 
     /**
@@ -65,7 +63,6 @@ export class UserService {
                 return entry;
             }
         }
-        return 0;
     }
 
 
@@ -82,7 +79,6 @@ export class UserService {
                 return entry;
             }
         }
-        return 0;
     }
 
     /**

@@ -43,7 +43,6 @@ export class PageService {
                 return this.pages[i];
             }
         }
-        return 0;
     }
 
     updatePage(pageId, page) {
