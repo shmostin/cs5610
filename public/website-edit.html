@@ -4,37 +4,53 @@
     <meta charset="UTF-8">
     <title>Website Edit</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="css/style.css" rel="stylesheet"/>
 </head>
+
+
 <body>
-<nav class="navbar navbar-fixed-top cl-blue-navbar">
-    <div class="row">
-        <div class="col-xs-4 hidden-xs">
-            <div class="container-fluid">
-                <p class="navbar-text pull-left">
-                   <a href="website-list.html" class="navbar-link cl-text-white">
-                       <span class="glyphicon glyphicon-cheveron-left"></span>
-                   </a>
-                </p>
-                <a class="cl-text-white navbar-brand cl-text-bold" href="#">
-                    Websites
-                </a>
-                <a href="website-new.html" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>
-            </div>
-        </div>
-        <div class="col-xs-8">
-            <div class="container-fluid">
-                <a class="cl-text=white navbar-brand cl-text-bold" href="#">
-                    Edit Websites
-                </a>
-                <a href="website-list.html" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
-                    <span class="glyphicon glyphicon-ok"></span>
-                </a>
-            </div>
-        </div>
+
+<!--<nav class="navbar navbar-dark bg-primary fixed-top">-->
+<!--<div class="container-fluid">-->
+<!--<a class="navbar-brand mb-0 h5" href="#">-->
+<!--Profile-->
+<!--</a>-->
+<!--<i class="navbar-brand fas fa-check fontawesome_icon cl-icon-padding">-->
+<!--</i>-->
+<!--</div>-->
+<!--</nav>-->
+
+
+<nav class="navbar navbar-dark bg-primary">
+    <!---Navbar on the left side-->
+    <div class="col-md-4 d-none d-md-block container-fluid">
+        <a href="website-list.html" class="pull-left">
+            <span>
+                <i class="fas fa-chevron-left fa-inverse"></i>
+            </span>
+        </a>
+
+        <div class="navbar-brand font-weight-bold ml-1">Websites</div>
+
+        <a href="website-new.html" class="float-right m-2">
+            <span>
+                <i class="fas fas-plus fa-inverse"></i>
+            </span>
+        </a>
+    </div>
+
+
+    <!---Navbar on the right side-->
+    <div class="col-md-8 container-fluid">
+        <div class="navbar-brand font-weight-bold">Edit Website</div>
+        <a href="website-list.html" class="float-right">
+                    <span>
+                        <i class="fas fa-check fa-inverse"></i>
+                    </span>
+        </a>
     </div>
 </nav>
 
@@ -43,7 +59,7 @@
         <ul class="list-group cl-list-group-borderless">
             <li class="list-group-item cl-list-item-borderless">
                 <a href="website-edit.html">
-                    <span class="glyphicon glyphicon-cog pull-right"></span>
+                    <span class="cl-text-white fas fa-cog fontawesome_icon cl-icon-padding pull-right"></span>
                 </a>
                 <a href="page-list.html">Blogging App</a>
             </li>
