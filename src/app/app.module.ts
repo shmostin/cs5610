@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { routing } from './app-routing.module';
-import {RouterModule} from '@angular/router';
 
 // user components
 import { LoginComponent } from './views/user/login/login.component';
@@ -58,7 +56,6 @@ import {FormsModule} from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-      routing,
       FormsModule,
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService],

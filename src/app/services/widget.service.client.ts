@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Widget} from '../models/widget.model.client';
 
-@Injectable
+@Injectable()
 export class WidgetService {
 
     constructor() {

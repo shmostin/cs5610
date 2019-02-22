@@ -4,7 +4,7 @@ import { User } from '../models/user.model.client';
 
 
 
-@Injectable
+@Injectable()
 export class UserService {
 
         constructor() {}

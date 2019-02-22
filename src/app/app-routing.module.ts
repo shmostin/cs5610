@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import {LoginComponent} from './views/user/login/login.component';
 import {ProfileComponent} from './views/user/profile/profile.component';
 import {RegisterComponent} from './views/user/register/register.component';
@@ -10,15 +11,11 @@ import {WebsiteEditComponent} from './views/website/website-edit/website-edit.co
 import {WebsiteListComponent} from './views/website/website-list/website-list.component';
 import {WebsiteNewComponent} from './views/website/website-new/website-new.component';
 import {WidgetChooserComponent} from './views/widget/widget-chooser/widget-chooser.component';
-import {WidgetHeaderComponent} from './views/widget/widget-edit/widget-header/widget-header.component';
-import {WidgetImageComponent} from './views/widget/widget-edit/widget-image/widget-image.component';
-import {WidgetYoutubeComponent} from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
 import {WidgetListComponent} from './views/widget/widget-list/widget-list.component';
 import {WidgetEditComponent} from './views/widget/widget-edit/widget-edit.component';
 
 
-// Where :uid, :wid, :pid, and :wgid are path parameters encoding the IDs of particular users,
-// websites, pages, and widgets.
+
 
 
 const appRoutes: Routes = [
@@ -37,10 +34,10 @@ const appRoutes: Routes = [
 
 ];
 
-// @NgModule({
-//   imports: [RouterModule.forRoot(appRoutes)],
-//   exports: [RouterModule]
-// })
+@NgModule({
+  imports: [RouterModule.forRoot(appRoutes)],
+  exports: [RouterModule]
+})
 
-export const routing = RouterModule.forRoot(appRoutes)
+// export const routing = RouterModule.forRoot(appRoutes)
 export class AppRoutingModule { }

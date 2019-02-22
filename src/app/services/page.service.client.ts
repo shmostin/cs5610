@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Page} from '../models/page.model.client';
 
-@Injectable
+@Injectable()
 export class PageService {
 
     constructor() {
