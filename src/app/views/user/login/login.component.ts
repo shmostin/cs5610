@@ -1,6 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {User} from '../../../models/user.model.client';
+import {UserService} from '../../../services/user.service.client';
 
 @Component({
     selector: 'app-login',
@@ -20,7 +22,7 @@ export class LoginComponent implements OnInit {
     disabledFlag: boolean;
     inputText: string;
 
-    constructor(private router: Router) {
+    constructor(private userService: UserService, private router: Router) {
 
         // username: String;
         // password: String;
@@ -30,6 +32,11 @@ export class LoginComponent implements OnInit {
         this.username = this.loginForm.value.username;
         // console.log(this.username);
         // console.log(this.password);
+
+        const user: User = this.userService.findUserByCredentials(this.username, this.password);
+        if (user) {
+            this.router.navigate(['/user', user._id]);
+        }
     }
 
     ngOnInit() {

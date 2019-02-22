@@ -5,13 +5,13 @@
   <div class="container-fluid row">
 
     <div class="navbar-text pull-left">
-      <a href="page-list.html" class="cl-text-black cl-icon-padding">
+      <a routerLink="user/{{user._id}}/website/{{website._id}}/page" class="cl-text-black cl-icon-padding">
                 <span class="glyphicon glyphicon-cheveron-left">
                 </span>
       </a>
     </div>
     <div class="navbar-text pull-right">
-      <a href="page-list.html" class="cl-icon-padding cl-text-black">
+      <a routerLink="user/{{user._id}}/website/{{website._id}}/page" class="cl-icon-padding cl-text-black">
                 <span class="glyphicon glyphicon-ok">
                 </span>
       </a>
@@ -33,14 +33,14 @@
       <input [(ngModel)]='page.title' type="text" class="form-control" id="page-title" placeholder="Page Title">
     </div>
   </form>
-  <a class="btn btn-danger btn-block" href="page-list.html">Delete</a>
+  <a class="btn btn-danger btn-block" routerLink="user/{{user._id}}/website/{{website._id}}/page">Delete</a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
   <div class="container-fluid row">
     <div class="pull-right navbar-text">
-      <a href="profile.html" class="cl-icon-padding">
-        <span class="glyphicon glyphicon-user"></span>
+      <a routerLink="user/{{user._id}}" class="cl-icon-padding">
+        <span class="fas fa-user fontawsome_icon fa-inverse"></span>
       </a>
     </div>
   </div>

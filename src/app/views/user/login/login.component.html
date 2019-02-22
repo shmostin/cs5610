@@ -8,22 +8,39 @@
 </div>
 
 
-<form (ngSubmit) = "login()" #f="ngForm">
-  <label>Username</label>
-  <input type="text" class="form-control" placeholder="username" name="username"
-         ngModel required #username="ngModel"/>
+  <h1>Login</h1>
 
-  <label>Password</label>
-  <input type="password" class="form-control" placeholder="password" name="password"
-         ngModel required #password="ngModel"/>
+  <form (ngSubmit)="login()" #f="ngForm">
+    <div class="form-group">
+      <input placeholder="username"
+             name="username"
+             type="text"
+             class="form-control"
+             ngModel
+             required
+             #username="ngModel"/>
+    </div> <!-- form-group// -->
+    <div class ="help-block" *ngIf="!username.valid && username.touched">Please enter a username</div>
 
-  <span class="help-block" *ngIf="!username.valid && username.touched">
-    Please Enter Username!
-  </span>
-  <button
-    class="btn btn-primary btn-block" type="submit" [disabled]="!f.valid">Login</button>
+    <div class="form-group">
+      <input placeholder="password"
+             name="password"
+             type="password"
+             class="form-control"
+             ngModel
+             required
+             #password="ngModel">
+    </div> <!-- form-group// -->
 
-  {{f.valid}}
+    <div class="form-group">
+      <button [disabled]="!f.valid"
+              class="btn btn-primary btn-block"
+              type="submit">Login</button>
+    </div>
 
-</form>
+    <div class="form-group">
+      <a class="btn btn-success btn-block" routerLink="/register" role="button">Register</a>
+    </div>
+  </form>
+
 </div>

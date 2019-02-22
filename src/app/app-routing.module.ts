@@ -35,23 +35,12 @@ const appRoutes: Routes = [
     {path: 'user/:uid/website/:wid/page/:pid/widget', component: WidgetListComponent},
     {path: 'user/:uid/website/:wid/page/:pid', component: WidgetEditComponent},
 
-
-
-
-
-
-
-
-
-
-
-
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(appRoutes)],
-  exports: [RouterModule]
-})
+// @NgModule({
+//   imports: [RouterModule.forRoot(appRoutes)],
+//   exports: [RouterModule]
+// })
 
 export const routing = RouterModule.forRoot(appRoutes)
 export class AppRoutingModule { }

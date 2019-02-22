@@ -10,7 +10,7 @@
       </a>
     </div>
     <div class="navbar-text pull-right">
-      <a href="page-list.html" class="cl-icon-padding cl-text-black">
+      <a routerLink="./{{user._id}}" class="cl-icon-padding cl-text-black">
                 <span class="glyphicon glyphicon-ok">
                 </span>
       </a>
@@ -38,8 +38,8 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
   <div class="container-fluid row">
     <div class="pull-right navbar-text">
-      <a href="profile.html" class="cl-icon-padding">
-        <span class="glyphicon glyphicon-user"></span>
+      <a routerLink="user/{{user._id}}" class="cl-icon-padding">
+        <span class="fas fa-user fa-inverse"></span>
       </a>
     </div>
   </div>

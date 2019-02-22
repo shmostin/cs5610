@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Page} from '../models/page.model.client';
 import {Widget} from '../models/widget.model.client';
 
 @Injectable

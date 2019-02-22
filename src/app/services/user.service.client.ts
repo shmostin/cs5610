@@ -71,11 +71,14 @@ export class UserService {
      * @param userId the _id we are looking for.
      * @param user the user information we want to use as the update.
      */
-    updateUser(userId, user) {
+    updateUser(userId, user: User) {
         for (const entry of this.users) {
             if (entry._id === userId) {
+                entry.username = user.username;
+                entry.password = user.password;
                 entry.firstName = user.firstName;
                 entry.lastName = user.lastName;
+                entry.email = user.email;
                 return entry;
             }
         }

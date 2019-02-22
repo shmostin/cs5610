@@ -9,7 +9,7 @@
         <a class="navbar-brand mb-0 h5" href="#">
             Profile
         </a>
-        <i class="navbar-brand fas fa-check fontawesome_icon cl-icon-padding">
+        <i routerLink="user/{{user._id}}" class="navbar-brand fas fa-check fontawesome_icon cl-icon-padding">
         </i>
     </div>
 </nav>
@@ -42,7 +42,7 @@
     <a class="btn btn-primary btn-block"
        href="website-list.html">Websites</a>
     <a class="btn btn-danger btn-block"
-       href="login.html">Logout</a>
+       routerLink="/login">Logout</a>
 </div>
 
 <nav class="navbar navbar-dark bg-primary fixed-bottom">
@@ -50,7 +50,7 @@
         <!--<span class="navbar-brand fas fa-user fontawesome_icon"></span>-->
     </a>
     <div class="text-right">
-        <a href="profile.html" class="float-right">
+        <a routerLink="user/{{user._id}}" class="float-right">
             <span>
                 <i class="fas fa-user fa-inverse"></i>
             </span>

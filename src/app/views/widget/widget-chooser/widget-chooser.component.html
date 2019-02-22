@@ -4,7 +4,7 @@
   <div class="container-fluid row">
 
     <div class="navbar-text pull-left">
-      <a href="widget-list.html" class="cl-text-black cl-icon-padding">
+      <a routerLink="user/{{user._id}}/website/{{website._id}}/page/{{page._id}}/widget" class="cl-text-black cl-icon-padding">
                 <span class="glyphicon glyphicon-cheveron-left">
                 </span>
       </a>
@@ -54,7 +54,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
   <div class="container-fluid row">
     <div class="pull-right navbar-text">
-      <a href="profile.html" class="cl-icon-padding">
+      <a routerLink="user/{{user._id}}" class="cl-icon-padding">
         <span class="glyphicon glypicon-user"></span>
       </a>
     </div>
