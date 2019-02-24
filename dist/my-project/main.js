@@ -63,6 +63,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// /profile/{{user._id}}/website
 var appRoutes = [
     { path: 'login', component: _views_user_login_login_component__WEBPACK_IMPORTED_MODULE_3__["LoginComponent"] },
     { path: 'user/:uid', component: _views_user_profile_profile_component__WEBPACK_IMPORTED_MODULE_4__["ProfileComponent"] },
@@ -71,7 +72,7 @@ var appRoutes = [
     { path: 'user/:uid/website/:wid/page', component: _views_page_page_list_page_list_component__WEBPACK_IMPORTED_MODULE_7__["PageListComponent"] },
     { path: 'user/:uid/website/:wid/page/new', component: _views_page_page_new_page_new_component__WEBPACK_IMPORTED_MODULE_8__["PageNewComponent"] },
     { path: 'user/:uid/website/:wid', component: _views_website_website_edit_website_edit_component__WEBPACK_IMPORTED_MODULE_9__["WebsiteEditComponent"] },
-    { path: 'website-list', component: _views_website_website_list_website_list_component__WEBPACK_IMPORTED_MODULE_10__["WebsiteListComponent"] },
+    { path: ':uid/website', component: _views_website_website_list_website_list_component__WEBPACK_IMPORTED_MODULE_10__["WebsiteListComponent"] },
     { path: 'user/:uid/website/new', component: _views_website_website_new_website_new_component__WEBPACK_IMPORTED_MODULE_11__["WebsiteNewComponent"] },
     { path: 'user/:uid/website/:wid/page/:pid/widget/new', component: _views_widget_widget_chooser_widget_chooser_component__WEBPACK_IMPORTED_MODULE_12__["WidgetChooserComponent"] },
     { path: 'user/:uid/website/:wid/page/:pid/widget', component: _views_widget_widget_list_widget_list_component__WEBPACK_IMPORTED_MODULE_13__["WidgetListComponent"] },
@@ -562,8 +563,8 @@ __webpack_require__.r(__webpack_exports__);
 var WebsiteService = /** @class */ (function () {
     function WebsiteService() {
         this.websites = [
-            new _models_website_model_client__WEBPACK_IMPORTED_MODULE_2__["Website"]('123', 'Facebook', '456', 'Lorem'),
-            new _models_website_model_client__WEBPACK_IMPORTED_MODULE_2__["Website"]('234', 'Tweeter', '456', 'Lorem'),
+            new _models_website_model_client__WEBPACK_IMPORTED_MODULE_2__["Website"]('123', 'Facebook', '123', 'Lorem'),
+            new _models_website_model_client__WEBPACK_IMPORTED_MODULE_2__["Website"]('234', 'Tweeter', '234', 'Lorem'),
         ];
     }
     WebsiteService.prototype.createWebsite = function (userId, website) {
@@ -582,6 +583,7 @@ var WebsiteService = /** @class */ (function () {
                 websites.push(this.websites[i]);
             }
         }
+        console.log(this.websites.length);
         return websites;
     };
     WebsiteService.prototype.findWebsiteById = function (websiteId) {
@@ -790,7 +792,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n\n\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid row\">\n    <div class=\"navbar-text pull-left\">\n      <a href=\"website-list.html\" class=\"cl-text-black cl-icon-padding\">\n                <span class=\"glyphicon glyphicon-cheveron=left\">\n                </span>\n      </a>\n    </div>\n    <div class=\"navbar-text pull-right\">\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/new\" class=\"cl-icon-padding cl-text-black\">\n                <span class=\"fa fas-plus fa-inverse\">\n                </span>\n      </a>\n    </div>\n    <a class=\"navbar-brand cl-text-white cl-text-bold\" href=\"#\">\n      Pages\n    </a>\n  </div>\n</nav>\n\n<div class=\"container-fluid cl-container-padding\">\n  <ul class=\"list-group cl-list-group-borderless\">\n    <li class=\"list-group-item cl-list-item-boderless\">\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">\n          <span class=\"fas fa-cog fontawsome_icon pull-right\"></span>\n      </a>\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Blog Post</a>\n    </li>\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">\n                <span class=\"fas fa-cog fontawsome_icon pull-right\">\n                </span>\n      </a>\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Blogs</a>\n    </li>\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">\n                <span class=\"fas fa-cog fontawsome_icon pull-right\">\n                </span>\n      </a>\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Home</a>\n    </li>\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">\n                <span class=\"fas fa-cog fontawsome_icon pull-right\">\n                </span>\n      </a>\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">About</a>\n    </li>\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">\n                <span class=\"fas fa-cog fontawsome_icon pull-right\">\n                </span>\n      </a>\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Contact Us</a>\n    </li>\n  </ul>\n</div>\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid row\">\n    <div class=\"pull-right navbar-text\">\n      <a routerLink=\"/user/{{user._id}}\" class=\"cl-icon-padding\">\n        <span class=\"fa fas-user fa-inverse\"></span>\n      </a>\n    </div>\n  </div>\n</nav>\n"
+module.exports = "<!DOCTYPE html>\n\n\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid row\">\n    <div class=\"navbar-text pull-left\">\n      <a href=\"website-list.html\" class=\"cl-text-black cl-icon-padding\">\n                <span class=\"glyphicon glyphicon-cheveron=left\">\n                </span>\n      </a>\n    </div>\n    <div class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['./', 'new']\" class=\"cl-icon-padding cl-text-black\">\n                <span class=\"fa fas-plus fa-inverse\">\n                </span>\n      </a>\n    </div>\n    <a class=\"navbar-brand cl-text-white cl-text-bold\" href=\"#\">\n      Pages\n    </a>\n  </div>\n</nav>\n\n<!--<div class=\"container-fluid cl-container-padding\">-->\n  <!--<ul class=\"list-group cl-list-group-borderless\">-->\n    <!--<li class=\"list-group-item cl-list-item-boderless\">-->\n      <!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">-->\n          <!--<span class=\"fas fa-cog fontawsome_icon pull-right\"></span>-->\n      <!--</a>-->\n      <!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Blog Post</a>-->\n    <!--</li>-->\n    <!--<li class=\"list-group-item cl-list-item-borderless\">-->\n      <!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">-->\n                <!--<span class=\"fas fa-cog fontawsome_icon pull-right\">-->\n                <!--</span>-->\n      <!--</a>-->\n      <!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Blogs</a>-->\n    <!--</li>-->\n    <!--<li class=\"list-group-item cl-list-item-borderless\">-->\n      <!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">-->\n                <!--<span class=\"fas fa-cog fontawsome_icon pull-right\">-->\n                <!--</span>-->\n      <!--</a>-->\n      <!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Home</a>-->\n    <!--</li>-->\n    <!--<li class=\"list-group-item cl-list-item-borderless\">-->\n      <!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">-->\n                <!--<span class=\"fas fa-cog fontawsome_icon pull-right\">-->\n                <!--</span>-->\n      <!--</a>-->\n      <!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">About</a>-->\n    <!--</li>-->\n    <!--<li class=\"list-group-item cl-list-item-borderless\">-->\n      <!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">-->\n                <!--<span class=\"fas fa-cog fontawsome_icon pull-right\">-->\n                <!--</span>-->\n      <!--</a>-->\n      <!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Contact Us</a>-->\n    <!--</li>-->\n  <!--</ul>-->\n<!--</div>-->\n<!--user/:uid/website/:wid/page/:pid/widget-->\n\n<div class=\"container\">\n    <div class=\"form-control\" *ngFor=\"let page of pages\">\n        <a routerLink=\"./{{webId}}/widget\" class=\"text-blue\"{{page.name}}></a>\n        <a routerLink=\"./{{webId}}\" class=\"text-blue float-right\">\n            <i class=\"fa fas-cog\"></i>\n        </a>\n    </div>\n</div>\n\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid row\">\n    <div class=\"pull-right navbar-text\">\n      <a routerLink=\"/user/{{userId}}\" class=\"cl-icon-padding\">\n        <span class=\"fa fas-user fa-inverse\"></span>\n      </a>\n    </div>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -821,9 +823,11 @@ var PageListComponent = /** @class */ (function () {
     PageListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.activatedRoute.params.subscribe(function (params) {
-            _this.webId = params['webId'];
+            console.log('this website id: ' + params['wid']);
+            _this.webId = params['wid'];
         });
         this.pages = this.pageServices.findPageByWebsiteId(this.webId);
+        console.log('pages length from componenet: ' + this.pages.length);
     };
     PageListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -914,7 +918,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n\n\n<div class=\"container\">\n<div *ngIf=\"errorFlag\";\n     class=\"alert alert-danger\">\n  {{errorMsg}}\n</div>\n\n\n  <h1>Login</h1>\n\n  <form (ngSubmit)=\"login()\" #f=\"ngForm\">\n    <div class=\"form-group\">\n      <input placeholder=\"username\"\n             name=\"username\"\n             type=\"text\"\n             class=\"form-control\"\n             ngModel\n             required\n             #username=\"ngModel\"/>\n    </div> <!-- form-group// -->\n    <div class =\"help-block\" *ngIf=\"!username.valid && username.touched\">Please enter a username</div>\n\n    <div class=\"form-group\">\n      <input placeholder=\"password\"\n             name=\"password\"\n             type=\"password\"\n             class=\"form-control\"\n             ngModel\n             required\n             #password=\"ngModel\">\n    </div> <!-- form-group// -->\n\n    <div class=\"form-group\">\n      <button [disabled]=\"!f.valid\"\n              class=\"btn btn-primary btn-block\"\n              type=\"submit\">Login</button>\n    </div>\n\n    <div class=\"form-group\">\n      <a class=\"btn btn-success btn-block\" routerLink=\"/register\" role=\"button\">Register</a>\n    </div>\n  </form>\n\n</div>"
+module.exports = "<!DOCTYPE html>\n\n\n<div class=\"container\">\n<div *ngIf=\"errorFlag\";\n     class=\"alert alert-danger\">\n  {{errorMsg}}\n</div>\n\n\n  <h1>Login</h1>\n\n  <form (ngSubmit)=\"login()\" #f=\"ngForm\">\n    <div class=\"form-group\">\n      <input placeholder=\"username\"\n             name=\"username\"\n             type=\"text\"\n             class=\"form-control\"\n             ngModel\n             required\n             #username=\"ngModel\"/>\n\n\n    </div> <!-- form-group// -->\n    <div class =\"help-block\" *ngIf=\"!username.valid && username.touched\">\n      Please enter a username\n    </div>\n\n    <div class=\"form-group\">\n      <input placeholder=\"password\"\n             name=\"password\"\n             type=\"password\"\n             class=\"form-control\"\n             ngModel\n             required\n             #password=\"ngModel\">\n    </div> <!-- form-group// -->\n\n    <div class=\"form-group\">\n      <button [disabled]=\"!f.valid\"\n              class=\"btn btn-primary btn-block\"\n              type=\"submit\">Login\n      </button>\n    </div>\n\n    <div class=\"form-group\">\n      <a class=\"btn btn-success btn-block\" routerLink=\"/register\" role=\"button\">Register</a>\n    </div>\n  </form>\n\n</div>"
 
 /***/ }),
 
@@ -948,11 +952,15 @@ var LoginComponent = /** @class */ (function () {
     }
     LoginComponent.prototype.login = function () {
         this.username = this.loginForm.value.username;
-        // console.log(this.username);
-        // console.log(this.password);
+        this.password = this.loginForm.value.password;
+        console.log('username: ' + this.username);
+        console.log('password: ' + this.password);
         var user = this.userService.findUserByCredentials(this.username, this.password);
         if (user) {
             this.router.navigate(['/user', user._id]);
+        }
+        else {
+            console.log('That password was incorrect');
         }
     };
     LoginComponent.prototype.ngOnInit = function () {
@@ -1000,7 +1008,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Profile</h1>\n\n<h2> user: {{user.username}}</h2>\n\n{{user._id}}\n\n<nav class=\"navbar navbar-dark bg-primary fixed-top\">\n    <div class=\"container-fluid\">\n        <a class=\"navbar-brand mb-0 h5\" href=\"#\">\n            Profile\n        </a>\n        <i routerLink=\"user/{{user._id}}\" class=\"navbar-brand fas fa-check fontawesome_icon cl-icon-padding\">\n        </i>\n    </div>\n</nav>\n\n\n<a routerLink=\"/profile/{{user._id}}/website\">Websites</a>\n<br/>\n\n\n\n<div class=\"container-fluid\">\n    <form>\n        <div class=\"form-group\">\n            <label for=\"username\">Username</label>\n            <input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"Username\">\n        </div>\n        <div class=\"form-group\">\n            <label for=\"email\">Email address</label>\n            <input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"austin@mywebsite.com\">\n        </div>\n        <div class=\"form-group\">\n            <label for=\"first name\">First name</label>\n            <input type=\"text\" class=\"form-control\" id=\"first name\" placeholder=\"Austin\">\n        </div>\n        <div class=\"form-group\">\n            <label for=\"last name\">Last name</label>\n            <input type=\"text\" class=\"form-control\" id=\"last name\" placeholder=\"Vanderwel\">\n        </div>\n    </form>\n    <a class=\"btn btn-primary btn-block\"\n       href=\"website-list.html\">Websites</a>\n    <a class=\"btn btn-danger btn-block\"\n       routerLink=\"/login\">Logout</a>\n</div>\n\n<nav class=\"navbar navbar-dark bg-primary fixed-bottom\">\n    <a class=\"navbar-brand font-weight-bold\" href=\"#\">\n        <!--<span class=\"navbar-brand fas fa-user fontawesome_icon\"></span>-->\n    </a>\n    <div class=\"text-right\">\n        <a routerLink=\"user/{{user._id}}\" class=\"float-right\">\n            <span>\n                <i class=\"fas fa-user fa-inverse\"></i>\n            </span>\n        </a>\n    </div>\n</nav>\n"
+module.exports = "<!--<h1>Profile</h1>-->\n\n<!--<h2> user: {{user.username}}</h2>-->\n\n<!--{{user._id}}-->\n\n<nav class=\"navbar navbar-dark bg-primary fixed-top\">\n    <div class=\"container-fluid\">\n        <a class=\"navbar-brand mb-0 h5\" href=\"#\">\n            Profile\n        </a>\n        <i routerLink=\"user/{{user._id}}\" class=\"navbar-brand fas fa-check fontawesome_icon cl-icon-padding\">\n        </i>\n    </div>\n</nav>\n\n\n<a routerLink=\"profile/{{user._id}}/website\">Websites</a>\n<br/>\n\n\n\n<div class=\"container-fluid\">\n    <form>\n        <div class=\"form-group\">\n            <label for=\"username\">Username</label>\n            <input [ngModel]=\"user.username\" type=\"text\" name=\"username\" class=\"form-control\" id=\"username\" placeholder=\"Username\">\n        </div>\n        <div class=\"form-group\">\n            <label for=\"email\">Email address</label>\n            <input [ngModel]=\"user.email\" name=\"email\" type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"austin@mywebsite.com\">\n        </div>\n        <div class=\"form-group\">\n            <label for=\"first name\">First name</label>\n            <input [ngModel]=\"user.firstName\" name=\"firstName\" type=\"text\" class=\"form-control\" id=\"first name\" placeholder=\"Austin\">\n        </div>\n        <div class=\"form-group\">\n            <label for=\"last name\">Last name</label>\n            <input [ngModel]=\"user.lastName\" name=\"lastName\" type=\"text\" class=\"form-control\" id=\"last name\" placeholder=\"Vanderwel\">\n        </div>\n    </form>\n    <a class=\"btn btn-primary btn-block\"\n       routerLink=\"/{{user._id}}/website\">Websites</a>\n    <a class=\"btn btn-danger btn-block\"\n       routerLink=\"/login\">Logout</a>\n</div>\n\n<nav class=\"navbar navbar-dark bg-primary fixed-bottom\">\n    <a class=\"navbar-brand font-weight-bold\" href=\"#\">\n        <!--<span class=\"navbar-brand fas fa-user fontawesome_icon\"></span>-->\n    </a>\n    <div class=\"text-right\">\n        <a routerLink=\"user/{{user._id}}\" class=\"float-right\">\n            <span>\n                <i class=\"fas fa-user fa-inverse\"></i>\n            </span>\n        </a>\n    </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1077,7 +1085,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n\n<div class=\"container\">\n  <h1 class=\"text-center\">Register</h1>\n  <input type=\"text\" class=\"form-control\" placeholder=\"Username\"/>\n  <input type=\"password\" class=\"form-control\" placeholder=\"Password\"/>\n  <input type=\"password\" class=\"form-control\" placeholder=\"Verify Password\">\n  <a class=\"btn btn-primary btn-block\" routerLink=\"/user/:{{user._id}}\">Register</a>\n  <a class=\"btn btn-danger btn-block\" routerLink=\"/login\">Cancel</a>\n\n</div>\n"
+module.exports = "<!DOCTYPE html>\n\n<div class=\"container\">\n  <h1 class=\"text-center\">Register</h1>\n  <input type=\"text\" class=\"form-control\" placeholder=\"Username\"/>\n  <input type=\"password\" class=\"form-control\" placeholder=\"Password\"/>\n  <input type=\"password\" class=\"form-control\" placeholder=\"Verify Password\">\n  <a class=\"btn btn-primary btn-block\" routerLink=\"/user/alice\">Register</a>\n  <a class=\"btn btn-danger btn-block\" routerLink=\"/login\">Cancel</a>\n\n</div>\n"
 
 /***/ }),
 
@@ -1204,7 +1212,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n\n<nav class=\"navbar cl-blue-navbar fixed-top\">\n  <div class=\"container-fluid\">\n    <a routerLink=\"user/{{userId}}\" class=\"navbar-link \">\n      <span class=\"cl-text-white fas fa-chevron-left\"></span>\n    </a>\n    <a class=\"cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding\" href=\"#\">\n      Websites\n    </a>\n    <a class=\"cl-text-white fas fa-plus fontawesome_icon cl-icon-padding\" routerLink=\"user/{{user._id}}/website/new\">\n    </a>\n  </div>\n</nav>\n\n<div *ngFor=\"let website of websites\"\n     class=\"container-fluid\">\n\n  <ul class=\"list-group cl-list-group-borderless text-align:left\">\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a class=\"color: #337ab7\" href=\"page-list.html\">Address Book App</a>\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}\">\n        <i class=\"fa fa-cog fontawesome_icon float-right\"></i>\n      </a>\n    </li>\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}/page\">Blogger</a>\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}\">\n        <i class=\"fa fa-cog fontawesome_icon float-right\"></i>\n      </a>\n    </li>\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}/page\">Bloggin App</a>\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}\">\n        <i class=\"fa fa-cog fontawesome_icon float-right\"></i>\n      </a>\n    </li>\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}/page\">Script Testing App</a>\n      <a routerLink=\"user/{{user._id}}/website/{{website.name}}\">\n        <i class=\"fa fa-cog fontawesome_icon float-right\"></i>\n      </a>\n    </li>\n  </ul>\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container-fluid\">\n    <a class=\"align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding\" routerLink=\"user/{{user._id}}\">\n    </a>\n  </div>\n</nav>\n\n\n"
+module.exports = "\n<nav class=\"navbar cl-blue-navbar fixed-top\">\n  <div class=\"container-fluid\">\n    <a routerLink=\"/user/{{userId}}\" class=\"navbar-link \">\n      <span class=\"cl-text-white fas fa-chevron-left\"></span>\n    </a>\n    <a class=\"cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding\" href=\"#\">\n      Websites\n    </a>\n    <a routerLink=\"./new\" class=\"navbar-link cl-text-white\">\n      <span class=\"cl-text-white fas fa-plus fontawesome_icon cl-icon-padding\"></span>\n    </a>\n  </div>\n</nav>\n\n\n<div class=\"container\" >\n  <ul class=\"list-group cl-list-group-borderless\" *ngFor=\"let website of websites\">\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a routerLink=\"/user/{{userId}}/website/{{website._id}}\" >\n        <span class=\"fa fa-cog fontawesome_icon float-right\" ></span>\n      </a>\n      <a routerLink=\"/user/{{userId}}/website/{{website._id}}/page\">{{website.name}}</a>\n    </li>\n  </ul>\n</div>\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container-fluid\">\n    <a class=\"align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding\" routerLink=\"user/{{userId}}\">\n    </a>\n  </div>\n</nav>\n\n\n"
 
 /***/ }),
 
@@ -1230,14 +1238,17 @@ var WebsiteListComponent = /** @class */ (function () {
     function WebsiteListComponent(websiteService, activatedRoute) {
         this.websiteService = websiteService;
         this.activatedRoute = activatedRoute;
-        this.websites = [{}];
+        this.websites = [];
     }
     WebsiteListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.activatedRoute.params.subscribe(function (params) {
-            _this.userId = params['userId'];
+            console.log(params['uid']);
+            _this.userId = params['uid'];
         });
         this.websites = this.websiteService.findWebsiteByUser(this.userId);
+        console.log('userId from the component: ' + this.userId);
+        console.log(this.websites.length);
     };
     WebsiteListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

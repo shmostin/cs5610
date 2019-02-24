@@ -1,52 +1,32 @@
-<!DOCTYPE html>
 
 <nav class="navbar cl-blue-navbar fixed-top">
   <div class="container-fluid">
-    <a routerLink="user/{{userId}}" class="navbar-link ">
+    <a routerLink="/user/{{userId}}" class="navbar-link ">
       <span class="cl-text-white fas fa-chevron-left"></span>
     </a>
     <a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding" href="#">
       Websites
     </a>
-    <a class="cl-text-white fas fa-plus fontawesome_icon cl-icon-padding" routerLink="user/{{user._id}}/website/new">
+    <a routerLink="./new" class="navbar-link cl-text-white">
+      <span class="cl-text-white fas fa-plus fontawesome_icon cl-icon-padding"></span>
     </a>
   </div>
 </nav>
 
-<div *ngFor="let website of websites"
-     class="container-fluid">
 
-  <ul class="list-group cl-list-group-borderless text-align:left">
+<div class="container" >
+  <ul class="list-group cl-list-group-borderless" *ngFor="let website of websites">
     <li class="list-group-item cl-list-item-borderless">
-      <a class="color: #337ab7" href="page-list.html">Address Book App</a>
-      <a routerLink="user/{{user._id}}/website/{{website.name}}">
-        <i class="fa fa-cog fontawesome_icon float-right"></i>
+      <a routerLink="/user/{{userId}}/website/{{website._id}}" >
+        <span class="fa fa-cog fontawesome_icon float-right" ></span>
       </a>
-    </li>
-    <li class="list-group-item cl-list-item-borderless">
-      <a routerLink="user/{{user._id}}/website/{{website.name}}/page">Blogger</a>
-      <a routerLink="user/{{user._id}}/website/{{website.name}}">
-        <i class="fa fa-cog fontawesome_icon float-right"></i>
-      </a>
-    </li>
-    <li class="list-group-item cl-list-item-borderless">
-      <a routerLink="user/{{user._id}}/website/{{website.name}}/page">Bloggin App</a>
-      <a routerLink="user/{{user._id}}/website/{{website.name}}">
-        <i class="fa fa-cog fontawesome_icon float-right"></i>
-      </a>
-    </li>
-    <li class="list-group-item cl-list-item-borderless">
-      <a routerLink="user/{{user._id}}/website/{{website.name}}/page">Script Testing App</a>
-      <a routerLink="user/{{user._id}}/website/{{website.name}}">
-        <i class="fa fa-cog fontawesome_icon float-right"></i>
-      </a>
+      <a routerLink="/user/{{userId}}/website/{{website._id}}/page">{{website.name}}</a>
     </li>
   </ul>
 </div>
-
 <nav class="navbar fixed-bottom cl-blue-navbar">
   <div class="container-fluid">
-    <a class="align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding" routerLink="user/{{user._id}}">
+    <a class="align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding" routerLink="user/{{userId}}">
     </a>
   </div>
 </nav>

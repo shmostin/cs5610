@@ -11,7 +11,7 @@ export class WebsiteService {
     websites: Website[] =
         [
             new Website('123', 'Facebook', '456', 'Lorem'),
-            new Website('234', 'Tweeter', '456', 'Lorem'),
+            new Website('234', 'Tweeter', '234', 'Lorem'),
         ];
 
 
@@ -26,13 +26,14 @@ export class WebsiteService {
     }
 
 
-    findWebsiteByUser(userId) {
+    findWebsiteByUser(userId: String) {
         const websites = [];
         for (let i = 0; i < this.websites.length; i++) {
             if (this.websites[i].developerId === userId) {
                 websites.push(this.websites[i]);
             }
         }
+        console.log(this.websites.length)
         return websites;
 
     }

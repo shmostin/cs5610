@@ -15,7 +15,7 @@ import {WidgetListComponent} from './views/widget/widget-list/widget-list.compon
 import {WidgetEditComponent} from './views/widget/widget-edit/widget-edit.component';
 
 
-
+// /profile/{{user._id}}/website
 
 
 const appRoutes: Routes = [
@@ -26,7 +26,7 @@ const appRoutes: Routes = [
     {path: 'user/:uid/website/:wid/page', component: PageListComponent},
     {path: 'user/:uid/website/:wid/page/new', component: PageNewComponent},
     {path: 'user/:uid/website/:wid', component: WebsiteEditComponent},
-    {path: 'website-list', component: WebsiteListComponent},
+    {path: ':uid/website', component: WebsiteListComponent},
     {path: 'user/:uid/website/new', component: WebsiteNewComponent},
     {path: 'user/:uid/website/:wid/page/:pid/widget/new', component: WidgetChooserComponent},
     {path: 'user/:uid/website/:wid/page/:pid/widget', component: WidgetListComponent},

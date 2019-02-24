@@ -18,10 +18,12 @@ export class PageListComponent implements OnInit {
 
     ngOnInit() {
         this.activatedRoute.params.subscribe( (params: any) => {
-                this.webId = params['webId'];
+            console.log('this website id: ' + params['wid']);
+                this.webId = params['wid'];
             }
         );
         this.pages = this.pageServices.findPageByWebsiteId(this.webId);
+        console.log('pages length from componenet: ' + this.pages.length);
     }
 
 }
