@@ -20,12 +20,11 @@ export class WebsiteListComponent implements OnInit {
 
     ngOnInit() {
       this.activatedRoute.params.subscribe( (params: any) => {
-          console.log(params['uid']);
           this.userId = params['uid'];
       }
       );
         this.websites = this.websiteService.findWebsiteByUser(this.userId);
-        console.log('userId from the component: ' + this.userId);
-        console.log(this.websites.length);
+        console.log('userId from the weblistComp: ' + this.userId);
+        console.log('website list length: ' + this.websites.length);
     }
 }

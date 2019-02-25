@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 
 
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid row">
+<nav class="navbar cl-blue-navbar fixed-top">
+  <div class="container-fluid">
+    <a routerLink="../" class="navbar-link ">
+      <span class="cl-text-white fas fa-chevron-left"></span>
+    </a>
 
-    <div class="navbar-text pull-left">
-      <a routerLink="user/{{user._id}}/website/{{website._id}}/page" class="cl-text-black cl-icon-padding">
-                <span class="glyphicon glyphicon-cheveron-left">
-                </span>
-      </a>
-    </div>
-    <div class="navbar-text pull-right">
-      <a routerLink="user/{{user._id}}/website/{{website._id}}/page" class="cl-icon-padding cl-text-black">
-                <span class="glyphicon glyphicon-ok">
-                </span>
-      </a>
-    </div>
-    <a class="navbar-brand cl-text-white cl-text-bold" href="#">
-      Edit Page
+    <a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding" href="#">
+      Edit-Page
+    </a>
+
+    <a [routerLink]="['../']" class="navbar-link cl-text-white">
+      <span class="cl-text-white fas fa-check fontawesome_icon cl-icon-padding"></span>
     </a>
   </div>
 </nav>
@@ -36,12 +31,13 @@
   <a class="btn btn-danger btn-block" routerLink="user/{{user._id}}/website/{{website._id}}/page">Delete</a>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-  <div class="container-fluid row">
-    <div class="pull-right navbar-text">
-      <a routerLink="user/{{user._id}}" class="cl-icon-padding">
-        <span class="fas fa-user fontawsome_icon fa-inverse"></span>
-      </a>
-    </div>
+<nav class="navbar fixed-bottom cl-blue-navbar">
+  <div class="container-fluid">
+    <a class="align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding"
+       [routerLink]="['/user/' + userId]">
+    </a>
   </div>
 </nav>
+
+
+

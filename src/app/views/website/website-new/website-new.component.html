@@ -1,76 +1,166 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>-->
 
-<nav class="navbar navbar-dark fixed-top cl-blue-navbar">
-  <div class="row">
-    <div class="col-xs-4 hidden-xs">
+<!--<nav class="navbar navbar-dark fixed-top cl-blue-navbar">-->
+  <!--<div class="row">-->
+    <!--<div class="col-xs-4 hidden-xs">-->
+      <!--<div class="container-fluid">-->
+        <!--<p class="navbar-text pull-left">-->
+          <!--<a href="website-list.html" class="navbar-link cl-text-white">-->
+            <!--<span class="glyphicon glyphicon-cheveron-left"></span>-->
+          <!--</a>-->
+        <!--</p>-->
+        <!--<a class="cl-text-white navbar-brand cl-text-bold" href="#">-->
+          <!--Websites-->
+        <!--</a>-->
+        <!--<a routerLink="user/{{user._id}}/website/new" class="navbar-link navar-text pull-right cl-text-white cl-icon-padding">-->
+          <!--<span class="fa fas-plus fa-inverse"></span>-->
+        <!--</a>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-xs-8">-->
+      <!--<div class="container-fluid">-->
+        <!--<a class="cl-text-white navbar-brand cl-text-bold" href="#">-->
+          <!--New Websites-->
+        <!--</a>-->
+        <!--<a href="website-list.html" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">-->
+          <!--<span class="glyphicon glyphicon-ok"></span>-->
+        <!--</a>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</nav>-->
+
+<!--<div class="contain-fluid">-->
+  <!--<div class="col-xs-4 hidden-xs">-->
+    <!--<ul class="list-group cl-list-group-borderless">-->
+      <!--<li class="list-group-item cl-list-item-borderless">-->
+        <!--<a routerLink="user/{{user._id}}/website/{{website._id}}">-->
+          <!--<span class="fa fas-cog pull-right fa-inverse"></span>-->
+        <!--</a>-->
+        <!--<a routerLink="user/{{user._id}}/website/{{website._id}}/page">Blogging App</a>-->
+      <!--</li>-->
+      <!--<li class="list-group-item cl-list-item-borderless">-->
+        <!--<a routerLink="user/{{user._id}}/website/{{website._id}}">-->
+          <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
+        <!--</a>-->
+        <!--<a routerLink="user/{{user._id}}/website/{{website._id}}/page">Script Testing App</a>-->
+      <!--</li>-->
+      <!--<li class="list-group-item cl-list-item-borderless">-->
+        <!--<a routerLink="user/{{user._id}}/website/{{website._id}}">-->
+          <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
+        <!--</a>-->
+        <!--<a routerLink="user/{{user._id}}/website/{{website._id}}/page">Blogger</a>-->
+      <!--</li>-->
+    <!--</ul>-->
+  <!--</div>-->
+  <!--<div class="col-xs-8">-->
+    <!--<form>-->
+      <!--<div class="form-group">-->
+        <!--<label for="website-name">Name</label>-->
+        <!--<input type="text" class="form-control" id="website-name" placeholder="Name">-->
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<label for="website-description">Description</label>-->
+        <!--<textarea id="website-description" class="form-control" rows="5" placeholder="Description"></textarea>-->
+      <!--</div>-->
+    <!--</form>-->
+  <!--</div>-->
+<!--</div>-->
+
+<!--<nav class="navbar navbar-fixed-bottom cl-blue-navbar">-->
+  <!--<div class="container-fluid">-->
+    <!--<a routerLink="user/{{user._id}}" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">-->
+      <!--<span class="glyphicon glyphicon-user"></span>-->
+    <!--</a>-->
+  <!--</div>-->
+<!--</nav>-->
+
+
+<nav class="navbar fixed-top bc-blue">
+  <div class="row container-fluid">
+    <div class="col-sm-4 d-none d-sm-block">
       <div class="container-fluid">
-        <p class="navbar-text pull-left">
-          <a href="website-list.html" class="navbar-link cl-text-white">
-            <span class="glyphicon glyphicon-cheveron-left"></span>
+        <div class="navbar-brand navbar-dark">
+          <a routerLink="../" class="float-left text-white">
+            <i class="fas fa-chevron-left"></i>
           </a>
-        </p>
-        <a class="cl-text-white navbar-brand cl-text-bold" href="#">
-          Websites
-        </a>
-        <a routerLink="user/{{user._id}}/website/new" class="navbar-link navar-text pull-right cl-text-white cl-icon-padding">
-          <span class="fa fas-plus fa-inverse"></span>
+          <a class="text-white-bold" routerLink="../">
+            Websites
+          </a>
+
+        </div>
+        <a routerLink="./" class="icon-padding float-right text-white">
+          <i class="fas fa-plus"></i>
         </a>
       </div>
     </div>
-    <div class="col-xs-8">
+    <div class="col-sm-8">
       <div class="container-fluid">
-        <a class="cl-text-white navbar-brand cl-text-bold" href="#">
+        <a class="navbar-brand text-white-bold" routerLink="./">
           New Websites
         </a>
-        <a href="website-list.html" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
-          <span class="glyphicon glyphicon-ok"></span>
+        <a routerLink="../" class="icon-padding float-right text-white">
+          <i class="fas fa-check"></i>
         </a>
       </div>
     </div>
   </div>
 </nav>
 
-<div class="contain-fluid">
-  <div class="col-xs-4 hidden-xs">
-    <ul class="list-group cl-list-group-borderless">
-      <li class="list-group-item cl-list-item-borderless">
-        <a routerLink="user/{{user._id}}/website/{{website._id}}">
-          <span class="fa fas-cog pull-right fa-inverse"></span>
+<div class="container-fluid container-align">
+  <div class="row">
+    <div class="col-sm-4 d-none d-sm-block">
+      <div class="form-control" *ngFor="let website of websites">
+        <a [routerLink]="['../' + website._id + 'page']" class="text-blue">{{ website.name }}</a>
+        <a [routerLink]="['../' + website._id]" class="text-blue float-right">
+          <i class="fas fa-cog"></i>
         </a>
-        <a routerLink="user/{{user._id}}/website/{{website._id}}/page">Blogging App</a>
-      </li>
-      <li class="list-group-item cl-list-item-borderless">
-        <a routerLink="user/{{user._id}}/website/{{website._id}}">
-          <span class="glyphicon glyphicon-cog pull-right"></span>
-        </a>
-        <a routerLink="user/{{user._id}}/website/{{website._id}}/page">Script Testing App</a>
-      </li>
-      <li class="list-group-item cl-list-item-borderless">
-        <a routerLink="user/{{user._id}}/website/{{website._id}}">
-          <span class="glyphicon glyphicon-cog pull-right"></span>
-        </a>
-        <a routerLink="user/{{user._id}}/website/{{website._id}}/page">Blogger</a>
-      </li>
-    </ul>
-  </div>
-  <div class="col-xs-8">
-    <form>
-      <div class="form-group">
-        <label for="website-name">Name</label>
-        <input type="text" class="form-control" id="website-name" placeholder="Name">
       </div>
-      <div class="form-group">
-        <label for="website-description">Description</label>
-        <textarea id="website-description" class="form-control" rows="5" placeholder="Description"></textarea>
-      </div>
-    </form>
+    </div>
+    <div class="col-sm-7">
+      <form #f="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="websiteName">Website Name</label>
+          <input
+                  type="text"
+                  name="websiteName"
+                  class="form-control"
+                  id="websiteName"
+                  [(ngModel)]="newWebsiteName"
+                  required
+                  #name="ngModel">
+          <span
+                  class="help-block"
+                  *ngIf="!name.valid && name.touched">
+            Please enter a valid website name
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="websiteDescription">Website Description</label>
+          <textarea
+                  id="websiteDescription"
+                  name="websiteDescription"
+                  class="form-control"
+                  rows="5"
+                  [(ngModel)]="newWebsiteDescription"></textarea>
+        </div>
+        <button
+                class="btn btn-primary btn-block"
+                type="submit"
+                [disabled]="!f.valid">
+          Submit
+        </button>
+      </form>
+    </div>
   </div>
 </div>
 
-<nav class="navbar navbar-fixed-bottom cl-blue-navbar">
+<nav class="navbar fixed-bottom bc-blue">
   <div class="container-fluid">
-    <a routerLink="user/{{user._id}}" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
-      <span class="glyphicon glyphicon-user"></span>
-    </a>
+    <div class="ml-auto">
+      <a [routerLink]="['/user' + userId]" class="text-white float-right">
+        <i class="fas fa-user"></i>
+      </a>
+    </div>
   </div>
 </nav>

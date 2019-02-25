@@ -10,8 +10,8 @@ export class WebsiteService {
 
     websites: Website[] =
         [
-            new Website('123', 'Facebook', '456', 'Lorem'),
-            new Website('234', 'Tweeter', '234', 'Lorem'),
+            new Website('456', 'Facebook', '123', 'Lorem'),
+            new Website('456', 'Tweeter', '234', 'Lorem'),
         ];
 
 
@@ -33,7 +33,6 @@ export class WebsiteService {
                 websites.push(this.websites[i]);
             }
         }
-        console.log(this.websites.length)
         return websites;
 
     }

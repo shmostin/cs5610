@@ -9,13 +9,13 @@
         <a class="navbar-brand mb-0 h5" href="#">
             Profile
         </a>
-        <i routerLink="user/{{user._id}}" class="navbar-brand fas fa-check fontawesome_icon cl-icon-padding">
+        <i class="navbar-brand fas fa-check fontawesome_icon cl-icon-padding">
         </i>
     </div>
 </nav>
 
 
-<a routerLink="profile/{{user._id}}/website">Websites</a>
+<a routerLink="profile/{{userId}}/website">Websites</a>
 <br/>
 
 
@@ -40,7 +40,7 @@
         </div>
     </form>
     <a class="btn btn-primary btn-block"
-       routerLink="/{{user._id}}/website">Websites</a>
+       routerLink="./website">Websites</a>
     <a class="btn btn-danger btn-block"
        routerLink="/login">Logout</a>
 </div>

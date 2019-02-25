@@ -1,81 +1,99 @@
 <!DOCTYPE html>
+<nav class="navbar cl-blue-navbar fixed-top">
+    <div class="container-fluid">
+        <a routerLink="../../" class="navbar-link ">
+            <span class="cl-text-white fas fa-chevron-left"></span>
+        </a>
+        <a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding" href="#">
+            Pages
+        </a>
 
-
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid row">
-    <div class="navbar-text pull-left">
-      <a href="website-list.html" class="cl-text-black cl-icon-padding">
-                <span class="glyphicon glyphicon-cheveron=left">
-                </span>
-      </a>
+        <a [routerLink]="['./new']"
+           class="navbar-link cl-text-white">
+            <span class="cl-text-white fas fa-plus fontawesome_icon cl-icon-padding"></span>
+        </a>
     </div>
-    <div class="navbar-text pull-right">
-      <a [routerLink]="['./', 'new']" class="cl-icon-padding cl-text-black">
-                <span class="fa fas-plus fa-inverse">
-                </span>
-      </a>
-    </div>
-    <a class="navbar-brand cl-text-white cl-text-bold" href="#">
-      Pages
-    </a>
-  </div>
 </nav>
 
+
 <!--<div class="container-fluid cl-container-padding">-->
-  <!--<ul class="list-group cl-list-group-borderless">-->
-    <!--<li class="list-group-item cl-list-item-boderless">-->
-      <!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}">-->
-          <!--<span class="fas fa-cog fontawsome_icon pull-right"></span>-->
-      <!--</a>-->
-      <!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget">Blog Post</a>-->
-    <!--</li>-->
-    <!--<li class="list-group-item cl-list-item-borderless">-->
-      <!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}">-->
-                <!--<span class="fas fa-cog fontawsome_icon pull-right">-->
-                <!--</span>-->
-      <!--</a>-->
-      <!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget">Blogs</a>-->
-    <!--</li>-->
-    <!--<li class="list-group-item cl-list-item-borderless">-->
-      <!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}">-->
-                <!--<span class="fas fa-cog fontawsome_icon pull-right">-->
-                <!--</span>-->
-      <!--</a>-->
-      <!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget">Home</a>-->
-    <!--</li>-->
-    <!--<li class="list-group-item cl-list-item-borderless">-->
-      <!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}">-->
-                <!--<span class="fas fa-cog fontawsome_icon pull-right">-->
-                <!--</span>-->
-      <!--</a>-->
-      <!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget">About</a>-->
-    <!--</li>-->
-    <!--<li class="list-group-item cl-list-item-borderless">-->
-      <!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}">-->
-                <!--<span class="fas fa-cog fontawsome_icon pull-right">-->
-                <!--</span>-->
-      <!--</a>-->
-      <!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget">Contact Us</a>-->
-    <!--</li>-->
-  <!--</ul>-->
+<!--<ul class="list-group cl-list-group-borderless">-->
+<!--<li class="list-group-item cl-list-item-boderless">-->
+<!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}">-->
+<!--<span class="fas fa-cog fontawsome_icon pull-right"></span>-->
+<!--</a>-->
+<!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget">Blog Post</a>-->
+<!--</li>-->
+<!--<li class="list-group-item cl-list-item-borderless">-->
+<!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}">-->
+<!--<span class="fas fa-cog fontawsome_icon pull-right">-->
+<!--</span>-->
+<!--</a>-->
+<!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget">Blogs</a>-->
+<!--</li>-->
+<!--<li class="list-group-item cl-list-item-borderless">-->
+<!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}">-->
+<!--<span class="fas fa-cog fontawsome_icon pull-right">-->
+<!--</span>-->
+<!--</a>-->
+<!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget">Home</a>-->
+<!--</li>-->
+<!--<li class="list-group-item cl-list-item-borderless">-->
+<!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}">-->
+<!--<span class="fas fa-cog fontawsome_icon pull-right">-->
+<!--</span>-->
+<!--</a>-->
+<!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget">About</a>-->
+<!--</li>-->
+<!--<li class="list-group-item cl-list-item-borderless">-->
+<!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}">-->
+<!--<span class="fas fa-cog fontawsome_icon pull-right">-->
+<!--</span>-->
+<!--</a>-->
+<!--<a routerLink="user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget">Contact Us</a>-->
+<!--</li>-->
+<!--</ul>-->
 <!--</div>-->
 <!--user/:uid/website/:wid/page/:pid/widget-->
 
+<!--<div class="container">-->
+<!--<ul class="list-group cl-list-group-borderless" *ngFor="let website of websites">-->
+<!--<li class="list-group-item cl-list-item-borderless">-->
+<!--<a routerLink="/user/{{userId}}/website/{{website._id}}">-->
+<!--<span class="fa fa-cog fontawesome_icon float-right"></span>-->
+<!--</a>-->
+<!--<a routerLink="/user/{{userId}}/website/{{website._id}}/page">{{website.name}}</a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+
+
+<!--<div class="list-group cl-list-group-borderless" *ngFor="let page of pages">-->
+    <!--<li class="list-group-item cl-list-group-borderless">-->
+        <!--<a routerLink="./{{page._id}}">-->
+            <!--<span class="fa fas-cog fontawesome_icon float-right"></span>-->
+        <!--</a>-->
+        <!--<a routerLink="./{{page._id}}/widget" class="text-blue">{{page.name}}</a>-->
+    <!--</li>-->
+<!--</div>-->
+
+
 <div class="container">
     <div class="form-control" *ngFor="let page of pages">
-        <a routerLink="./{{webId}}/widget" class="text-blue"{{page.name}}></a>
-        <a routerLink="./{{webId}}" class="text-blue float-right">
-            <i class="fa fas-cog"></i>
+        <a [routerLink]="['./' + page._id + '/widget']" class="text-blue">{{ page.name }}</a>
+        <a [routerLink]="['./' + page._id]" class="text-blue float-right">
+            <i class="fas fa-cog"></i>
         </a>
     </div>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-  <div class="container-fluid row">
-    <div class="pull-right navbar-text">
-      <a routerLink="/user/{{userId}}" class="cl-icon-padding">
-        <span class="fa fas-user fa-inverse"></span>
-      </a>
+<nav class="navbar fixed-bottom cl-blue-navbar">
+    <div class="container-fluid">
+        <a class="align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding"
+           [routerLink]="['../../../../../' + 'user/' + userId]">
+
+        </a>
     </div>
-  </div>
 </nav>
+
+

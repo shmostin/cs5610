@@ -16,17 +16,17 @@ import {WidgetEditComponent} from './views/widget/widget-edit/widget-edit.compon
 
 
 // /profile/{{user._id}}/website
-
+// user/234/website/456/page/new
 
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'user/:uid', component: ProfileComponent},
     {path: 'register', component: RegisterComponent},
+    {path: 'user/:uid/website/:wid/page/new', component: PageNewComponent},
     {path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent},
     {path: 'user/:uid/website/:wid/page', component: PageListComponent},
-    {path: 'user/:uid/website/:wid/page/new', component: PageNewComponent},
     {path: 'user/:uid/website/:wid', component: WebsiteEditComponent},
-    {path: ':uid/website', component: WebsiteListComponent},
+    {path: 'user/:uid/website', component: WebsiteListComponent},
     {path: 'user/:uid/website/new', component: WebsiteNewComponent},
     {path: 'user/:uid/website/:wid/page/:pid/widget/new', component: WidgetChooserComponent},
     {path: 'user/:uid/website/:wid/page/:pid/widget', component: WidgetListComponent},

@@ -21,11 +21,13 @@ export class WidgetService {
     }
 
     findWidgetsByPageId(pageId) {
+        const widgets = [];
         for (let i = 0; i < this.widgets.length; i++) {
             if (this.widgets[i].pageId === pageId) {
-                return this.widgets[i];
+                widgets.push(this.widgets[i]);
             }
         }
+        return widgets;
     }
 
 
