@@ -1,34 +1,11 @@
-<!--<body>-->
-<!--<nav class="navbar navbar-brand navbar-light bg-light fixed-top">-->
-  <!--<div class="container-fluid row">-->
-    <!--<div>-->
-      <!--<a routerLink="/user/{{userid}}/website/{{webid}}/page" class="cl-text-black cl-icon-padding">-->
-          <!--<span class="fas fa-chevron-left">-->
-          <!--</span>-->
-      <!--</a>-->
-      <!--<a class="navbar-brand navbar-text cl-text-white cl-text-bold"-->
-         <!--routerLink="/user/{{userid}}/website/{{webid}}/page/{{pageid}}/widget">-->
-        <!--Widgets-->
-      <!--</a>-->
-    <!--</div>-->
-    <!--<div class="navbar-text float-right">-->
-      <!--<a routerLink="/user/{{userid}}/website/{{webid}}/page/{{pageid}}/widget/new"-->
-         <!--class="cl-icon-padding cl-text-black">-->
-          <!--<span class="fas fa-plus">-->
-          <!--</span>-->
-      <!--</a>-->
-    <!--</div>-->
-
-  <!--</div>-->
-<!--</nav>-->
-
 
 <nav class="navbar cl-blue-navbar fixed-top">
   <div class="container-fluid">
     <a routerLink="../../" class="navbar-link ">
       <span class="cl-text-white fas fa-chevron-left"></span>
     </a>
-    <a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding" href="#">
+    <a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding"
+       routerLink="/user/{{userid}}/website/{{webid}}/page/{{pageid}}/widget">
       Widgets
     </a>
 
@@ -39,80 +16,82 @@
   </div>
 </nav>
 
-<body>
+<!--<body>-->
+<!--<nav class="navbar cl-blue-navbar fixed-top">-->
+  <!--<div class="container-fluid">-->
+    <!--<a routerLink="../../" class="navbar-link ">-->
+      <!--<span class="cl-text-white fas fa-chevron-left"></span>-->
+    <!--</a>-->
+    <!--<a class="cl-text-white navbar-brand navbar-text mb-0 h5 mr-auto cl-header-padding"-->
+        <!--routerLink="user/{{userid}}/website/{{webid}}/page/{{pageid}}/widget">-->
+      <!--Widgets-->
+    <!--</a>-->
+
+    <!--<a [routerLink]="['./new']"-->
+       <!--class="navbar-link cl-text-white">-->
+      <!--<span class="cl-text-white fas fa-plus fontawesome_icon cl-icon-padding"></span>-->
+    <!--</a>-->
+  <!--</div>-->
+<!--</nav>-->
+
+
 <div class="container cl-container-padding">
-  <div *ngFor="let widget of widgets">
-    <div [ngSwitch]="widget.widgetType">
-      <div *ngSwitchCase="'HEADER'">
-        <div class="float-right">
-          <a routerLink="/user/{{userid}}/website/{{webId}}/page/{{pageid}}/widget/{{widget._id}}">
-            <span class="fas fa-cog"></span>
-          </a>
+    <div *ngFor="let widget of widgets">
+        <div [ngSwitch]="widget.widgetType">
+            <div class="float-right">
+                <a routerLink="" class="float-right">
+                    <i class="fas fa-bars fontawsome_icon"></i>
+                </a>
+                <a routerLink="{{widget._id}}">
+                    <i class="fas fa-cog fontawsome_icon"></i>
+                </a>
+            </div>
+            <div *ngSwitchCase="'HEADING'">
+                <div [ngSwitch]="widget.size">
+                    <div *ngSwitchCase="1">
+                        <h1>{{widget.text}}</h1>
+                    </div>
+                    <div *ngSwitchCase="2">
+                        <h2>{{widget.text}}</h2>
+                    </div>
+                    <div *ngSwitchCase="3">
+                        <h3>{{widget.text}}</h3>
+                    </div>
+                    <div *ngSwitchCase="4">
+                        <h4>{{widget.text}}</h4>
+                    </div>
+                    <div *ngSwitchCase="5">
+                        <h5>{{widget.text}}</h5>
+                    </div>
+                    <div *ngSwitchCase="6">
+                        <h6>{{widget.text}}</h6>
+                    </div>
+                </div>
+            </div>
+            <img *ngSwitchCase="'IMAGE'" src="{{widget.url}}">
+            <div *ngSwitchCase="'YOUTUBE'" >
+                <!-- <iframe class="embed-responsive-item" width="640" height="360" [src]="sanitizeUrl(widget)" frameborder="0" allow="accelerometer autoplay encrypted-media gyroscope picture-in-picture" allowfullscreen></iframe> -->
+                <object style="width:100%;height:100%;width: 640px; height: 360px; float: none; clear: both; margin: 2px auto;" [data]="sanitizeUrl(widget)"></object>
+            </div>
+            <p *ngSwitchDefault><br></p>
         </div>
-        <div [ngSwitch]="widget.size">
-          <div *ngSwitchCase="1">
-            <h1>{{ widget.text }}</h1>
-          </div>
-          <div *ngSwitchCase="2">
-            <h2>{{ widget.text }}</h2>
-          </div>
-          <div *ngSwitchCase="3">
-            <h3>{{ widget.text }}</h3>
-          </div>
-          <div *ngSwitchCase="4">
-            <h4>{{ widget.text }}</h4>
-          </div>
-          <div *ngSwitchCase="5">
-            <h5>{{ widget.text }}</h5>
-          </div>
-          <div *ngSwitchCase="6">
-            <h6>{{ widget.text }}</h6>
-          </div>
-        </div>
-      </div>
-
-
-      <div *ngSwitchCase="'IMAGE'">
-        <div class="float-right">
-          <a routerLink="/user/{{userId}}/website/{{webId}}/page/{{pageId}}/widget/{{widget._id}}">
-            <span class="fas fa-cog"></span>
-          </a>
-        </div>
-        <img class="img-responsive img-rounded cl-widget-images"
-             src="{{widget.url}}">
-      </div>
-
-
-      <div *ngSwitchCase="'YOUTUBE'">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class = "embed-responsive-item" width="640" height="360"
-                  [src]="getUrl(widget)"
-                  frameborder="0"
-                  allow="accelerometer autoplay encrypted-media gyroscope picture-in-picture"
-                  allowfullscreen>
-          </iframe>
-          <div class = "overlay cl-relative-position">
-            <a routerLink="/user/{{userId}}/website/{{webId}}/page/{{pageId}}/widget"
-               class="float-right overlay cl-relative-position">
-
-              <span class="fas fa-bars cl-white-background" ></span>
-            </a>
-            <a routerLink="/user/{{userId}}/website/{{webId}}/page/{{pageId}}/widget/{{widget._id}}"
-               class="float-right overlay cl-relative-position">
-              <span class="fas fa-cog cl-relative-position cl-white-background" ></span>
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 
-<nav class="navbar fixed-bottom cl-blue-navbar">
-  <div class="container-fluid">
-    <a class="align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding"
-       [routerLink]="['/user/' + userId]">
-    </a>
-  </div>
+
+<nav class="navbar navbar-default navbar-light bg-light fixed-bottom">
+    <div class="float-left navbar-text">
+        <a routerLink="" class="cl-icon-padding">
+            <span class="fas fa-play"></span>
+        </a>
+        <a routerLink="" class="cl-icon-padding pl-2">
+            <span class="fas fa-eye"></span>
+        </a>
+
+    </div>
+    <div class="float-right">
+        <a routerLink="/user/{{userId}}">
+            <i class="fas fa-user fontawsome_icon float-right"></i>
+        </a>
+    </div>
 </nav>
-</body>
