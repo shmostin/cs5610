@@ -635,6 +635,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// test for building on huroku
 var WidgetService = /** @class */ (function () {
     function WidgetService() {
         this.widgets = [

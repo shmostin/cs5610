@@ -70,8 +70,7 @@
             </div>
             <img *ngSwitchCase="'IMAGE'" src="{{widget.url}}">
             <div *ngSwitchCase="'YOUTUBE'" >
-                <!-- <iframe class="embed-responsive-item" width="640" height="360" [src]="sanitizeUrl(widget)" frameborder="0" allow="accelerometer autoplay encrypted-media gyroscope picture-in-picture" allowfullscreen></iframe> -->
-                <object style="width:100%;height:100%;width: 640px; height: 360px; float: none; clear: both; margin: 2px auto;" [data]="sanitizeUrl(widget)"></object>
+
             </div>
             <p *ngSwitchDefault><br></p>
         </div>
