@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Widget} from '../models/widget.model.client';
+// test for building on huroku
 
 @Injectable()
 export class WidgetService {
