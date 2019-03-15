@@ -1,67 +1,63 @@
 <!DOCTYPE html>
 
-<nav class="navbar navbar-light bg-light fixed-top">
-    <div class="container-fluid">
-        <a routerLink="../../" class="navbar-link ">
-            <span class="cl-text-black fas fa-chevron-left"></span>
-        </a>
-        <a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding"
-           routerLink="/user/{{userid}}/website/{{webid}}/page/{{pageid}}/widget">
-            Choose Widgets
-        </a>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid row">
+
+    <div class="navbar-text pull-left">
+      <a routerLink="user/{{user._id}}/website/{{website._id}}/page/{{page._id}}/widget" class="cl-text-black cl-icon-padding">
+                <span class="glyphicon glyphicon-cheveron-left">
+                </span>
+      </a>
     </div>
+
+    <a class="navbar-brand cl-text-white cl-text-bold" href="#">
+      Choose Widget
+    </a>
+  </div>
 </nav>
 
-<!--<div class="container-fluid cl-container-padding">-->
-    <!--<ul class="list-group cl-list-group-borderless">-->
-        <!--<li class="list-group-item cl-list-item-borderless">-->
-            <!--<a href="widget-heading.html">Header</a>-->
-        <!--</li>-->
-        <!--<li class="list-group-item cl-list-item-borderless">-->
-            <!--<a href="#">Label</a>-->
-        <!--</li>-->
-        <!--<li class="list-group-item cl-list-item-borderless">-->
-            <!--<a href="#">HTML</a>-->
-        <!--</li>-->
-        <!--<li class="list-group-item cl-list-item-borderless">-->
-            <!--<a href="#">Text Input</a>-->
-        <!--</li>-->
-        <!--<li class="list-group-item cl-list-item-borderless">-->
-            <!--<a href="#">Link</a>-->
-        <!--</li>-->
-        <!--<li class="list-group-item cl-list-item-borderless">-->
-            <!--<a href="#">Button</a>-->
-        <!--</li>-->
-        <!--<li class="list-group-item cl-list-item-borderless">-->
-            <!--<a href="widget-image.html">Image</a>-->
-        <!--</li>-->
-        <!--<li class="list-group-item cl-list-item-borderless">-->
-            <!--<a href="widget-youtube.html">Youtube</a>-->
-        <!--</li>-->
-        <!--<li class="list-group-item cl-list-item-borderless">-->
-            <!--<a href="#">Data Table</a>-->
-        <!--</li>-->
-        <!--<li class="list-group-item cl-list-item-borderless">-->
-            <!--<a href="#">Repeater</a>-->
-        <!--</li>-->
-    <!--</ul>-->
-<!--</div>-->
-
 <div class="container-fluid cl-container-padding">
-    <ul class="list-group cl-list-group-borderless" *ngFor="let widget of widgets">
-        <li class="list-group-item cl-list-item-borderless">
-            <button (click)= "createWidget(widget.pageId, widget)" class = "btn btn-primary cl-text-bold">{{widget.widgetType}}</button>
-        </li>
-    </ul>
+  <ul class="list-group cl-list-group-borderless">
+    <li class="list-group-item cl-list-item-borderless">
+      <a href="widget-heading.html">Header</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a href="#">Label</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a href="#">HTML</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a href="#">Text Input</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a href="#">Link</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a href="#">Button</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a href="widget-image.html">Image</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a href="widget-youtube.html">Youtube</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a href="#">Data Table</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a href="#">Repeater</a>
+    </li>
+  </ul>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid row">
-        <div class="pull-right navbar-text">
-            <a routerLink="user/{{user._id}}" class="cl-icon-padding">
-                <span class="fas fa-user"></span>
-            </a>
-        </div>
+  <div class="container-fluid row">
+    <div class="pull-right navbar-text">
+      <a routerLink="user/{{user._id}}" class="cl-icon-padding">
+        <span class="glyphicon glypicon-user"></span>
+      </a>
     </div>
+  </div>
 </nav>
 

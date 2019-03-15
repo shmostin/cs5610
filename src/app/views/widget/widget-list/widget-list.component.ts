@@ -12,7 +12,6 @@ export class WidgetListComponent implements OnInit {
 
     userid: string;
     pageid: string;
-    webid: string;
     widgets: Widget[];
 
   constructor(private widgetservice: WidgetService,
@@ -23,8 +22,7 @@ export class WidgetListComponent implements OnInit {
   ngOnInit() {
       this.activeroute.params.subscribe((params: any) => {
           this.userid = params['uid'];
-          this.pageid = params['pid'];
-          this.webid = params['wid']; });
+          this.pageid = params['pid']; });
       this.widgets = this.widgetservice.findWidgetsByPageId(this.pageid);
       console.log(this.widgets);
   }

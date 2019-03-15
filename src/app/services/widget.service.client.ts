@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Widget} from '../models/widget.model.client';
-// test for building on huroku
 
 @Injectable()
 export class WidgetService {
@@ -10,10 +9,10 @@ export class WidgetService {
 
     widgets: Widget[] =
         [
-            new Widget('123', 'HEADER', '321', '2', 'GIZMODO', 'none', 'none'),
-            new Widget('123', 'HEADER', '321', '2', 'GIZMODO', 'none', 'none'),
-            new Widget('123', 'IMAGE', '321', '0', 'none', '100%', 'http://lorempixel.com/400/200/'),
-            new Widget('123', 'YOUTUBE', '321', 'none', 'none', '100%', 'https://www.youtube.com/watch?v=RwHqrisoGDU'),
+            new Widget('123', 'HEADER', '321', '2', 'GIZMODO'),
+            new Widget('123', 'HEADER', '321', '2', 'GIZMODO'),
+            new Widget('123', 'IMAGE', '321', '2', '100%', 'http://larempixel.com/400/200/'),
+            new Widget('123', 'YOUTUBE', '321', '2', 'text', '100%', 'https://youtube.com/token'),
         ];
 
 
