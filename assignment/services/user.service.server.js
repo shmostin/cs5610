@@ -1,10 +1,11 @@
 module.exports = function(app) {
 
-    app.post("/api/user/:uid", updateUserById);
-    app.put("/api/user", createUser);
-    app.get("/api/user/", findUserByCredentials);
-    app.get("/api/user/hello", helloUser);
-    app.get("api/user/:uid", findUserById);
+    app.put("/api/user/:uid", updateUserById);
+    app.post("/api/user", createUser);
+
+    app.get("/api/user", findUserByCredentials);
+    app.get("api/user/hello", helloUser);
+    app.get("/api/user/:uid", findUserById);
     app.get("/api/user", findUsers);
 
     var users =
@@ -18,6 +19,7 @@ module.exports = function(app) {
 
     function createUser(req, res) {
         var user = req.body;
+        console.log("at create user");
         for (var i = 0; i < users.length; i++) {
             if (users[i].username === user["username"]) {
                 res.status(404).send("This username is already exist.");
@@ -31,6 +33,7 @@ module.exports = function(app) {
 
 
     function helloUser(req, res) {
+        console.log("testing helloUser");
         res.send("Hello from user service!");
     }
 
@@ -43,12 +46,21 @@ module.exports = function(app) {
     }
 
     function findUserByCredentials(req, res) {
+        console.log("calling findUserByCredentials on the server side");
         var username = req.params.username;
         var password = req.params.password;
+        console.log("username from server request: " + username);
+        console.log("password from server request: " + password);
+        console.log("about to check the users");
+        console.log("users: " + users.toString());
         for (var i = 0; i < users.length; i++) {
+            console.log("checking " + users[i].username);
             if (users[i].username === username && users[i].password === password) {
+                console.log("we found " + username);
                 res.json(users[i]);
                 return;
+            } else {
+                console.log("not " + username);
             }
         }
         res.status(404).send("User not found by Credentials");

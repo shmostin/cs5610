@@ -472,6 +472,7 @@ var UserService = /** @class */ (function () {
      * @param password the password we are looking for.
      */
     UserService.prototype.findUserByCredentials = function (username, password) {
+        console.log('made it to the client side findUserByCredential http request');
         return this.http.get(this.baseUrl + this.APIUrl + '?username=' + username + '&password=' + password);
     };
     /**
@@ -946,6 +947,8 @@ var LoginComponent = /** @class */ (function () {
         this.userService.findUserByCredentials(this.username, this.password)
             .subscribe(function (user) {
             if (user) {
+                console.log(user);
+                console.log('made it here');
                 _this.router.navigate(['/user', user._id]);
             }
             else {
@@ -1864,7 +1867,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 var environment = {
     production: false,
-    baseUrl: 'http://localhost:3200'
+    baseUrl: 'http://localhost:4200'
 };
 /*
  * For easier debugging in development mode, you can import the following file

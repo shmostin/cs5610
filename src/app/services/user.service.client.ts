@@ -16,7 +16,7 @@ import {User} from '../models/user.model.client';
 @Injectable({providedIn: 'root'})
 export class UserService {
 
-        constructor(private http: HttpClient, private router: Router, private sharedService: SharedService) {}
+    constructor(private http: HttpClient, private router: Router, private sharedService: SharedService) {}
 
     baseUrl = environment.baseUrl;
     APIUrl = '/api/user';
@@ -53,6 +53,7 @@ export class UserService {
      * @param password the password we are looking for.
      */
     findUserByCredentials(username, password) {
+        console.log('made it to the client side findUserByCredential http request');
         return this.http.get(this.baseUrl + this.APIUrl + '?username=' + username + '&password=' + password);
     }
 
