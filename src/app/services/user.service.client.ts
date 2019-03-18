@@ -1,30 +1,33 @@
 import {Injectable} from '@angular/core';
-import { User } from '../models/user.model.client';
+import 'rxjs/Rx';
+import {environment} from '../../environments/environment';
+import {Router} from '@angular/router';
+import {SharedService} from './shared.service';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {User} from '../models/user.model.client';
+
+
+// import { User } from '../models/user.model.client';
 
 
 
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class UserService {
 
-        constructor() {}
+        constructor(private http: HttpClient, private router: Router, private sharedService: SharedService) {}
 
-     users: User[] =
-        [
-            new User('123', 'alice', 'alice', 'alice', 'alice', 'a@a.com'),
-            new User('234', 'bob', 'bob', 'bob', 'bob', 'b@b.com'),
-            new User('345', 'charly', 'charly', 'charly', 'charly', 'c@c.com'),
-            new User('456', 'jannunzi', 'jannunzi', 'jannunzi', 'jannunzi', 'j@j.com'),
-
-        ];
+    baseUrl = environment.baseUrl;
+    APIUrl = '/api/user';
 
 
     /**
      * adds a user to the users array
      * @param user is the user we want to add to the array.
      */
-    createUser(user: User) {
-        this.users.push(new User(user._id, user.username, user.password, user.firstName, user.lastName, user.email));
+    createUser(user) {
+        return this.http.post(this.baseUrl + this.APIUrl, user);
     }
 
 
@@ -33,11 +36,7 @@ export class UserService {
      * @param userId the _id we are looking for.
      */
     findUserById(userId) {
-        for (const entry of this.users) {
-            if (entry._id === userId) {
-                return entry;
-            }
-        }
+        return this.http.get(this.baseUrl + this.APIUrl, userId);
     }
 
     /**
@@ -45,11 +44,7 @@ export class UserService {
      * @param username the username we are looking for.
      */
     findUserByUsername(username) {
-        for (const entry of this.users) {
-            if (entry.username === username) {
-                return entry;
-            }
-        }
+        return this.http.get(this.baseUrl + this.APIUrl + '?username=' + username);
     }
 
     /**
@@ -57,12 +52,8 @@ export class UserService {
      * @param username the username we are looking for.
      * @param password the password we are looking for.
      */
-    findUserByCredentials(username, password) {
-        for (const entry of this.users) {
-            if (entry.username === username && entry.password === password) {
-                return entry;
-            }
-        }
+    findUserByCredentials(username, password): Observable<User> {
+        return this.http.get(this.baseUrl + this.APIUrl + '?username=' + username + '&password=' + password);
     }
 
 
@@ -71,17 +62,8 @@ export class UserService {
      * @param userId the _id we are looking for.
      * @param user the user information we want to use as the update.
      */
-    updateUser(userId, user: User) {
-        for (const entry of this.users) {
-            if (entry._id === userId) {
-                entry.username = user.username;
-                entry.password = user.password;
-                entry.firstName = user.firstName;
-                entry.lastName = user.lastName;
-                entry.email = user.email;
-                return entry;
-            }
-        }
+    updateUser(user) {
+        return this.http.put(this.baseUrl + this.APIUrl + '/' + user._id, user);
     }
 
     /**
@@ -89,11 +71,23 @@ export class UserService {
      * @param userId the _id we are using to find the user.
      */
     deleteUser(userId) {
-        for (const entry in this.users) {
-            if (this.users[entry]._id === userId) {
-                const j = +entry;
-              this.users.splice(j, 1);
-            }
-        }
+        return this.http.delete(this.baseUrl + this.APIUrl + '/' + userId);
+    }
+
+    register(username: String, password: String) {
+
+        // this.options.withCredentials = true;
+        const body = {
+            username : username,
+            password : password
+        };
+
+        return this.http.post(this.baseUrl + '/api/user', body);
+    }
+
+
+    logout() {
+        // this.options.withCredentials = true;
+        return this.http.post(this.baseUrl + '/api/logout', '');
     }
 }

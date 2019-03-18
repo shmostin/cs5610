@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +34,9 @@ import {PageService} from './services/page.service.client';
 import {WebsiteService} from './services/website.service.client';
 import {WidgetService} from './services/widget.service.client';
 import {FormsModule} from '@angular/forms';
+import {SharedService} from './services/shared.service';
+
+
 
 @NgModule({
   declarations: [
@@ -57,8 +61,9 @@ import {FormsModule} from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
       FormsModule,
+      HttpClientModule,
   ],
-  providers: [UserService, WebsiteService, PageService, WidgetService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
