@@ -52,7 +52,7 @@ export class UserService {
      * @param username the username we are looking for.
      * @param password the password we are looking for.
      */
-    findUserByCredentials(username, password): Observable<User> {
+    findUserByCredentials(username, password) {
         return this.http.get(this.baseUrl + this.APIUrl + '?username=' + username + '&password=' + password);
     }
 
