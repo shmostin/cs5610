@@ -64,7 +64,6 @@ import {SortableDirective} from './directives/sortable.directive';
     AppRoutingModule,
       FormsModule,
       HttpClientModule,
-      SortableDirective,
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService, SharedService],
   bootstrap: [AppComponent]
