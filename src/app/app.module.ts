@@ -35,6 +35,7 @@ import {WebsiteService} from './services/website.service.client';
 import {WidgetService} from './services/widget.service.client';
 import {FormsModule} from '@angular/forms';
 import {SharedService} from './services/shared.service';
+import {SortableDirective} from './directives/sortable.directive';
 
 
 
@@ -50,6 +51,7 @@ import {SharedService} from './services/shared.service';
     PageNewComponent,
     PageEditComponent,
     PageListComponent,
+      SortableDirective,
     WidgetChooserComponent,
     WidgetEditComponent,
     WidgetListComponent,
@@ -62,6 +64,7 @@ import {SharedService} from './services/shared.service';
     AppRoutingModule,
       FormsModule,
       HttpClientModule,
+      SortableDirective,
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService, SharedService],
   bootstrap: [AppComponent]
