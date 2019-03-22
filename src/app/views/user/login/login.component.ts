@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
     password: String;
     errorFlag: boolean;
     errorMsg = 'Invalid username or password';
+    user: any;
 
     title: string;
     disabledFlag: boolean;
@@ -40,8 +41,9 @@ export class LoginComponent implements OnInit {
                 if (user) {
                     console.log(user);
                     console.log('made it here');
-
-                    this.router.navigate(['/user', user._id]);
+                    this.user = user;
+                    console.log('this.user.user_id' + this.user._id);
+                    this.router.navigate(['/user', this.user._id]);
                 } else {
                     console.log('That password was incorrect');
                     this.errorFlag = true;

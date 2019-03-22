@@ -43,7 +43,7 @@ module.exports = function(app) {
 
 
 
-    findPageByWebsiteId(websiteId)
+    function findPageByWebsiteId(websiteId)
     {
         const listOfPages = [];
         for (let i = 0; i < this.pages.length; i++) {

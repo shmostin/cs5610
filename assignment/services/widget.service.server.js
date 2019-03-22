@@ -1,4 +1,4 @@
-module.exports = function(app, models) {
+module.exports = function (app, models) {
 
     var widgets =
         [
@@ -115,8 +115,8 @@ module.exports = function(app, models) {
             }
         ];
 
-    var multer = require('multer'); //npm multer --save
-    var upload = multer({dest: _dirname + '/../../src/uploads/uploads'});
+    // var multer = require('multer'); //npm multer --save
+    // var upload = multer({dest: _dirname + '/../../src/uploads/uploads'});
 
     app.post("/api/page/:pid/widget", createWidget);
     app.get("/api/page/:pid/widget", findAllWidgetsForPage);
@@ -126,28 +126,41 @@ module.exports = function(app, models) {
 
     app.put("/api/page/:pageId/widget", reorderWidgets);
 
-    app.post("/api/upload", upload.single('myFile'), uploadImage);
+    // app.post("/api/upload", upload.single('myFile'), uploadImage);
 
 
-    function uploadImage(req, res) {
-        var userId = req.body.userId;
-        var websiteId = req.body.websiteId;
-        var pageId = req.body.pageId;
-
-
-        var widgetId = req.body.widgetId;
-        var width = req.body.width;
-        var myFile = req.file;
-
-        if (myFile == null) {
-            //res.redirect("https://yourheroku.herokuapp.com/user/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
-            res.redirect("http://localhost:3200/user/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
-            return;
-        }
+    // function uploadImage(req, res) {
+    //     var userId = req.body.userId;
+    //     var websiteId = req.body.websiteId;
+    //     var pageId = req.body.pageId;
+    //
+    //
+    //     var widgetId = req.body.widgetId;
+    //     var width = req.body.width;
+    //     var myFile = req.file;
+    //
+    //     if (myFile == null) {
+    //         //res.redirect("https://yourheroku.herokuapp.com/user/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
+    //         res.redirect("http://localhost:3200/user/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
+    //         return;
+    //     }
+    // }
 
 
         function createWidget(req, res) {
-            // widgets.push(widget);
+            var pageId = req.params.pageId;
+            var widget = req.body;
+            widgetModel
+                .createWidget(pageId, widget)
+                .then(function (widget) {
+                    res.json(widget);
+                }, function (err) {
+                    res.sendStatus(400).send(err);
+                });
+
+            widgets.push(widget);
+            /* return true only if the JSON object is inserted */
+            res.send(200);
         }
 
         function findAllWidgetsForPage(req, res) {
@@ -232,4 +245,3 @@ module.exports = function(app, models) {
         }
 
     }
-}

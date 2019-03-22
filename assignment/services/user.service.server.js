@@ -8,6 +8,8 @@ module.exports = function(app) {
     app.get("/api/user/:uid", findUserById);
     app.get("/api/user", findUsers);
 
+    var userModel = require('../model/user/user.model.server')
+
     var users =
         [
             {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonderland"  },
@@ -18,8 +20,15 @@ module.exports = function(app) {
 
 
     function createUser(req, res) {
-        var user = req.body;
+        var newUser = req.body;
         console.log("at create user");
+        //userModel.createUser(user).then(function(user) {
+        // res.sendStatus(200).send(user)
+        // }, function(error) {
+        // console.log("create user error: " + error");
+        // res.status(400);
+        // });
+
         for (var i = 0; i < users.length; i++) {
             if (users[i].username === user["username"]) {
                 res.status(404).send("This username is already exist.");
@@ -47,8 +56,8 @@ module.exports = function(app) {
 
     function findUserByCredentials(req, res) {
         console.log("calling findUserByCredentials on the server side");
-        var username = req.params.username;
-        var password = req.params.password;
+        var username = req.query['username'];
+        var password = req.query['password'];
         console.log("username from server request: " + username);
         console.log("password from server request: " + password);
         console.log("about to check the users");

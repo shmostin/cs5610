@@ -949,7 +949,9 @@ var LoginComponent = /** @class */ (function () {
             if (user) {
                 console.log(user);
                 console.log('made it here');
-                _this.router.navigate(['/user', user._id]);
+                _this.user = user;
+                console.log('this.user.user_id' + _this.user._id);
+                _this.router.navigate(['/user', _this.user._id]);
             }
             else {
                 console.log('That password was incorrect');
@@ -1867,7 +1869,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 var environment = {
     production: false,
-    baseUrl: 'http://localhost:4200'
+    baseUrl: 'http://localhost:3200'
 };
 /*
  * For easier debugging in development mode, you can import the following file
