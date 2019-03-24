@@ -38,13 +38,13 @@
              [(ngModel)]='page.title'>
     </div>
   </form>
-  <a class="btn btn-danger btn-block" routerLink="user/{{user._id}}/website/{{website._id}}/page">Delete</a>
+  <a (click)="deletePage()" class="btn btn-danger btn-block">Delete</a>
 </div>
 
 <nav class="navbar fixed-bottom cl-blue-navbar">
   <div class="container-fluid">
     <a class="align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding"
-       [routerLink]="['/user/' + userId]">
+       routerLink="/user/{{uid}}">
     </a>
   </div>
 </nav>

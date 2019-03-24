@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import 'rxjs/Rx';
 import {UserService} from '../../../services/user.service.client';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SharedService} from '../../../services/shared.service';
+import {User} from '../../../models/user.model.client';
 
 @Component({
     selector: 'app-profile',
@@ -14,35 +15,27 @@ export class ProfileComponent implements OnInit {
     firstName: String;
     lastName: String;
     email: String;
-    user = {};
+    user = User;
     userId: String;
     errorFlag: boolean;
     errorMsg = 'Invalid username or password !';
 
-    constructor(private userService: UserService, private router: Router, private sharedService: SharedService) {
+    constructor(private userService: UserService,
+                private router: Router,
+                private sharedService: SharedService,
+                private activatedRoute: ActivatedRoute) {
     }
 
 
     ngOnInit() {
-
-        this.getUser();
-
+        this.activatedRoute.params.subscribe(
+            (params: any) => {
+                this.userId = params['uid'];
+                console.log('user id: ' + this.userId);
+            });
+        this.user = this.userService.findUserById(this.userId);
+        this.username = this.user['username'];
     }
-
-
-    // ngOnInit() {
-    //     this.route.params.subscribe(params => {
-    //         this.user._id = params['uid'];
-    //         console.log('user id: ' + this.user._id);
-    //     });
-    //     this.userService.findUserById(this.user._id.toString())
-    //         .subscribe(data => {
-    //             console.log('login component');
-    //             console.log(data);
-    //             this.user = data;
-    //         });
-    //
-    // }
 
     logout() {
         this.userService.logout()

@@ -14,7 +14,7 @@ export class WebsiteEditComponent implements OnInit {
   uid: String;
   wid: String;
   name: String;
-  // website: Website;
+  website: Website;
   description: String;
   websites: Website[] = [];
   user: User;
