@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Website} from '../../../models/website.model.client';
 import {WebsiteService} from '../../../services/website.service.client';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {User} from '../../../models/user.model.client';
 
 @Component({
   selector: 'app-website-edit',
@@ -10,21 +11,41 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class WebsiteEditComponent implements OnInit {
 
-  website: Website;
+  uid: String;
+  wid: String;
+  name: String;
+  // website: Website;
+  description: String;
+  websites: Website[] = [];
+  user: User;
 
-  constructor(private websiteService: WebsiteService, private router: ActivatedRoute) {
-    this.website = new Website('123', 'Facebook', '456', 'Lorem');
+  constructor(private websiteService: WebsiteService, private activatedRoute: ActivatedRoute, private router: Router) {
   }
 
 
 
   ngOnInit() {
-    this.router.params.subscribe(params => {
-      this.website._id = params['webid'];
-      console.log('web id: ' + this.website._id);
+    this.activatedRoute.params.subscribe(params => {
+      this.uid = params['uid'];
+      this.wid = params['wid'];
     });
-
-    this.website = this.websiteService.findWebsiteById(this.website._id);
+    const website: Website = this.websiteService.findWebsiteById(this.wid);
+    if (website) {
+      this.name = website.name;
+      this.description = website.description;
+    }
+    this.websites = this.websiteService.findWebsiteByUser(this.uid);
   }
+
+
+  update() {
+    this.websiteService.updateWebsite(this.wid, new Website(this.wid, this.name, this.uid, this.description));
+  }
+
+  delete() {
+    this.websiteService.deleteWebsite(this.wid);
+  }
+
+
 
 }
