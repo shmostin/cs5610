@@ -36,7 +36,8 @@ export class UserService {
      * @param userId the _id we are looking for.
      */
     findUserById(userId) {
-        return this.http.get(this.baseUrl + this.APIUrl, userId);
+        return this.http.get(this.baseUrl + this.APIUrl + userId);
+        // /api/user/:uid
     }
 
     /**

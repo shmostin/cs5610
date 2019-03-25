@@ -365,6 +365,66 @@ var Website = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/models/widget.model.client.ts":
+/*!***********************************************!*\
+  !*** ./src/app/models/widget.model.client.ts ***!
+  \***********************************************/
+/*! exports provided: WidgetHeading, WidgetImage, WidgetHtml, WidgetYoutube */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WidgetHeading", function() { return WidgetHeading; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WidgetImage", function() { return WidgetImage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WidgetHtml", function() { return WidgetHtml; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WidgetYoutube", function() { return WidgetYoutube; });
+var WidgetHeading = /** @class */ (function () {
+    function WidgetHeading(name, _id, widgetType, pageId, size, text) {
+        this._id = _id;
+        this.widgetType = widgetType;
+        this.pageId = pageId;
+        this.size = size;
+        this.text = text;
+    }
+    return WidgetHeading;
+}());
+
+var WidgetImage = /** @class */ (function () {
+    function WidgetImage(name, _id, widgetType, pageId, width, url) {
+        this._id = _id;
+        this.widgetType = widgetType;
+        this.pageId = pageId;
+        this.width = width;
+        this.url = url;
+    }
+    return WidgetImage;
+}());
+
+var WidgetHtml = /** @class */ (function () {
+    function WidgetHtml(name, _id, widgetType, pageId, text) {
+        this._id = _id;
+        this.widgetType = widgetType;
+        this.pageId = pageId;
+        this.text = text;
+    }
+    return WidgetHtml;
+}());
+
+var WidgetYoutube = /** @class */ (function () {
+    function WidgetYoutube(name, _id, widgetType, pageId, width, url) {
+        this._id = _id;
+        this.widgetType = widgetType;
+        this.pageId = pageId;
+        this.width = width;
+        this.url = url;
+    }
+    return WidgetYoutube;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/page.service.client.ts":
 /*!*************************************************!*\
   !*** ./src/app/services/page.service.client.ts ***!
@@ -514,7 +574,8 @@ var UserService = /** @class */ (function () {
      * @param userId the _id we are looking for.
      */
     UserService.prototype.findUserById = function (userId) {
-        return this.http.get(this.baseUrl + this.APIUrl, userId);
+        return this.http.get(this.baseUrl + this.APIUrl + userId);
+        // /api/user/:uid
     };
     /**
      * find the user by their username.
@@ -765,7 +826,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n\n\n<nav class=\"navbar cl-blue-navbar fixed-top\">\n  <div class=\"container-fluid\">\n    <a routerLink=\"../\" class=\"navbar-link \">\n      <span class=\"cl-text-white fas fa-chevron-left\"></span>\n    </a>\n\n    <a class=\"cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding\" href=\"#\">\n      Edit-Page\n    </a>\n\n    <a [routerLink]=\"['../']\" class=\"navbar-link cl-text-white\">\n      <span class=\"cl-text-white fas fa-check fontawesome_icon cl-icon-padding\"></span>\n    </a>\n  </div>\n</nav>\n\n<div class=\"container\">\n  <form>\n    <div class=\"form-group\">\n      <label for=\"page-name\">Name</label>\n      <input type=\"text\"\n             class=\"form-control\"\n             name=\"websiteName\"\n             id=\"page-name\"\n             placeholder=\"Page Name\"\n             [(ngModel)]='page.name'>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"page-title\">Title</label>\n      <input type=\"text\"\n             class=\"form-control\"\n             name=\"websiteName\"\n             id=\"page-title\"\n             placeholder=\"Page Title\"\n             [(ngModel)]='page.title'>\n    </div>\n  </form>\n  <a class=\"btn btn-danger btn-block\" routerLink=\"user/{{user._id}}/website/{{website._id}}/page\">Delete</a>\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container-fluid\">\n    <a class=\"align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding\"\n       [routerLink]=\"['/user/' + userId]\">\n    </a>\n  </div>\n</nav>\n\n\n\n"
+module.exports = "<!DOCTYPE html>\n\n\n<nav class=\"navbar cl-blue-navbar fixed-top\">\n  <div class=\"container-fluid\">\n    <a routerLink=\"../\" class=\"navbar-link \">\n      <span class=\"cl-text-white fas fa-chevron-left\"></span>\n    </a>\n\n    <a class=\"cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding\" href=\"#\">\n      Edit-Page\n    </a>\n\n    <a [routerLink]=\"['../']\" class=\"navbar-link cl-text-white\">\n      <span class=\"cl-text-white fas fa-check fontawesome_icon cl-icon-padding\"></span>\n    </a>\n  </div>\n</nav>\n\n<div class=\"container\">\n  <form>\n    <div class=\"form-group\">\n      <label for=\"page-name\">Name</label>\n      <input type=\"text\"\n             class=\"form-control\"\n             name=\"websiteName\"\n             id=\"page-name\"\n             placeholder=\"Page Name\"\n             [(ngModel)]='page.name'>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"page-title\">Title</label>\n      <input type=\"text\"\n             class=\"form-control\"\n             name=\"websiteName\"\n             id=\"page-title\"\n             placeholder=\"Page Title\"\n             [(ngModel)]='page.title'>\n    </div>\n  </form>\n  <a (click)=\"deletePage()\" class=\"btn btn-danger btn-block\">Delete</a>\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container-fluid\">\n    <a class=\"align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding\"\n       routerLink=\"/user/{{uid}}\">\n    </a>\n  </div>\n</nav>\n\n\n\n"
 
 /***/ }),
 
@@ -846,7 +907,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n<nav class=\"navbar cl-blue-navbar fixed-top\">\n    <div class=\"container-fluid\">\n        <a routerLink=\"../../\" class=\"navbar-link \">\n            <span class=\"cl-text-white fas fa-chevron-left\"></span>\n        </a>\n        <a class=\"cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding\" href=\"#\">\n            Pages\n        </a>\n\n        <a [routerLink]=\"['./new']\"\n           class=\"navbar-link cl-text-white\">\n            <span class=\"cl-text-white fas fa-plus fontawesome_icon cl-icon-padding\"></span>\n        </a>\n    </div>\n</nav>\n\n\n<!--<div class=\"container-fluid cl-container-padding\">-->\n<!--<ul class=\"list-group cl-list-group-borderless\">-->\n<!--<li class=\"list-group-item cl-list-item-boderless\">-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">-->\n<!--<span class=\"fas fa-cog fontawsome_icon pull-right\"></span>-->\n<!--</a>-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Blog Post</a>-->\n<!--</li>-->\n<!--<li class=\"list-group-item cl-list-item-borderless\">-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">-->\n<!--<span class=\"fas fa-cog fontawsome_icon pull-right\">-->\n<!--</span>-->\n<!--</a>-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Blogs</a>-->\n<!--</li>-->\n<!--<li class=\"list-group-item cl-list-item-borderless\">-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">-->\n<!--<span class=\"fas fa-cog fontawsome_icon pull-right\">-->\n<!--</span>-->\n<!--</a>-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Home</a>-->\n<!--</li>-->\n<!--<li class=\"list-group-item cl-list-item-borderless\">-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">-->\n<!--<span class=\"fas fa-cog fontawsome_icon pull-right\">-->\n<!--</span>-->\n<!--</a>-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">About</a>-->\n<!--</li>-->\n<!--<li class=\"list-group-item cl-list-item-borderless\">-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">-->\n<!--<span class=\"fas fa-cog fontawsome_icon pull-right\">-->\n<!--</span>-->\n<!--</a>-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Contact Us</a>-->\n<!--</li>-->\n<!--</ul>-->\n<!--</div>-->\n<!--user/:uid/website/:wid/page/:pid/widget-->\n\n<!--<div class=\"container\">-->\n<!--<ul class=\"list-group cl-list-group-borderless\" *ngFor=\"let website of websites\">-->\n<!--<li class=\"list-group-item cl-list-item-borderless\">-->\n<!--<a routerLink=\"/user/{{userId}}/website/{{website._id}}\">-->\n<!--<span class=\"fa fa-cog fontawesome_icon float-right\"></span>-->\n<!--</a>-->\n<!--<a routerLink=\"/user/{{userId}}/website/{{website._id}}/page\">{{website.name}}</a>-->\n<!--</li>-->\n<!--</ul>-->\n<!--</div>-->\n\n\n<!--<div class=\"list-group cl-list-group-borderless\" *ngFor=\"let page of pages\">-->\n    <!--<li class=\"list-group-item cl-list-group-borderless\">-->\n        <!--<a routerLink=\"./{{page._id}}\">-->\n            <!--<span class=\"fa fas-cog fontawesome_icon float-right\"></span>-->\n        <!--</a>-->\n        <!--<a routerLink=\"./{{page._id}}/widget\" class=\"text-blue\">{{page.name}}</a>-->\n    <!--</li>-->\n<!--</div>-->\n\n\n<div class=\"container\">\n    <div class=\"form-control\" *ngFor=\"let page of pages\">\n        <a [routerLink]=\"['./' + page._id + '/widget']\" class=\"text-blue\">{{ page.name }}</a>\n        <a [routerLink]=\"['./' + page._id]\" class=\"text-blue float-right\">\n            <i class=\"fas fa-cog\"></i>\n        </a>\n    </div>\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n    <div class=\"container-fluid\">\n        <a class=\"align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding\"\n           [routerLink]=\"['../../../../../' + 'user/' + userId]\">\n\n        </a>\n    </div>\n</nav>\n\n\n"
+module.exports = "<!DOCTYPE html>\n<nav class=\"navbar cl-blue-navbar fixed-top\">\n    <div class=\"container-fluid\">\n        <a routerLink=\"../../\" class=\"navbar-link \">\n            <span class=\"cl-text-white fas fa-chevron-left\"></span>\n        </a>\n        <a class=\"cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding\" href=\"#\">\n            Pages\n        </a>\n\n        <a [routerLink]=\"['./new']\"\n           class=\"navbar-link cl-text-white\">\n            <span class=\"cl-text-white fas fa-plus fontawesome_icon cl-icon-padding\"></span>\n        </a>\n    </div>\n</nav>\n\n\n<!--<div class=\"container-fluid cl-container-padding\">-->\n<!--<ul class=\"list-group cl-list-group-borderless\">-->\n<!--<li class=\"list-group-item cl-list-item-boderless\">-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">-->\n<!--<span class=\"fas fa-cog fontawsome_icon pull-right\"></span>-->\n<!--</a>-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Blog Post</a>-->\n<!--</li>-->\n<!--<li class=\"list-group-item cl-list-item-borderless\">-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">-->\n<!--<span class=\"fas fa-cog fontawsome_icon pull-right\">-->\n<!--</span>-->\n<!--</a>-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Blogs</a>-->\n<!--</li>-->\n<!--<li class=\"list-group-item cl-list-item-borderless\">-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">-->\n<!--<span class=\"fas fa-cog fontawsome_icon pull-right\">-->\n<!--</span>-->\n<!--</a>-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Home</a>-->\n<!--</li>-->\n<!--<li class=\"list-group-item cl-list-item-borderless\">-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">-->\n<!--<span class=\"fas fa-cog fontawsome_icon pull-right\">-->\n<!--</span>-->\n<!--</a>-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">About</a>-->\n<!--</li>-->\n<!--<li class=\"list-group-item cl-list-item-borderless\">-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}\">-->\n<!--<span class=\"fas fa-cog fontawsome_icon pull-right\">-->\n<!--</span>-->\n<!--</a>-->\n<!--<a routerLink=\"user/{{user._id}}/website/{{website.name}}/page/{{page.name}}/widget\">Contact Us</a>-->\n<!--</li>-->\n<!--</ul>-->\n<!--</div>-->\n<!--user/:uid/website/:wid/page/:pid/widget-->\n\n<!--<div class=\"container\">-->\n<!--<ul class=\"list-group cl-list-group-borderless\" *ngFor=\"let website of websites\">-->\n<!--<li class=\"list-group-item cl-list-item-borderless\">-->\n<!--<a routerLink=\"/user/{{userId}}/website/{{website._id}}\">-->\n<!--<span class=\"fa fa-cog fontawesome_icon float-right\"></span>-->\n<!--</a>-->\n<!--<a routerLink=\"/user/{{userId}}/website/{{website._id}}/page\">{{website.name}}</a>-->\n<!--</li>-->\n<!--</ul>-->\n<!--</div>-->\n\n\n<!--<div class=\"list-group cl-list-group-borderless\" *ngFor=\"let page of pages\">-->\n    <!--<li class=\"list-group-item cl-list-group-borderless\">-->\n        <!--<a routerLink=\"./{{page._id}}\">-->\n            <!--<span class=\"fa fas-cog fontawesome_icon float-right\"></span>-->\n        <!--</a>-->\n        <!--<a routerLink=\"./{{page._id}}/widget\" class=\"text-blue\">{{page.name}}</a>-->\n    <!--</li>-->\n<!--</div>-->\n\n\n<div class=\"container\">\n    <div class=\"form-control\" *ngFor=\"let page of pages\">\n        <a [routerLink]=\"['./' + page._id + '/widget']\" class=\"text-blue\">{{ page.name }}</a>\n        <a [routerLink]=\"['./' + page._id]\" class=\"text-blue float-right\">\n            <i class=\"fas fa-cog\"></i>\n        </a>\n    </div>\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n    <div class=\"container-fluid\">\n        <a class=\"align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding\"\n           [routerLink]=\"['../../../../../' + 'user/' + uid]\">\n\n        </a>\n    </div>\n</nav>\n\n\n"
 
 /***/ }),
 
@@ -869,16 +930,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var PageListComponent = /** @class */ (function () {
-    function PageListComponent(pageServices, activatedRoute) {
+    function PageListComponent(pageServices, activatedRoute, router) {
         this.pageServices = pageServices;
         this.activatedRoute = activatedRoute;
-        this.pages = [{}];
+        this.router = router;
+        this.pages = [];
     }
     PageListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.activatedRoute.params.subscribe(function (params) {
             console.log('this website id: ' + params['wid']);
             _this.webId = params['wid'];
+            _this.uid = params['uid'];
         });
         this.pages = this.pageServices.findPageByWebsiteId(this.webId);
         console.log('pages length from component: ' + this.pages.length);
@@ -889,7 +952,7 @@ var PageListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./page-list.component.html */ "./src/app/views/page/page-list/page-list.component.html"),
             styles: [__webpack_require__(/*! ./page-list.component.css */ "./src/app/views/page/page-list/page-list.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_page_service_client__WEBPACK_IMPORTED_MODULE_3__["PageService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_page_service_client__WEBPACK_IMPORTED_MODULE_3__["PageService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], PageListComponent);
     return PageListComponent;
 }());
@@ -932,20 +995,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageNewComponent", function() { return PageNewComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _services_page_service_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/page.service.client */ "./src/app/services/page.service.client.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
 
 
 var PageNewComponent = /** @class */ (function () {
-    function PageNewComponent() {
+    function PageNewComponent(pageservice, route, activatedRoute) {
+        this.pageservice = pageservice;
+        this.route = route;
+        this.activatedRoute = activatedRoute;
+        this.pages = [];
     }
     PageNewComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.activatedRoute.params.subscribe(function (params) {
+            _this.uid = params['uid'];
+            _this.wid = params['wid'];
+            _this.pages = _this.pageservice.findPageByWebsiteId(_this.wid);
+        });
     };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('f'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgForm"])
+    ], PageNewComponent.prototype, "pageForm", void 0);
     PageNewComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-page-new',
             template: __webpack_require__(/*! ./page-new.component.html */ "./src/app/views/page/page-new/page-new.component.html"),
             styles: [__webpack_require__(/*! ./page-new.component.css */ "./src/app/views/page/page-new/page-new.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_page_service_client__WEBPACK_IMPORTED_MODULE_3__["PageService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
     ], PageNewComponent);
     return PageNewComponent;
 }());
@@ -1086,6 +1169,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_user_service_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/user.service.client */ "./src/app/services/user.service.client.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _services_shared_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../services/shared.service */ "./src/app/services/shared.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
 
 
 
@@ -1093,42 +1178,35 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ProfileComponent = /** @class */ (function () {
-    function ProfileComponent(userService, router, sharedService) {
+    function ProfileComponent(userService, router, sharedService, activatedRoute) {
         this.userService = userService;
         this.router = router;
         this.sharedService = sharedService;
-        this.user = {};
+        this.activatedRoute = activatedRoute;
         this.errorMsg = 'Invalid username or password !';
     }
     ProfileComponent.prototype.ngOnInit = function () {
-        this.getUser();
+        var _this = this;
+        this.activatedRoute.params.subscribe(function (params) {
+            _this.userId = params['uid'];
+            console.log('user id: ' + _this.userId);
+        });
+        this.user = this.userService.findUserById(this.userId);
+        this.username = this.user['username'];
     };
-    // ngOnInit() {
-    //     this.route.params.subscribe(params => {
-    //         this.user._id = params['uid'];
-    //         console.log('user id: ' + this.user._id);
-    //     });
-    //     this.userService.findUserById(this.user._id.toString())
-    //         .subscribe(data => {
-    //             console.log('login component');
-    //             console.log(data);
-    //             this.user = data;
-    //         });
-    //
-    // }
     ProfileComponent.prototype.logout = function () {
         var _this = this;
         this.userService.logout()
             .subscribe(function (data) { return _this.router.navigate(['/login']); });
     };
-    ProfileComponent.prototype.getUser = function () {
-        this.user = this.sharedService.user;
-        this.username = this.user['username'];
-        this.firstName = this.user['firstName'];
-        this.lastName = this.user['lastName'];
-        this.email = this.user['email'];
-        this.userId = this.user['_id'];
-    };
+    // getUser() {
+    //     this.user = this.sharedService.user;
+    //     this.username = this.user['username'];
+    //     this.firstName = this.user['firstName'];
+    //     this.lastName = this.user['lastName'];
+    //     this.email = this.user['email'];
+    //     this.userId = this.user['_id'];
+    // }
     ProfileComponent.prototype.updateUser = function () {
         var _this = this;
         var updatedUser = {
@@ -1143,13 +1221,20 @@ var ProfileComponent = /** @class */ (function () {
             _this.user = data;
         }, function (error) { return _this.errorFlag = true; });
     };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('f'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_6__["NgForm"])
+    ], ProfileComponent.prototype, "profileForm", void 0);
     ProfileComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-profile',
             template: __webpack_require__(/*! ./profile.component.html */ "./src/app/views/user/profile/profile.component.html"),
             styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/views/user/profile/profile.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service_client__WEBPACK_IMPORTED_MODULE_3__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _services_shared_service__WEBPACK_IMPORTED_MODULE_5__["SharedService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service_client__WEBPACK_IMPORTED_MODULE_3__["UserService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            _services_shared_service__WEBPACK_IMPORTED_MODULE_5__["SharedService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
     ], ProfileComponent);
     return ProfileComponent;
 }());
@@ -1514,12 +1599,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WidgetChooserComponent", function() { return WidgetChooserComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _models_widget_model_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../models/widget.model.client */ "./src/app/models/widget.model.client.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_widget_service_client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/widget.service.client */ "./src/app/services/widget.service.client.ts");
+
+
+
 
 
 var WidgetChooserComponent = /** @class */ (function () {
-    function WidgetChooserComponent() {
+    function WidgetChooserComponent(activateRoute, widgetService, router) {
+        this.activateRoute = activateRoute;
+        this.widgetService = widgetService;
+        this.router = router;
+        this.widgets = [];
     }
     WidgetChooserComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.activateRoute.params.subscribe(function (params) {
+            console.log('widget paramaters');
+            console.log(params);
+            _this.uid = params['uid'];
+            _this.wid = params['wid'];
+            _this.pid = params['pid'];
+            _this.wgid = params['wgid'];
+        });
+    };
+    WidgetChooserComponent.prototype.findWidgetEdit = function (widget) {
+        this.widgetService.createWidget(this.pid, widget);
+        this.router.navigate(['../' + widget._id], { relativeTo: this.activateRoute });
+    };
+    WidgetChooserComponent.prototype.header = function () {
+        var widget = new _models_widget_model_client__WEBPACK_IMPORTED_MODULE_2__["WidgetHeading"](undefined, undefined, 'HEADING', this.pid, undefined, undefined);
+        this.findWidgetEdit(widget);
+    };
+    WidgetChooserComponent.prototype.image = function () {
+        var widget = new _models_widget_model_client__WEBPACK_IMPORTED_MODULE_2__["WidgetImage"](undefined, undefined, 'IMAGE', this.pid, undefined, undefined);
+        this.findWidgetEdit(widget);
+    };
+    WidgetChooserComponent.prototype.youtube = function () {
+        var widget = new _models_widget_model_client__WEBPACK_IMPORTED_MODULE_2__["WidgetImage"](undefined, undefined, 'YOUTUBE', this.pid, undefined, undefined);
+        this.findWidgetEdit(widget);
     };
     WidgetChooserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1527,7 +1647,7 @@ var WidgetChooserComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./widget-chooser.component.html */ "./src/app/views/widget/widget-chooser/widget-chooser.component.html"),
             styles: [__webpack_require__(/*! ./widget-chooser.component.css */ "./src/app/views/widget/widget-chooser/widget-chooser.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"], _services_widget_service_client__WEBPACK_IMPORTED_MODULE_4__["WidgetService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], WidgetChooserComponent);
     return WidgetChooserComponent;
 }());

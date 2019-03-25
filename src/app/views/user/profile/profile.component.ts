@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import 'rxjs/Rx';
 import {UserService} from '../../../services/user.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SharedService} from '../../../services/shared.service';
 import {User} from '../../../models/user.model.client';
+import {NgForm} from '@angular/forms';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-profile',
@@ -11,11 +13,13 @@ import {User} from '../../../models/user.model.client';
     styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+    @ViewChild('f') profileForm: NgForm;
+
     username: String;
     firstName: String;
     lastName: String;
     email: String;
-    user = User;
+    user: Observable<Object>;
     userId: String;
     errorFlag: boolean;
     errorMsg = 'Invalid username or password !';
@@ -44,14 +48,14 @@ export class ProfileComponent implements OnInit {
             );
     }
 
-    getUser() {
-        this.user = this.sharedService.user;
-        this.username = this.user['username'];
-        this.firstName = this.user['firstName'];
-        this.lastName = this.user['lastName'];
-        this.email = this.user['email'];
-        this.userId = this.user['_id'];
-    }
+    // getUser() {
+    //     this.user = this.sharedService.user;
+    //     this.username = this.user['username'];
+    //     this.firstName = this.user['firstName'];
+    //     this.lastName = this.user['lastName'];
+    //     this.email = this.user['email'];
+    //     this.userId = this.user['_id'];
+    // }
 
     updateUser() {
         const updatedUser = {
