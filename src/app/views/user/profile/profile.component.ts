@@ -1,11 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import 'rxjs/Rx';
-import {UserService} from '../../../services/user.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SharedService} from '../../../services/shared.service';
-import {User} from '../../../models/user.model.client';
 import {NgForm} from '@angular/forms';
-import {Observable} from 'rxjs';
+
+import {User} from '../../../models/user.model.client';
+import {UserService} from '../../../services/user.service.client';
 
 @Component({
     selector: 'app-profile',
@@ -14,39 +12,32 @@ import {Observable} from 'rxjs';
 })
 export class ProfileComponent implements OnInit {
     @ViewChild('f') profileForm: NgForm;
+    username: string;
+    user: User;
+    uid: string;
 
-    username: String;
-    firstName: String;
-    lastName: String;
-    email: String;
-    user: Observable<Object>;
-    userId: String;
-    errorFlag: boolean;
-    errorMsg = 'Invalid username or password !';
-
-    constructor(private userService: UserService,
-                private router: Router,
-                private sharedService: SharedService,
-                private activatedRoute: ActivatedRoute) {
-    }
-
+    constructor(private userService: UserService, private activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
         this.activatedRoute.params.subscribe(
             (params: any) => {
-                this.userId = params['uid'];
-                console.log('user id: ' + this.userId);
+                this.uid = params['uid'];
+                console.log('user id:' + this.uid);
             });
-        this.user = this.userService.findUserById(this.userId);
-        this.username = this.user['username'];
-    }
 
-    logout() {
-        this.userService.logout()
-            .subscribe(
-                (data: any) => this.router.navigate(['/login'])
-            );
+        this.userService.findUserById(this.uid)
+            .subscribe((data: any) => {
+                this.user = data;
+            });
     }
+}
+
+    // logout(); {
+    //     this.userService.logout()
+    //         .subscribe(
+    //             (data: any) => this.router.navigate(['/login'])
+    //         );
+    // }
 
     // getUser() {
     //     this.user = this.sharedService.user;
@@ -57,23 +48,23 @@ export class ProfileComponent implements OnInit {
     //     this.userId = this.user['_id'];
     // }
 
-    updateUser() {
-        const updatedUser = {
-            _id: this.user['_id'],
-            username: this.username,
-            firstName: this.firstName,
-            lastName: this.lastName,
-            email: this.email
+    // updateUser() {
+    //     const updatedUser = {
+    //         _id: this.user['_id'],
+    //         username: this.username,
+    //         firstName: this.firstName,
+    //         lastName: this.lastName,
+    //         email: this.email
+    //
+    //     };
+    //
+    //     this.userService.updateUser(updatedUser)
+    //         .subscribe(
+    //             (data: any) => {
+    //                 this.user = data;
+    //             },
+    //             (error: any) => this.errorFlag = true
+    //         );
+    // }
 
-        };
-
-        this.userService.updateUser(updatedUser)
-            .subscribe(
-                (data: any) => {
-                    this.user = data;
-                },
-                (error: any) => this.errorFlag = true
-            );
-    }
-
-}
+// }

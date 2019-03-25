@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Widget, WidgetYoutube} from '../../../../models/widget.model.client';
 
 @Component({
   selector: 'app-widget-youtube',
@@ -12,10 +13,18 @@ export class WidgetYoutubeComponent implements OnInit {
     flag = false; // setting error flag as false by default
     error: string;
     alert: string;
-    websiteId: string;
-    pageId: string;
+
+    wid: string;
+    pid: string;
+    uid: string;
     widgetId: string;
-    widget = {};
+
+    newWidget: WidgetYoutube;
+    widgetName: string;
+    widgetText: string;
+    widgetUrl: string;
+    widgetWidth: string;
+    widget: Widget;
 
     constructor(private widgetService: WidgetService, private activatedRouter: ActivatedRoute, private router: Router) {
     }
@@ -30,9 +39,10 @@ export class WidgetYoutubeComponent implements OnInit {
         this.activatedRouter.params
             .subscribe(
                 (params: any) => {
-                    this.websiteId = params['websiteId'];
-                    this.pageId = params['pageId'];
-                    this.widgetId = params['widgetId'];
+                    this.wid = params['wid'];
+                    this.pid = params['pid'];
+                    this.widgetId = params['wid'];
+                    this.uid = params['uid'];
                 }
             );
 
@@ -45,17 +55,8 @@ export class WidgetYoutubeComponent implements OnInit {
     }
 
     updateWidget() {
+        this.newWidget = new WidgetYoutube(this.widgetName, undefined, this.widgetId, this.pid, this.widgetWidth, this.widgetUrl);
 
-        // if name field is undefined then set error 'flag' to true making 'error' and 'alert' message visible
-        if (this.widget['name'] === undefined) {
-            this.flag = true;
-        } else {
-            this.widgetService.updateWidget(this.widgetId, this.widget)
-                .subscribe(
-                    (data: any) => this.router.navigate(['/user', 'website', this.websiteId, 'page', this.pageId, 'widget']),
-                    (error: any) => console.log(error)
-                );
-        }
     }
 
     deleteWidget() {
@@ -63,7 +64,7 @@ export class WidgetYoutubeComponent implements OnInit {
         // call delete widget function from widget client service
         this.widgetService.deleteWidget(this.widgetId)
             .subscribe(
-                (data: any) => this.router.navigate(['/user', 'website', this.websiteId, 'page', this.pageId, 'widget']),
+                (data: any) => this.router.navigate(['/user', 'website', this.wid, 'page', this.pid, 'widget']),
                 (error: any) => console.log(error)
             );
 

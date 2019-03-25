@@ -48,10 +48,13 @@ module.exports = function(app) {
 
     function findUserById(req, res){
         var userId = req.params["userId"];
-        var user = users.find(function (user) {
-            return user._id === userId;
-        });
-        res.json(user);
+        for (var i = 0; i < users.length; i++) {
+            if (users[i]._id === userId) {
+                res.status(200).send(users[i]);
+                return;
+            }
+        }
+        res.status(404).send("UserId does not match any users");
     }
 
     function findUserByCredentials(req, res) {

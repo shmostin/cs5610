@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Widget} from '../../../../models/widget.model.client';
+import {Widget, WidgetImage} from '../../../../models/widget.model.client';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SharedService} from '../../../../services/shared.service';
@@ -13,12 +13,18 @@ import {environment} from '../../../../../environments/environment';
 export class WidgetImageComponent implements OnInit {
 
     flag = false;
-    widget = {};
+    widget: Widget;
     userId: string;
     websiteId: string;
     pageId: string;
     widgetId: string;
     baseUrl: string;
+
+    newWidget: WidgetImage;
+    widgetName: string;
+    widgetText: string;
+    widgetUrl: string;
+    widgetWidth: string;
 
     constructor(private activatedRouter: ActivatedRoute,
                 private widgetService: WidgetService,
@@ -32,10 +38,10 @@ export class WidgetImageComponent implements OnInit {
        this.activatedRouter.params
            .subscribe(
                (params: any) => {
-                   this.userId = this.sharedService.user['_id'];
-                   this.websiteId = params['websiteId'];
-                   this.pageId = params['pageId'];
-                   this.widgetId = params['widgetId'];
+                   this.userId = params['uid'];
+                   this.websiteId = params['wid'];
+                   this.pageId = params['pid'];
+                   this.widgetId = params['wid'];
                }
            );
 
@@ -47,19 +53,13 @@ export class WidgetImageComponent implements OnInit {
     }
 
     updateWidget() {
-        this.widgetService.deleteWidget(this.widgetId)
-            .subscribe(
-                (data: any) => this.router.navigate(['/user', 'website', this.websiteId, 'page', this.pageId, 'widget']),
-                (error: any) => console.log(error)
-            );
+        this.newWidget = new WidgetImage(this.widgetName, undefined, 'IMAGE', this.pageId, this.widgetWidth, this.widgetUrl);
+        this.widgetService.updateWidget(this.widgetId, this.newWidget);
+        this.router.navigate(['../'], {relativeTo: this.activatedRouter});
     }
 
     deleteWidget() {
-
-        this.widgetService.deleteWidget(this.widgetId)
-            .subscribe(
-                (data: any) => this.router.navigate(['/user', 'website', this.websiteId, 'page', this.pageId, 'widget']),
-                (error: any) => console.log(error)
-            );
+        this.widgetService.deleteWidget(this.widgetId);
+        this.router.navigate(['../'], {relativeTo: this.activatedRouter});
     }
 }
