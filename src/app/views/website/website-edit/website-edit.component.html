@@ -1,42 +1,50 @@
 <!DOCTYPE html>
+<!--<nav class="navbar cl-blue-navbar fixed-top">-->
+  <!--<div class="container-fluid">-->
+    <!--<a routerLink="/user/{{userId}}" class="navbar-link ">-->
+      <!--<span class="cl-text-white fas fa-chevron-left"></span>-->
+    <!--</a>-->
+    <!--<a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding" href="#">-->
+      <!--Websites-->
+    <!--</a>-->
+    <!--<a [routerLink]="['../../' + 'user/' + userId + '/website' + '/new']" class="navbar-link cl-text-white">-->
+      <!--<span class="cl-text-white fas fa-plus fontawesome_icon cl-icon-padding"></span>-->
+    <!--</a>-->
+  <!--</div>-->
+<!--</nav>-->
 
 <nav class="navbar navbar-fixed-top cl-blue-navbar">
-  <div class="row">
-    <div class="col-xs-4 hidden-xs">
-      <div class="container-fluid">
-        <p class="navbar-text pull-left">
-          <a routerLink="/user/{{user._id}}/" class="navbar-link cl-text-white">
+  <div class="container-fluid">
+          <a routerLink="/user/{{uid}}/website" class="navbar-link cl-text-white">
             <span class="fas fa-chevron-left fontawsome_icon"></span>
           </a>
-        </p>
-        <a class="cl-text-white navbar-brand cl-text-bold" routerLink="/user/{{user._id}}/website">
+
+        <a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding" routerLink="/user/{{uid}}/website">
           Websites
         </a>
-        <a routerLink="/user/{{user._id}}/website/new" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+        <a routerLink="/user/{{uid}}/website/new" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
           <span class="fas fa-plus fontawsome_icon text-white"></span>
         </a>
-      </div>
     </div>
-    <div class="col-xs-8">
-      <div class="container-fluid">
-        <a class="cl-text=white navbar-brand cl-text-bold" href="#">
-          Edit Websites
-        </a>
-        <a (click)="update()" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
-          <span class="fas fa-check fontawsome_icon"></span>
-        </a>
-      </div>
-    </div>
-  </div>
+    <!--<div class="col-xs-8">-->
+      <!--<div class="container-fluid">-->
+        <!--<a class="cl-text=white navbar-brand cl-text-bold" href="#">-->
+          <!--Edit Websites-->
+        <!--</a>-->
+        <!--<a (click)="update()" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">-->
+          <!--<span class="fas fa-check fontawsome_icon"></span>-->
+        <!--</a>-->
+      <!--</div>-->
+    <!--</div>-->
 </nav>
 
 <div class="row container-fluid pt-2">
   <div class="col-md-4 d-none d-md-block border-right">
     <ul *ngFor="let website of websites" class="list-group list-group-flush">
       <li class="list-group-item">
-        <a routerLink="/user/{{uid}}/website/{{website._id}}">
+        <a routerLink="/user/{{uid}}/website/{{wid}}">
           <i class="fas fa-cog fontawsome_icon float-right"></i></a>
-        <a routerLink="/user/{{uid}}/website/{{website._id}}/page">{{website.name}}</a>
+        <a routerLink="/user/{{uid}}/website/{{wid}}/page">{{website.name}}</a>
       </li>
     </ul>
   </div>

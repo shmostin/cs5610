@@ -24,9 +24,10 @@ export class PageNewComponent implements OnInit {
         (params: any) => {
           this.uid = params['uid'];
           this.wid = params['wid'];
-          this.pages = this.pageservice.findPageByWebsiteId(this.wid);
         }
     );
   }
+
+  // TODO: createPage function????
 
 }

@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+// import { QuillEditorModule } from 'ngx-quill-editor';
+import { QuillModule } from 'ngx-quill';
 
 // user components
 import { LoginComponent } from './views/user/login/login.component';
@@ -64,6 +66,7 @@ import {SortableDirective} from './directives/sortable.directive';
     AppRoutingModule,
       FormsModule,
       HttpClientModule,
+      QuillModule
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService, SharedService],
   bootstrap: [AppComponent]

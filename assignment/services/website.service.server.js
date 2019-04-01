@@ -9,8 +9,8 @@ module.exports = function (app) {
 
     const websites =
         [
-            {_id: "123", name: "Facebook", developerId: "456", description: "Lorem"},
-            {_id: "234", name: "Tweeter", developerId: "456", description: "Lorem"},
+            {_id: "001", name: "Facebook", developerId: "123", description: "Lorem"},
+            {_id: "002", name: "Tweeter", developerId: "234", description: "Lorem"},
         ];
 
 
@@ -20,7 +20,7 @@ module.exports = function (app) {
      * @param res the response going back out.
      */
     function createWebsite(req, res) {
-        var userId = req.params.userId;
+        var userId = req.params.uid;
         var website = req.body;
         for (var i = 0; i < websites.length; i++) {
             if (websites[i].developerId === userId && websites[i].name === website.name) {
@@ -36,18 +36,20 @@ module.exports = function (app) {
 
 
     function findAllWebsitesForUser(req, res) {
-        var userId = req.params.userId;
+        var userId = req.params.uid;
         var foundWebsites = [];
         for (let i = 0; i < websites.length; i++) {
+            console.log('userId: ' + userId + ' VS developerId: ' + websites[i].developerId);
             if (websites[i].developerId === userId) {
+                console.log('Found website: ' + websites[i].name);
                 foundWebsites.push(websites[i]);
             }
         }
-        res.json(foundWebsites);
+        return res.json(foundWebsites);
     }
 
     function findWebsiteById(req, res) {
-        var websiteId = req.params.websiteId;
+        var websiteId = req.params.wid;
 
         for (let i = 0; i < websites.length; i++) {
             if (websites[i]._id === websiteId) {
@@ -58,7 +60,7 @@ module.exports = function (app) {
     }
 
     function updateWebsite(req, res) {
-        var websiteId = req.params.websiteId;
+        var websiteId = req.params.wid;
         var updatedWebsite = req.body;
 
         console.log("update website: " + websiteId + " " + updatedWebsite.name + " " + updatedWebsite.description);
@@ -75,7 +77,7 @@ module.exports = function (app) {
     }
 
     function deleteWebsite(req, res) {
-        var websiteId = req.params.websiteId;
+        var websiteId = req.params.wid;
 
         for (let i = 0; i < websites.length; i++) {
             if (websites[i]._id === websiteId) {

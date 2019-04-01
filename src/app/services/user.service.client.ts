@@ -19,7 +19,7 @@ export class UserService {
     constructor(private http: HttpClient, private router: Router, private sharedService: SharedService) {}
 
     baseUrl = environment.baseUrl;
-    APIUrl = '/api/user';
+    APIUrl = '/api/user/';
 
 
     /**
@@ -36,6 +36,7 @@ export class UserService {
      * @param userId the _id we are looking for.
      */
     findUserById(userId) {
+        console.log('findUserById looking for userId: ' + userId);
         return this.http.get(this.baseUrl + this.APIUrl + userId);
         // /api/user/:uid
     }
@@ -64,7 +65,7 @@ export class UserService {
      * @param userId the _id we are looking for.
      * @param user the user information we want to use as the update.
      */
-    updateUser(user) {
+    updateUserById(user) {
         return this.http.put(this.baseUrl + this.APIUrl + '/' + user._id, user);
     }
 

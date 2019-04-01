@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Website} from '../../../models/website.model.client';
 import {NgForm} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {WebsiteService} from '../../../services/website.service.client';
 
 @Component({
@@ -23,11 +23,14 @@ export class WebsiteNewComponent implements OnInit {
 
     ngOnInit() {
 
-        this.activatedRoute.params.subscribe((params: any) => {
+        this.activatedRoute.params.subscribe((params: Params) => {
             this.uid = params['uid'];
             this.wid = params['wid'];
         });
-        this.websites = this.websiteService.findWebsiteByUser(this.uid);
+        this.websiteService.findAllWebsitesForUser(this.uid)
+            .subscribe((data: any) => {
+                this.websites = data;
+            });
     }
 
     create() {

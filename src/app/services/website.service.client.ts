@@ -1,64 +1,55 @@
 import {Injectable} from '@angular/core';
 import {Website} from '../models/website.model.client';
-
+import 'rxjs/Rx';
+import {environment} from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class WebsiteService {
 
-    constructor() {
+    baseUrl = environment.baseUrl;
+
+    constructor(private http: HttpClient) {
     }
 
-    websites: Website[] =
-        [
-            new Website('456', 'Facebook', '123', 'Lorem'),
-            new Website('456', 'Tweeter', '234', 'Lorem'),
-        ];
+    // websites: Website[] =
+    //     [
+    //         new Website('456', 'Facebook', '123', 'Lorem'),
+    //         new Website('456', 'Tweeter', '234', 'Lorem'),
+    //     ];
 
 
     createWebsite(userId, website) {
-        const aWebsite: Website = {
-            _id: website._id,
+        var body = {
             name: website.name,
-            developerId: website.developerId,
-            description: website.description
+            description: website.description,
+            developerId: userId
         };
-        this.websites.push(aWebsite);
+        var url = this.baseUrl + '/api/user/' + userId + '/website';
+        return this.http.post(url, body);
+    }
+
+    findAllWebsitesForUser(userId: String) {
+        return this.http.get(this.baseUrl + '/api/user/' + userId + '/website');
     }
 
 
-    findWebsiteByUser(userId: String) {
-        const websites = [];
-        for (let i = 0; i < this.websites.length; i++) {
-            if (this.websites[i].developerId === userId) {
-                websites.push(this.websites[i]);
-            }
-        }
-        return websites;
-
+    findWebsitesByUser(userId: String) {
+        return this.http.get(this.baseUrl + '/api/user/' + userId + '/website');
     }
 
     findWebsiteById(websiteId: String) {
-        for (let i = 0; i < this.websites.length; i++) {
-            if (this.websites[i]._id === websiteId) {
-                return this.websites[i];
-            }
-        }
+        return this.http.get(this.baseUrl + '/api/website/' + websiteId);
     }
 
     updateWebsite(websiteId, website) {
-        for (let i = 0; i < this.websites.length; i++) {
-            if (this.websites[i]._id === websiteId) {
-                this.websites[i].name = website.name;
-                this.websites[i].description = website.description;
-            }
-        }
+        var url = this.baseUrl + '/api/website/' + websiteId;
+        var body = websiteId;
+        return this.http.put(url, body);
     }
 
     deleteWebsite(websiteId) {
-        for (let i = 0; i < this.websites.length; i++) {
-            if (this.websites[i]._id === websiteId) {
-                this.websites.splice(i, 1);
-            }
-        }
+        var url = this.baseUrl + '/api/website' + websiteId;
+        return this.http.delete(url);
     }
 }

@@ -13,20 +13,22 @@ import {UserService} from '../../../services/user.service.client';
 export class ProfileComponent implements OnInit {
     @ViewChild('f') profileForm: NgForm;
     username: string;
-    user: User;
+    user: any;
     uid: string;
 
     constructor(private userService: UserService, private activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
+        console.log('Initializing Profile page!');
         this.activatedRoute.params.subscribe(
             (params: any) => {
                 this.uid = params['uid'];
-                console.log('user id:' + this.uid);
+                console.log('user id: ' + this.uid);
             });
 
         this.userService.findUserById(this.uid)
             .subscribe((data: any) => {
+                console.log('res data: ' + JSON.stringify(data));
                 this.user = data;
             });
     }

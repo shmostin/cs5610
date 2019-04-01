@@ -7,14 +7,14 @@ module.exports = function(app) {
 
     let pages =
         [
-            {_id: "321", name: "Post 1", websiteId: "456", title: "Lorem"},
-            {_id: "432", name: "Post 2", websiteId: "456", title: "Lorem"},
+            {_id: "321", name: "Post 1", websiteId: "002", title: "Lorem"},
+            {_id: "432", name: "Post 2", websiteId: "001", title: "Lorem"},
             {_id: "543", name: "Post 3", websiteId: "456", title: "Lorem"}
         ];
 
 
    function createPage(req, res) {
-       var websiteId = req.params.websiteId;
+       var websiteId = req.params.wid;
        var newPage = req.body;
 
        for (var i = 0; i < pages.length; i++) {
@@ -31,7 +31,8 @@ module.exports = function(app) {
     }
 
     function findAllPagesForWebsite(req, res) {
-       var websiteId = req.params.websiteId;
+       var websiteId = req.params.wid;
+       console.log('current wid: ' + websiteId);
        var pagesFound = [];
        for (var i = 0; i < pages.length; i++) {
            if (pages[i].websiteId === websiteId) {

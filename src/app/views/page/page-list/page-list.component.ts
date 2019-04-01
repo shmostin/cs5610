@@ -10,8 +10,8 @@ import {Page} from '../../../models/page.model.client';
 })
 export class PageListComponent implements OnInit {
 
-    uid: String;
-    webId: String;
+    uid: string;
+    webId: string;
     pages: Page[] = [];
 
 
@@ -25,7 +25,10 @@ export class PageListComponent implements OnInit {
                 this.uid = params['uid'];
             }
         );
-        this.pages = this.pageServices.findPageByWebsiteId(this.webId);
+        this.pageServices.findAllPagesForWebsite(this.webId)
+            .subscribe((data: any) => {
+                this.pages = data;
+            });
         console.log('pages length from component: ' + this.pages.length);
     }
 

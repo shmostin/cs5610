@@ -22,12 +22,17 @@ module.exports = function(app) {
     function createUser(req, res) {
         var newUser = req.body;
         console.log("at create user");
-        //userModel.createUser(user).then(function(user) {
-        // res.sendStatus(200).send(user)
-        // }, function(error) {
-        // console.log("create user error: " + error");
-        // res.status(400);
-        // });
+        userModel
+            .createUser(newUser)
+            .then(
+                function(user) {
+                    console.log('User Created!');
+                    res.sendStatus(200).send(user)
+        },
+                function(error) {
+        console.log("create user error: " + error);
+        res.status(400).send(error);
+        });
 
         for (var i = 0; i < users.length; i++) {
             if (users[i].username === user["username"]) {
@@ -47,7 +52,8 @@ module.exports = function(app) {
     }
 
     function findUserById(req, res){
-        var userId = req.params["userId"];
+        var userId = req.params['uid'];
+        console.log("userId that was found in the req params: " + userId);
         for (var i = 0; i < users.length; i++) {
             if (users[i]._id === userId) {
                 res.status(200).send(users[i]);
@@ -97,7 +103,7 @@ module.exports = function(app) {
     }
 
     function updateUserById(req, res){
-        var userId = req.params['userId'];
+        var userId = req.params['uid'];
         var user = req.body;
 
         console.log(req.body);

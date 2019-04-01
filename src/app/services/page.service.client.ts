@@ -1,65 +1,76 @@
 import {Injectable} from '@angular/core';
 import {Page} from '../models/page.model.client';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class PageService {
 
-    constructor() {
+    constructor(private http: HttpClient) {
     }
 
-    pages: Page[] =
-        [
-            new Page('321', 'Post 1', '456', 'Lorem'),
-            new Page('432', 'Post 2', '456', 'Lorem'),
-            new Page('543', 'Post 3', '456', 'Lorem'),
-        ];
+    base_url = environment.baseUrl;
 
 
-    createPage(websiteId, page) {
-        const newPage = {
-            _id: (new Date()).getTime() + ' ',
-            name: page.name,
-            websiteId: page.websiteId,
-            title: page.title
-        };
+    // pages: Page[] =
+    //     [
+    //         new Page('321', 'Post 1', '456', 'Lorem'),
+    //         new Page('432', 'Post 2', '456', 'Lorem'),
+    //         new Page('543', 'Post 3', '456', 'Lorem'),
+    //     ];
 
-        this.pages.push(newPage);
+
+    createPage(websiteId: string, page: Page) {
+        // const newPage = {
+        //     _id: (new Date()).getTime() + ' ',
+        //     name: page.name,
+        //     websiteId: page.websiteId,
+        //     title: page.title
+        // };
+        //
+        // this.pages.push(newPage);
+        return this.http.post(this.base_url + '/api/website/' + websiteId + '/page', page);
     }
 
-    findPageByWebsiteId(websiteId) {
-        const listOfPages = [];
-        for (let i = 0; i < this.pages.length; i++) {
-            if (this.pages[i].websiteId === websiteId) {
-                listOfPages.push(this.pages[i]);
-            }
-        }
-        return listOfPages;
+    findAllPagesForWebsite(websiteId: string) {
+        // const listOfPages = [];
+        // for (let i = 0; i < this.pages.length; i++) {
+        //     if (this.pages[i].websiteId === websiteId) {
+        //         listOfPages.push(this.pages[i]);
+        //     }
+        // }
+        // return listOfPages;
+        console.log('calling page.service.server from page.service.client');
+        return this.http.get(this.base_url + '/api/website/' + websiteId + '/page');
     }
 
 
-    findPageById(pageId) {
-        for (let i = 0; i < this.pages.length; i++) {
-            if (this.pages[i]._id === pageId) {
-                return this.pages[i];
-            }
-        }
+    findPageById(pageId: string) {
+        // for (let i = 0; i < this.pages.length; i++) {
+        //     if (this.pages[i]._id === pageId) {
+        //         return this.pages[i];
+        //     }
+        // }
+        return this.http.get(this.base_url + '/api/page/' + pageId);
     }
 
-    updatePage(pageId, page) {
-        for (let i = 0; i < this.pages.length; i++) {
-            if (this.pages[i]._id === pageId) {
-               this.pages[i].name = page.name;
-               this.pages[i].title = page.title;
-            }
-        }
+    updatePage(pageId: string, page: Page) {
+        // for (let i = 0; i < this.pages.length; i++) {
+        //     if (this.pages[i]._id === pageId) {
+        //        this.pages[i].name = page.name;
+        //        this.pages[i].title = page.title;
+        //     }
+        // }
+        return this.http.put(this.base_url + '/api/page/' + pageId, Page);
     }
 
    deletePage(pageId) {
-        for (let i = 0; i < this.pages.length; i++) {
-            if (this.pages[i]._id === pageId) {
-                const cut = +i;
-                this.pages.splice(cut, 1);
-            }
-        }
+        // for (let i = 0; i < this.pages.length; i++) {
+        //     if (this.pages[i]._id === pageId) {
+        //         const cut = +i;
+        //         this.pages.splice(cut, 1);
+        //     }
+        // }
+       return this.http.delete(this.base_url + '/api/page/' + pageId);
    }
 }
