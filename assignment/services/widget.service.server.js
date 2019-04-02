@@ -1,3 +1,4 @@
+
 module.exports = function (app, models) {
 
     var widgets =
@@ -115,8 +116,8 @@ module.exports = function (app, models) {
             }
         ];
 
-    // var multer = require('multer'); //npm multer --save
-    // var upload = multer({dest: _dirname + '/../../src/uploads/uploads'});
+    var multer = require('multer'); //npm multer --save
+    var upload = multer({dest: __dirname + '/../../src/uploads/uploads'});
 
     app.post("/api/page/:pid/widget", createWidget);
     app.get("/api/page/:pid/widget", findAllWidgetsForPage);
@@ -126,25 +127,45 @@ module.exports = function (app, models) {
 
     app.put("/api/page/:pageId/widget", reorderWidgets);
 
-    // app.post("/api/upload", upload.single('myFile'), uploadImage);
+    app.post("/api/upload", upload.single('myFile'), uploadImage);
 
 
-    // function uploadImage(req, res) {
-    //     var userId = req.body.userId;
-    //     var websiteId = req.body.websiteId;
-    //     var pageId = req.body.pageId;
-    //
-    //
-    //     var widgetId = req.body.widgetId;
-    //     var width = req.body.width;
-    //     var myFile = req.file;
-    //
-    //     if (myFile == null) {
-    //         //res.redirect("https://yourheroku.herokuapp.com/user/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
-    //         res.redirect("http://localhost:3200/user/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
-    //         return;
-    //     }
-    // }
+    function uploadImage(req, res) {
+        var uid = req.body.userId;
+        var wid = req.body.websiteId;
+        var pid = req.body.pageId;
+
+
+        var widgetId = req.body.widgetId;
+        var width = req.body.width;
+        var myFile = req.file;
+
+        var originalName = myFile.originalName;
+        var fileName = myFile.filename;
+        var path = myFile.path;
+        var destination = myFile.destination;
+        var size = myFile.size;
+        var mimetype = myFile.mimetype;
+
+        // widget = findWidgetById(widgetId);
+        // widget.url = '/uploads/' + fileName;
+
+        if (myFile == null) {
+        //     //res.redirect("https://yourheroku.herokuapp.com/user/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
+            res.redirect("http://localhost:3200/user/website/" + wid + "/page/" + pid + "/widget/" + widgetId);
+            return;
+        }
+
+        var widget = {url: "assests/uploads/" + fileName};
+
+        var widget;
+        for(var i = 0; i < widgets.length; i++) {
+            if (widgets[i]._id === widgetId) {
+                widget = widgets[i];
+            }
+        }
+        widget.url = 'uploads/' + fileName;
+    }
 
 
         function createWidget(req, res) {
@@ -233,6 +254,9 @@ module.exports = function (app, models) {
             res.status(404).send("Did not find widget to delete");
         }
 
+        function array_swap(arr, startIndex, endIndex) {
+            arr.splice(endIndex, 0, arr.splice(startIndex, 1));
+        };
 
         function reorderWidgets(req, res) {
 
