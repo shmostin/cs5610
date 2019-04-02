@@ -52,7 +52,7 @@ export class WidgetHeaderComponent implements OnInit {
 
     updateWidget() {
         this.newWidget = new WidgetHeading(this.widgetName, undefined, 'HEADING', this.pid, this.widgetSize, this.widgetText);
-        this.widgetService.createWidget(this.pid, this.newWidget);
+        this.widgetService.updateWidget(this.widgetId, this.newWidget);
     }
 
     deleteWidget() {

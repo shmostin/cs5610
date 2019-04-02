@@ -51,7 +51,7 @@ module.exports = function (app, models) {
                 name: 'html name',
                 pageId: "321",
                 size: "",
-                text: "<p>Lorem ipsum</p>",
+                text: "Lorem ipsum",
                 url: "",
                 width: "",
                 height: 100,

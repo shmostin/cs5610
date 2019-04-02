@@ -27,11 +27,12 @@ export class WidgetListComponent implements OnInit {
         this.activeroute.params
             .subscribe(
                 (params: any) => {
-                    this.wid = params['websiteId'];
-                    this.pid = params['pageId'];
+                    this.wid = params['wid'];
+                    this.pid = params['pid'];
+                    this.uid = params['uid'];
                 }
             );
-
+            console.log('ids found: ' + this.wid + ' ' +  this.pid + ' ' + this.uid);
         // fetching list of widgets using widget service
         this.widgetservice.findwidgetsByPageId(this.pid)
             .subscribe(
