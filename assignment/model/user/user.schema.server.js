@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+// TODO: add current date to the user schema?
 var userSchema = new mongoose.Schema({
     username: String,
     password: String,
@@ -6,8 +7,7 @@ var userSchema = new mongoose.Schema({
     lastname: String,
     email: String,
     phone: String,
-    websites: String,
-    // Define rest of schema here
-},{collection: 'Users'});
+    websites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Website'}],
+}, {collection: 'Users'});
 
 module.exports = userSchema;
