@@ -8,6 +8,7 @@ var userSchema = new mongoose.Schema({
     email: String,
     phone: String,
     websites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Website'}],
+    dateCreate: {type: Date, default: Date.now()}
 }, {collection: 'Users'});
 
 module.exports = userSchema;
