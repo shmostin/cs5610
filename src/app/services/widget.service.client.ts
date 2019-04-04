@@ -70,6 +70,7 @@ export class WidgetService {
     // }
 
     updateWidget(widgetId, widget) {
+        console.log('Client widget service: updateWidget()');
         return this.http.put(this.baseUrl + '/api/widget/' + widgetId, widget);
     }
     // deleteWidget(widgetId) {

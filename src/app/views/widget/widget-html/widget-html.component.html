@@ -1,0 +1,41 @@
+<nav class="navbar navbar-light bg-light pb-2">
+
+    <a (click)="backOnePage()">
+    <span>
+      <i class="fas fa-chevron-left dark"></i>
+    </span>
+    </a>
+
+    <span class="navbar-brand font-weight-bold mr-auto ml-3 dark">Widget Edit</span>
+
+    <a class="ml-auto" (click)="updateWidget()" >
+    <span>
+      <i class="fas fa-check dark"></i>
+    </span>
+    </a>
+</nav>
+
+
+<div class="container-fluid pt-2">
+
+    <form #f="ngForm">
+        <div class="form-group">
+            <label for="headerName" class="font-weight-bold">Name</label>
+            <input id="headerName"
+            name="newHeaderName"
+            type="text"
+            class="form-control"
+            palceholder="Your Widget's Name"
+            [ngModel]="printWidgetName()"
+            #newHeaderName="ngModel">
+        </div>
+
+        <div class="form-group">
+            <quill-editor [ngModel]="widget.text" name="newWidgetText"></quill-editor>
+        </div>
+
+        <div class="form-group">
+            <a class="btn btn-danger btn-block" (click)="deleteWidget()" role="button">Delete</a>
+        </div>
+    </form>
+</div>
