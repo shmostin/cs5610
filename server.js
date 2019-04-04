@@ -5,7 +5,10 @@ const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 const app = express();
+var mongoose = require('mongoose');
+var db = mongoose.createConnection('mongodb://localhost:27017/webdev',{useNewUrlParser:true});
 
+// Body parsing
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {WidgetService} from '../../../../services/widget.service.client';
-import {Widget, WidgetHeading} from '../../../../models/widget.model.client';
+import {Widget} from '../../../../models/widget.model.client';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-widget-header',
@@ -9,6 +10,7 @@ import {Widget, WidgetHeading} from '../../../../models/widget.model.client';
   styleUrls: ['./widget-header.component.css']
 })
 export class WidgetHeaderComponent implements OnInit {
+    @ViewChild('f') widgetForm: NgForm;
     flag = false; // setting error flag as false by default
     error: string;
     alert: string;
@@ -18,7 +20,7 @@ export class WidgetHeaderComponent implements OnInit {
     widgetId: string;
     widget: Widget;
 
-    newWidget: WidgetHeading;
+    newWidget: Widget;
     widgetName: string;
     widgetSize: number;
     widgetText: string;
@@ -50,9 +52,26 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
 
+  backOnePage() {
+      this.router.navigate(['user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']);
+  }
+
+
     updateWidget() {
-        this.newWidget = new WidgetHeading(this.widgetName, undefined, 'HEADING', this.pid, this.widgetSize, this.widgetText);
-        this.widgetService.updateWidget(this.widgetId, this.newWidget);
+        console.log('updateWidget called from the client');
+        const text = this.widgetForm.value.widgetText;
+        const size = this.widgetForm.value.widgetSize;
+        this.widget.text = text;
+        this.widget.size = this.widget.size + size;
+
+        // this.newWidget = new WidgetHeading(this.widgetName, undefined, 'HEADING', this.pid, this.widgetSize, this.widgetText);
+        this.widgetService.updateWidget(this.widgetId, this.newWidget)
+            .subscribe(
+                (widget) => {
+                    console.log(widget);
+                    this.backOnePage();
+                }
+            );
     }
 
     deleteWidget() {
@@ -60,9 +79,15 @@ export class WidgetHeaderComponent implements OnInit {
         // call delete widget function from widget client service
         this.widgetService.deleteWidget(this.widgetId)
             .subscribe(
-                (data: any) => this.router.navigate(['/user', 'website', this.wid, 'page', this.pid, 'widget']),
-                (error: any) => console.log(error)
+                () => this.backOnePage()
             );
+    }
 
+    getWidgetText() {
+        return this.widget.text;
+    }
+
+    getWidgetSize() {
+        return this.widget.size.toString();
     }
 }

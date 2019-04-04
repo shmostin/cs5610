@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Widget, WidgetYoutube} from '../../../../models/widget.model.client';
+import {Widget} from '../../../../models/widget.model.client';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-widget-youtube',
@@ -10,7 +11,8 @@ import {Widget, WidgetYoutube} from '../../../../models/widget.model.client';
 })
 export class WidgetYoutubeComponent implements OnInit {
 
-    flag = false; // setting error flag as false by default
+    @ViewChild('f') widgetForm: NgForm;
+    flag = false;
     error: string;
     alert: string;
 
@@ -19,7 +21,7 @@ export class WidgetYoutubeComponent implements OnInit {
     uid: string;
     widgetId: string;
 
-    newWidget: WidgetYoutube;
+    newWidget: Widget;
     widgetName: string;
     widgetText: string;
     widgetUrl: string;
@@ -54,9 +56,22 @@ export class WidgetYoutubeComponent implements OnInit {
             );
     }
 
-    updateWidget() {
-        this.newWidget = new WidgetYoutube(this.widgetName, undefined, this.widgetId, this.pid, this.widgetWidth, this.widgetUrl);
+    backOnePage() {
+        this.router.navigate(['user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']);
+    }
 
+
+    updateWidget() {
+        const text = this.widgetForm.value.widgetName;
+        const url = this.widgetForm.value.widgetUrl;
+        const width = this.widgetForm.value.widgetWidth;
+        this.widget.text = text;
+        this.widget.url = url;
+        this.widget.width = width;
+        this.widgetService.updateWidget(this.widgetId, this.widget)
+            .subscribe(
+                () => this.backOnePage()
+            );
     }
 
     deleteWidget() {
@@ -64,9 +79,19 @@ export class WidgetYoutubeComponent implements OnInit {
         // call delete widget function from widget client service
         this.widgetService.deleteWidget(this.widgetId)
             .subscribe(
-                (data: any) => this.router.navigate(['/user', 'website', this.wid, 'page', this.pid, 'widget']),
-                (error: any) => console.log(error)
+                () => this.backOnePage()
             );
-
     }
+
+    getWidgetText() {
+        return this.widget.text;
+    }
+
+    getWidgetWidth() {
+        return this.widget.width;
+    }
+
+    getWidgetUrl() {
+        return this.widget.url
+;    }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Widget, WidgetHeading, WidgetImage} from '../../../models/widget.model.client';
+import {Widget} from '../../../models/widget.model.client';
 import {ActivatedRoute, Router} from '@angular/router';
 import {WidgetService} from '../../../services/widget.service.client';
 
@@ -35,24 +35,43 @@ export class WidgetChooserComponent implements OnInit {
   }
 
 
-  findWidgetEdit(widget: Widget) {
-    this.widgetService.createWidget(this.pid, widget);
-    this.router.navigate(['../' + widget._id], {relativeTo: this.activateRoute});
+  backOnePage() {
+      this.router.navigate(['user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']);
   }
 
 
-  header() {
-    const widget = new WidgetHeading(undefined, undefined, 'HEADING', this.pid, undefined, undefined);
+  findWidgetEdit(widget) {
+    this.widgetService.createWidget(this.pid, widget)
+        .subscribe(
+            (widget) => {
+                this.router.navigate(['user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']);
+            }
+        );
+  }
+
+
+  toHeader() {
+    const widget = new Widget('HEADING', this.pid, 0, '', '', '', '');
     this.findWidgetEdit(widget);
   }
 
-  image() {
-      const widget = new WidgetImage(undefined, undefined, 'IMAGE', this.pid, undefined, undefined);
+  toImage() {
+      const widget = new Widget('IMAGE', this.pid, 0, '', '', '', '');
       this.findWidgetEdit(widget);
   }
 
-  youtube() {
-      const widget = new WidgetImage(undefined, undefined, 'YOUTUBE', this.pid, undefined, undefined);
+  toYoutube() {
+      const widget = new Widget('YOUTUBE', this.pid, 0, '', '', '', '');
+      this.findWidgetEdit(widget);
+  }
+
+  toHtml() {
+      const widget = new Widget('HTML', this.pid, 0, '', '', '', '');
+      this.findWidgetEdit(widget);
+  }
+
+  toText() {
+      const widget = new Widget('TEXT', this.pid, 0, '', '', '', '');
       this.findWidgetEdit(widget);
   }
 }

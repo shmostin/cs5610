@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+<!--routerLink="user/{{uid}}/website/{{wid}}/page/{{pid}}/widget"-->
 
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid row">
 
     <div class="navbar-text pull-left">
-      <a routerLink="user/{{uid}}/website/{{wid}}/page/{{pid}}/widget" class="cl-text-black cl-icon-padding">
+      <a  (click)="backOnePage()" class="cl-text-black cl-icon-padding">
                 <span class="fas fa-chevron-left fontawsome_icon">
                 </span>
       </a>
@@ -25,10 +26,10 @@
       <a href="#">Label</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="#">HTML</a>
+      <a (click)="toHtml()">HTML</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="#">Text Input</a>
+      <a (click)="toText()">Text Input</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
       <a href="#">Link</a>
@@ -37,10 +38,10 @@
       <a href="#">Button</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="widget-image.html">Image</a>
+      <a (click)="toImage()">Image</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="widget-youtube.html">Youtube</a>
+      <a (click)="toYoutube()">Youtube</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
       <a href="#">Data Table</a>

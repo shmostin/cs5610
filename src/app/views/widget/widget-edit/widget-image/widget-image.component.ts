@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {Widget, WidgetImage} from '../../../../models/widget.model.client';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Widget} from '../../../../models/widget.model.client';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SharedService} from '../../../../services/shared.service';
 import {environment} from '../../../../../environments/environment';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-widget-image',
@@ -11,16 +12,16 @@ import {environment} from '../../../../../environments/environment';
   styleUrls: ['./widget-image.component.css']
 })
 export class WidgetImageComponent implements OnInit {
-
+    @ViewChild('f') widgetForm: NgForm;
     flag = false;
     widget: Widget;
-    userId: string;
-    websiteId: string;
-    pageId: string;
+    uid: string;
+    wid: string;
+    pid: string;
     widgetId: string;
     baseUrl: string;
 
-    newWidget: WidgetImage;
+    newWidget: Widget;
     widgetName: string;
     widgetText: string;
     widgetUrl: string;
@@ -38,9 +39,9 @@ export class WidgetImageComponent implements OnInit {
        this.activatedRouter.params
            .subscribe(
                (params: any) => {
-                   this.userId = params['uid'];
-                   this.websiteId = params['wid'];
-                   this.pageId = params['pid'];
+                   this.uid = params['uid'];
+                   this.wid = params['wid'];
+                   this.pid = params['pid'];
                    this.widgetId = params['wid'];
                }
            );
@@ -52,14 +53,45 @@ export class WidgetImageComponent implements OnInit {
            );
     }
 
+    backOnePage() {
+        this.router.navigate(['user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']);
+    }
+
     updateWidget() {
-        this.newWidget = new WidgetImage(this.widgetName, undefined, 'IMAGE', this.pageId, this.widgetWidth, this.widgetUrl);
-        this.widgetService.updateWidget(this.widgetId, this.newWidget);
-        this.router.navigate(['../'], {relativeTo: this.activatedRouter});
+        console.log('updateWidget called from the client');
+        const text = this.widgetForm.value.widgetText;
+        const url = this.widgetForm.value.url;
+        const width = this.widgetForm.value.width;
+        this.widget.text = text;
+        this.widget.url = url;
+        this.widget.width = width;
+
+        // this.newWidget = new WidgetImage(this.widgetName, undefined, 'IMAGE', this.pageId, this.widgetWidth, this.widgetUrl);
+        // this.router.navigate(['../'], {relativeTo: this.activatedRouter});
+
+        this.widgetService.updateWidget(this.widgetId, this.newWidget)
+            .subscribe(
+                () => this.backOnePage()
+            );
     }
 
     deleteWidget() {
-        this.widgetService.deleteWidget(this.widgetId);
-        this.router.navigate(['../'], {relativeTo: this.activatedRouter});
+        this.widgetService.deleteWidget(this.widgetId)
+            .subscribe(
+                () => this.backOnePage()
+            );
+        // this.router.navigate(['../'], {relativeTo: this.activatedRouter});
+    }
+
+    getWidgetText() {
+        return this.widget.text;
+    }
+
+    getWidgetWidth() {
+        return this.widget.width;
+    }
+
+    getWidgetUrl() {
+        return this.widget.url;
     }
 }
