@@ -27,6 +27,7 @@ function updatePage(pageId, page) {
     return pageModel.findByIdAndUpdate(pageIde, page);
 }
 
+//TODO: findByIdAndRemove???
 function deletePage(pageId) {
     return pageModel.findByIdAndRemove(pageId);
 }
