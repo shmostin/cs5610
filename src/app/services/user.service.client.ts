@@ -54,9 +54,10 @@ export class UserService {
      * @param username the username we are looking for.
      * @param password the password we are looking for.
      */
+    // TODO: changed the url here if that causes problems look here
     findUserByCredentials(username, password) {
         console.log('made it to the client side findUserByCredential http request');
-        return this.http.get(this.baseUrl + this.APIUrl + '?username=' + username + '&password=' + password);
+        return this.http.get(this.baseUrl + '/api/user?username=' + username + '&password=' + password);
     }
 
 
@@ -66,7 +67,7 @@ export class UserService {
      * @param user the user information we want to use as the update.
      */
     updateUserById(user) {
-        return this.http.put(this.baseUrl + this.APIUrl + '/' + user._id, user);
+        return this.http.put(this.baseUrl + this.APIUrl + user._id, user);
     }
 
     /**
@@ -74,7 +75,7 @@ export class UserService {
      * @param userId the _id we are using to find the user.
      */
     deleteUser(userId) {
-        return this.http.delete(this.baseUrl + this.APIUrl + '/' + userId);
+        return this.http.delete(this.baseUrl + this.APIUrl + userId);
     }
 
     register(username: String, password: String) {
@@ -85,7 +86,7 @@ export class UserService {
             password : password
         };
 
-        return this.http.post(this.baseUrl + '/api/user', body);
+        return this.http.post(this.baseUrl + '/api/register', body);
     }
 
 

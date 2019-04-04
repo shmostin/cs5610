@@ -37,7 +37,8 @@ export class LoginComponent implements OnInit {
         console.log('password: ' + this.password);
 
         this.userService.findUserByCredentials(this.username, this.password)
-            .subscribe((user: User) => {
+            .subscribe(
+                (user: User) => {
                 if (user) {
                     console.log('made it to the login component.ts');
                     console.log('The subscribe res from the server: ' + user);

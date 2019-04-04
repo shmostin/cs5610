@@ -1,11 +1,58 @@
 <!DOCTYPE html>
 
 <div class="container">
-  <h1 class="text-center">Register</h1>
-  <input type="text" class="form-control" placeholder="Username"/>
-  <input type="password" class="form-control" placeholder="Password"/>
-  <input type="password" class="form-control" placeholder="Verify Password">
-  <a class="btn btn-primary btn-block" routerLink="/user/alice">Register</a>
-  <a class="btn btn-danger btn-block" routerLink="/login">Cancel</a>
+    <h1 class="text-center">Register</h1>
 
+    <div *ngIf="userErrorFlag" class="alert alert-danger">
+        {{userErrorMsg}}
+    </div>
+
+    <form (ngSubmit)="register()" #f="ngForm">
+        <div class="form-group">
+            <input type="text"
+                   class="form-control"
+                   placeholder="username"
+                   name="username"
+                   id="username"
+                   ngModel
+                   required
+                   #username="ngModel"/>
+        </div>
+
+        <div class="form-group">
+            <input type="password"
+                   class="form-control"
+                   placeholder="Password"
+                   name="password"
+                   id="password"
+                   ngModel
+                   required
+                   #password="ngModel"/>
+        </div>
+
+        <div class="form-group">
+            <input type="password"
+                   class="form-control"
+                   placeholder="Verify Password"
+                   id="v_password"
+                   name="v_password"
+                   ngModel
+                   required
+                   #v_password="ngModel"/>
+        </div>
+
+        <div *ngIf="pwdErrorFlaf" class="alert alert-danger">
+            {{pwdErrorMsg}}
+        </div>
+
+        <button class="btn btn-primary btn-block"
+                type="submit"
+                [disabled]="!f.valid">Register
+        </button>
+
+        <button class="btn btn-primary btn-block"
+                type="submit"
+                routerLink="/login">Cancel
+        </button>
+    </form>
 </div>

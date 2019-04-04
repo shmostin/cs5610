@@ -345,6 +345,32 @@ var Page = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/models/user.model.client.ts":
+/*!*********************************************!*\
+  !*** ./src/app/models/user.model.client.ts ***!
+  \*********************************************/
+/*! exports provided: User */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "User", function() { return User; });
+var User = /** @class */ (function () {
+    function User(_id, username, password, firstName, lastName, email) {
+        this._id = _id;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+    return User;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/models/website.model.client.ts":
 /*!************************************************!*\
   !*** ./src/app/models/website.model.client.ts ***!
@@ -650,9 +676,10 @@ var UserService = /** @class */ (function () {
      * @param username the username we are looking for.
      * @param password the password we are looking for.
      */
+    // TODO: changed the url here if that causes problems look here
     UserService.prototype.findUserByCredentials = function (username, password) {
         console.log('made it to the client side findUserByCredential http request');
-        return this.http.get(this.baseUrl + this.APIUrl + '?username=' + username + '&password=' + password);
+        return this.http.get(this.baseUrl + '/api/user?username=' + username + '&password=' + password);
     };
     /**
      * update a user in the array of users.
@@ -660,14 +687,14 @@ var UserService = /** @class */ (function () {
      * @param user the user information we want to use as the update.
      */
     UserService.prototype.updateUserById = function (user) {
-        return this.http.put(this.baseUrl + this.APIUrl + '/' + user._id, user);
+        return this.http.put(this.baseUrl + this.APIUrl + user._id, user);
     };
     /**
      * deletes a user from the array of users.
      * @param userId the _id we are using to find the user.
      */
     UserService.prototype.deleteUser = function (userId) {
-        return this.http.delete(this.baseUrl + this.APIUrl + '/' + userId);
+        return this.http.delete(this.baseUrl + this.APIUrl + userId);
     };
     UserService.prototype.register = function (username, password) {
         // this.options.withCredentials = true;
@@ -675,7 +702,7 @@ var UserService = /** @class */ (function () {
             username: username,
             password: password
         };
-        return this.http.post(this.baseUrl + '/api/user', body);
+        return this.http.post(this.baseUrl + '/api/register', body);
     };
     UserService.prototype.logout = function () {
         // this.options.withCredentials = true;
@@ -1319,7 +1346,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n\n<div class=\"container\">\n  <h1 class=\"text-center\">Register</h1>\n  <input type=\"text\" class=\"form-control\" placeholder=\"Username\"/>\n  <input type=\"password\" class=\"form-control\" placeholder=\"Password\"/>\n  <input type=\"password\" class=\"form-control\" placeholder=\"Verify Password\">\n  <a class=\"btn btn-primary btn-block\" routerLink=\"/user/alice\">Register</a>\n  <a class=\"btn btn-danger btn-block\" routerLink=\"/login\">Cancel</a>\n\n</div>\n"
+module.exports = "<!DOCTYPE html>\n\n<div class=\"container\">\n    <h1 class=\"text-center\">Register</h1>\n\n    <div *ngIf=\"userErrorFlag\" class=\"alert alert-danger\">\n        {{userErrorMsg}}\n    </div>\n\n    <form (ngSubmit)=\"register()\" #f=\"ngForm\">\n        <div class=\"form-group\">\n            <input type=\"text\"\n                   class=\"form-control\"\n                   placeholder=\"username\"\n                   name=\"username\"\n                   id=\"username\"\n                   ngModel\n                   required\n                   #username=\"ngModel\"/>\n        </div>\n\n        <div class=\"form-group\">\n            <input type=\"password\"\n                   class=\"form-control\"\n                   placeholder=\"Password\"\n                   name=\"password\"\n                   id=\"password\"\n                   ngModel\n                   required\n                   #password=\"ngModel\"/>\n        </div>\n\n        <div class=\"form-group\">\n            <input type=\"password\"\n                   class=\"form-control\"\n                   placeholder=\"Verify Password\"\n                   id=\"v_password\"\n                   name=\"v_password\"\n                   ngModel\n                   required\n                   #v_password=\"ngModel\"/>\n        </div>\n\n        <div *ngIf=\"pwdErrorFlaf\" class=\"alert alert-danger\">\n            {{pwdErrorMsg}}\n        </div>\n\n        <button class=\"btn btn-primary btn-block\"\n                type=\"submit\"\n                [disabled]=\"!f.valid\">Register\n        </button>\n\n        <button class=\"btn btn-primary btn-block\"\n                type=\"submit\"\n                routerLink=\"/login\">Cancel\n        </button>\n    </form>\n</div>\n"
 
 /***/ }),
 
@@ -1338,6 +1365,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _services_user_service_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/user.service.client */ "./src/app/services/user.service.client.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _models_user_model_client__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../models/user.model.client */ "./src/app/models/user.model.client.ts");
+
 
 
 
@@ -1348,26 +1377,36 @@ var RegisterComponent = /** @class */ (function () {
         this._userService = _userService;
         this.router = router;
     }
-    RegisterComponent.prototype.ngOnInit = function () {
-    };
     RegisterComponent.prototype.register = function () {
         var _this = this;
         this.username = this.registerForm.value.username;
         this.password = this.registerForm.value.password;
         this.vpassword = this.registerForm.value.vpassword;
+        this.userErrorFlag = false;
+        this.pwdErrorFlaf = false;
         // call user service only if passwords match else show the same error
         if (this.password === this.vpassword) {
-            this._userService.register(this.username, this.password)
-                .subscribe(function (data) {
-                _this.router.navigate(['/profile']);
-            }, function (error) {
-                console.log(error);
-                _this.error = error._body;
+            this._userService.findUserByUsername(this.username)
+                .subscribe(function (user) {
+                if (user != null) {
+                    _this.userErrorFlag = true;
+                }
+                else {
+                    return _this._userService.createUser(_this.user)
+                        .subscribe(function (newUser) {
+                        _this.router.navigate(['/user', newUser._id]);
+                    });
+                }
             });
         }
         else {
-            this.error = 'Passwords do not match!';
+            this.pwdErrorFlaf = true;
         }
+    };
+    RegisterComponent.prototype.ngOnInit = function () {
+        this.pwdErrorMsg = 'Those passwords do not match!';
+        this.userErrorMsg = 'That username is already in use, please select another';
+        this.user = new _models_user_model_client__WEBPACK_IMPORTED_MODULE_5__["User"](undefined, undefined, undefined, undefined, undefined, undefined);
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('f'),
