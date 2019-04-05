@@ -7,7 +7,7 @@ var userModel = require('../user/user.model.server');
 
 websiteModel.createWebsite = createWebsite;
 // websiteModel.findWebsiteById = findWebsiteById;
-websiteModel.findAllWebsiteForUser = findAllWebsiteForUser;
+websiteModel.findAllWebsitesForUser = findAllWebsitesForUser;
 // websiteModel.updateWebsite = updateWebsite;
 // websiteModel.deleteWebsite = deleteWebsite;
 
@@ -15,6 +15,7 @@ module.exports = websiteModel;
 
 function createWebsite(userId, website) {
     console.log('mongoose model createWebsite called');
+    console.log('website name: ' + website.toString());
     //create the website
     return websiteModel.create(website)
         .then(
@@ -34,10 +35,9 @@ function createWebsite(userId, website) {
         )
 }
 
-function findAllWebsiteForUser(userId) {
+function findAllWebsitesForUser(userId) {
     console.log('findAllWebsitesForUser() model service called');
-    return websiteModel.find({userId: userId})
-        .populate('userId', '_id');
+    return websiteModel.find({developerId: userId});
 }
 
 // //TODO: findById????

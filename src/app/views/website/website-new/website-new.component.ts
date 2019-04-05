@@ -15,39 +15,39 @@ export class WebsiteNewComponent implements OnInit {
     wid: string;
     name: string;
     description: string;
-    website: Website;
+    // website: Website;
     websites: Website[];
 
 
     constructor(private websiteService: WebsiteService,
                 private activatedRoute: ActivatedRoute,
-                private router: Router) { }
+                private router: Router) {
+        // this.website = new Website('', '', '');
+    }
 
     ngOnInit() {
 
         this.activatedRoute.params.subscribe(
             (params: any) => {
             this.uid = params['uid'];
+            this.wid = params['wid'];
         });
     }
 
     createWebsite() {
         console.log('from the form: ');
-        console.log(this.webForm.value.newName);
-        console.log(this.webForm.value.newDescription);
+        console.log('newName: ' + this.webForm.value.newName);
+        console.log('newDescription: ' + this.webForm.value.newDescription);
         // const website = new Website(this.webForm.value.newName, this.uid, this.webForm.value.newDescription);
-        this.website.name = this.webForm.value.newName;
-        this.website.developerId = this.uid;
-        this.website.description = this.webForm.value.newDescription;
+        // this.website.name = this.name;
+        // this.website.developerId = this.uid;
+        // this.website.description = this.description;
+        const website = new Website(this.webForm.value.newName, this.uid, this.webForm.value.newDescription)
+        console.log('this.website.name: ' + website.name);
 
-        this.websiteService.createWebsite(this.uid, this.website)
+        this.websiteService.createWebsite(this.uid, website)
             .subscribe(
-                (data: any) => {
-                    this.website = data;
-                    console.log('new website: ' + this.website._id + ' ' + this.website.name);
-                    this.router.navigate(['/user', this.uid, 'website']);
-                }
-            );
+                () => this.router.navigate(['/user', this.uid, 'website']));
     }
 
 }

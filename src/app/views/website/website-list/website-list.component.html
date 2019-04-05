@@ -17,20 +17,32 @@
 </nav>
 
 <!--user/:uid/website/new-->
-<div class="container-fluid scrollable-body"
-     *ngFor="let website of websites">
-  <table class="table table-borderless">
-    <tbody>
-    <tr>
-      <td>
-        <div (click)="goToPageList(website._id)">{{website.name}}</div>
-      </td>
-      <td align="right">
-        <a (click)="goToEditWebsite(website._id)" ><i class="fas fa-cog"></i></a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+<!--<div class="container-fluid scrollable-body"-->
+     <!--*ngFor="let website of websites">-->
+  <!--<table class="table table-borderless">-->
+    <!--<tbody>-->
+    <!--<tr>-->
+      <!--<td>-->
+        <!--<div (click)="goToPageList(website._id)">{{website.name}}</div>-->
+      <!--</td>-->
+      <!--<td align="right">-->
+        <!--<a (click)="goToEditWebsite(website._id)"><i class="fas fa-cog"></i></a>-->
+      <!--</td>-->
+    <!--</tr>-->
+    <!--</tbody>-->
+  <!--</table>-->
+<!--</div>-->
+
+<main>
+  <div class="container above-below-space">
+    <ul class="list-group list-borderless">
+      <li class="list-group-item list-borderless" *ngFor="let website of websites">
+        <a routerLink="/user/{{uid}}/website/{{website._id}}/page">{{website.name}}</a>
+        <a routerLink="/user/{{uid}}/website/{{website._id}}"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
+      </li>
+    </ul>
+  </div>
+</main>
 
 <nav class="navbar fixed-bottom cl-blue-navbar">
   <div class="container-fluid">

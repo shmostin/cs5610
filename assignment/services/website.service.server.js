@@ -25,8 +25,9 @@ module.exports = function (app) {
         console.log('CreateWebsite from server side called');
         var uid = req.params['uid'];
         var website = req.body;
+        console.log('req.body from createWebsite: ' + website);
 
-        website.userId = uid;
+        website.developerId = uid;
         websiteModel.createWebsite(uid, website)
             .then(function (website) {
                     res.status(200).send(website);
@@ -42,12 +43,17 @@ module.exports = function (app) {
 
 
     function findAllWebsitesForUser(req, res) {
+        console.log('FIND ALL WEBSITES FOR USER IN WEB.SERVICE');
         var uid = req.params['uid'];
+        console.log('UID: ' + uid);
 
         websiteModel.findAllWebsitesForUser(uid)
-            .then(function (websites) {
-                return res.status(200).json(websites);
-            })
+            .then(function (websitesfound) {
+                res.status(200).json(websitesfound);
+            }, function (err) {
+                console.log('ERROR in find all websites for user: ' + err);
+                res.status(400);
+            });
 
     }
 
