@@ -6,11 +6,10 @@ export class User {
     lastName: String;
     email: String;
 
-    constructor(username, password, firstName, lastName, email) {
+    constructor(username, password, firstName, lastName) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
     }
 }

@@ -1,29 +1,37 @@
 
 <nav class="navbar cl-blue-navbar fixed-top">
   <div class="container-fluid">
-    <a routerLink="/user/{{userId}}" class="navbar-link ">
+    <a (click)="backOnePage()" class="navbar-link ">
       <span class="cl-text-white fas fa-chevron-left"></span>
     </a>
-    <a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding" href="#">
+
+    <span class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding">
       Websites
-    </a>
-    <a [routerLink]="['../../' + 'user/' + userId + '/website' + '/new']" class="navbar-link cl-text-white">
+    </span>
+
+
+    <a (click)="createNewWebsite()" class="navbar-link cl-text-white">
       <span class="cl-text-white fas fa-plus fontawesome_icon cl-icon-padding"></span>
     </a>
   </div>
 </nav>
 
 <!--user/:uid/website/new-->
-<div class="container" >
-  <ul class="list-group cl-list-group-borderless" *ngFor="let website of websites">
-    <li class="list-group-item cl-list-item-borderless">
-      <a routerLink="/user/{{userId}}/website/{{website._id}}" >
-        <span class="fa fa-cog fontawesome_icon float-right" ></span>
-      </a>
-      <a routerLink="/user/{{userId}}/website/{{website._id}}/page">{{website.name}}</a>
-    </li>
-  </ul>
-</div>
+<div class="container-fluid scrollable-body"
+     *ngFor="let website of websites">
+  <table class="table table-borderless">
+    <tbody>
+    <tr>
+      <td>
+        <div (click)="goToPageList(website._id)">{{website.name}}</div>
+      </td>
+      <td align="right">
+        <a (click)="goToEditWebsite(website._id)" ><i class="fas fa-cog"></i></a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
 <nav class="navbar fixed-bottom cl-blue-navbar">
   <div class="container-fluid">
     <a class="align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding" [routerLink]="['../../' + 'user/' + userId]">

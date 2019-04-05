@@ -8,7 +8,7 @@ userModel.findUserById = findUserById;
 userModel.findUserByUserName = findUserByUserName;
 userModel.findByCredential = findByCredential;
 userModel.updateUser = updateUser;
-userModel.deleteUser = deleteUser;
+// userModel.deleteUser = deleteUser;
 
 module.exports = userModel;
 
@@ -32,19 +32,19 @@ function findUserById(id) {
 }
 
 function findUserByUserName(userName) {
-   return userModel.findOne({userName:userName});
+   return userModel.findOne({username:userName});
 }
 
 function findByCredential(userName, password) {
-   return userModel.findOne({userName: userName, password: password});
+   return userModel.findOne({username: userName, password: password});
 }
 
 // TODO: findByIdAndUpdate????
 function updateUser(userId, user) {
     return userModel.findByIdAndUpdate(userId, user);
 }
-
-// TODO: findByIdAndRemove???
-function deleteUser(userId) {
-    return userModel.findByIdAndRemove(userId);
-}
+//
+// // TODO: findByIdAndRemove???
+// function deleteUser(userId) {
+//     return userModel.findByIdAndRemove(userId);
+// }

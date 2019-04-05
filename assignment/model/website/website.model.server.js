@@ -6,50 +6,54 @@ var websiteModel = mongoose.model("Website", websiteSchema);
 var userModel = require('../user/user.model.server');
 
 websiteModel.createWebsite = createWebsite;
-websiteModel.findWebsiteById = findWebsiteById;
+// websiteModel.findWebsiteById = findWebsiteById;
 websiteModel.findAllWebsiteForUser = findAllWebsiteForUser;
-websiteModel.updateWebsite = updateWebsite;
-websiteModel.deleteWebsite = deleteWebsite;
+// websiteModel.updateWebsite = updateWebsite;
+// websiteModel.deleteWebsite = deleteWebsite;
 
 module.exports = websiteModel;
 
 function createWebsite(userId, website) {
+    console.log('mongoose model createWebsite called');
     //create the website
     return websiteModel.create(website)
         .then(
-            function (website) {
+            function (resWebsite) {
                 //find the user we want to attach it to
                 userModel.findUserById(userId)
                     .then(
                         function (user) {
                             //push the website to their schema and update the user
-                            user.websites.push(website);
-                            userModel.updateUser(userId, user);
+                            console.log('pushing website to the user');
+                            user.websites.push(resWebsite);
+                            return userModel.updateUser(userId, user);
                         }
                     );
-                return website;
+                return resWebsite;
             }
         )
 }
 
 function findAllWebsiteForUser(userId) {
-    return websiteModel.find({userId: userId});
+    console.log('findAllWebsitesForUser() model service called');
+    return websiteModel.find({userId: userId})
+        .populate('userId', '_id');
 }
 
-//TODO: findById????
-function findWebsiteById(id) {
-    return websiteModel.findById(id);
-}
-
-//TODO: findByIdAndUpdate???
-function updateWebsite(id, website) {
-    return websiteModel.findByIdAndUpdate(id, website);
-}
-
-//TODO: findByIdAndRemove???
-function deleteWebsite(id) {
-    return websiteModel.findByIdAndRemove(id);
-}
+// //TODO: findById????
+// function findWebsiteById(id) {
+//     return websiteModel.findById(id);
+// }
+//
+// //TODO: findByIdAndUpdate???
+// function updateWebsite(id, website) {
+//     return websiteModel.findByIdAndUpdate(id, website);
+// }
+//
+// //TODO: findByIdAndRemove???
+// function deleteWebsite(id) {
+//     return websiteModel.findByIdAndRemove(id);
+// }
 
 
 

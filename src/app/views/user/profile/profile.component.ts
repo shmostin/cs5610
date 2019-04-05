@@ -13,33 +13,45 @@ import {UserService} from '../../../services/user.service.client';
 export class ProfileComponent implements OnInit {
     @ViewChild('f') profileForm: NgForm;
     username: string;
-    user: any;
+    user: User;
     uid: string;
 
-    constructor(private userService: UserService, private activatedRoute: ActivatedRoute) { }
+    constructor(private userService: UserService,
+                private activatedRoute: ActivatedRoute,
+                private router: Router) {
+        this.user = new User('', '', '', '');
+    }
 
     ngOnInit() {
-        console.log('Initializing Profile page!');
         this.activatedRoute.params.subscribe(
             (params: any) => {
+                console.log('profile component: ' + params);
                 this.uid = params['uid'];
-                console.log('user id: ' + this.uid);
+                console.log('userId: ' + this.uid);
             });
-
         this.userService.findUserById(this.uid)
-            .subscribe((data: any) => {
-                console.log('res data: ' + JSON.stringify(data));
-                this.user = data;
-            });
+            .subscribe(
+                user => this.user = user);
+    }
+
+    saveInfoAndGetWebsites() {
+        const username = this.profileForm.value.username;
+        const firstname = this.profileForm.value.firstName;
+        const lastname = this.profileForm.value.lastName;
+        const newUser = new User(username, this.user.password, firstname, lastname);
+        this.userService.updateUserById(this.user._id, newUser)
+            .subscribe(
+                () => this.router.navigate(['/user', this.uid, 'website']));
+    }
+
+
+    logout() {
+        this.userService.logout()
+            .subscribe(
+                (data: any) => this.router.navigate(['/login'])
+            );
     }
 }
-
-    // logout(); {
-    //     this.userService.logout()
-    //         .subscribe(
-    //             (data: any) => this.router.navigate(['/login'])
-    //         );
-    // }
 
     // getUser() {
     //     this.user = this.sharedService.user;

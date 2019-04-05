@@ -20,17 +20,12 @@ export class WebsiteService {
 
 
     createWebsite(userId, website) {
-        var body = {
-            name: website.name,
-            description: website.description,
-            developerId: userId
-        };
-        var url = this.baseUrl + '/api/user/' + userId + '/website';
-        return this.http.post(url, body);
+        console.log('client side createWebsite');
+        return this.http.post<Website>(this.baseUrl + '/api/user/' + userId + '/website', website);
     }
 
     findAllWebsitesForUser(userId: String) {
-        return this.http.get(this.baseUrl + '/api/user/' + userId + '/website');
+        return this.http.get<Website[]>(this.baseUrl + '/api/user/' + userId + '/website');
     }
 
 
@@ -38,14 +33,15 @@ export class WebsiteService {
         return this.http.get(this.baseUrl + '/api/user/' + userId + '/website');
     }
 
-    findWebsiteById(websiteId: String) {
-        return this.http.get(this.baseUrl + '/api/website/' + websiteId);
+    findWebsiteById(userId, websiteId) {
+        return this.http.get<Website>(this.baseUrl + '/api/user/' + userId + '/website/' + websiteId);
     }
 
-    updateWebsite(websiteId, website) {
-        var url = this.baseUrl + '/api/website/' + websiteId;
-        var body = websiteId;
-        return this.http.put(url, body);
+    updateWebsite(userId, websiteId, website) {
+        console.log('front end website service updateWebsite Called');
+        const url = this.baseUrl + '/api/user/' + userId + '/website/' + websiteId;
+        // const body = websiteId;
+        return this.http.put<Website>(url, website);
     }
 
     deleteWebsite(websiteId) {

@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Website} from '../../../models/website.model.client';
 import {NgForm} from '@angular/forms';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {WebsiteService} from '../../../services/website.service.client';
 
 @Component({
@@ -15,27 +15,39 @@ export class WebsiteNewComponent implements OnInit {
     wid: string;
     name: string;
     description: string;
-    websites: Website[] = [];
+    website: Website;
+    websites: Website[];
 
 
     constructor(private websiteService: WebsiteService,
-                private activatedRoute: ActivatedRoute) { }
+                private activatedRoute: ActivatedRoute,
+                private router: Router) { }
 
     ngOnInit() {
 
-        this.activatedRoute.params.subscribe((params: Params) => {
+        this.activatedRoute.params.subscribe(
+            (params: any) => {
             this.uid = params['uid'];
-            this.wid = params['wid'];
         });
-        this.websiteService.findAllWebsitesForUser(this.uid)
-            .subscribe((data: any) => {
-                this.websites = data;
-            });
     }
 
-    create() {
-        const website = new Website(undefined, this.name, undefined, this.description)
-        this.websiteService.createWebsite(this.uid, website);
+    createWebsite() {
+        console.log('from the form: ');
+        console.log(this.webForm.value.newName);
+        console.log(this.webForm.value.newDescription);
+        // const website = new Website(this.webForm.value.newName, this.uid, this.webForm.value.newDescription);
+        this.website.name = this.webForm.value.newName;
+        this.website.developerId = this.uid;
+        this.website.description = this.webForm.value.newDescription;
+
+        this.websiteService.createWebsite(this.uid, this.website)
+            .subscribe(
+                (data: any) => {
+                    this.website = data;
+                    console.log('new website: ' + this.website._id + ' ' + this.website.name);
+                    this.router.navigate(['/user', this.uid, 'website']);
+                }
+            );
     }
 
 }

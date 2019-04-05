@@ -39,7 +39,7 @@ export class UserService {
      */
     findUserById(userId) {
         console.log('findUserById looking for userId: ' + userId);
-        return this.http.get(this.baseUrl + this.APIUrl + userId);
+        return this.http.get<User>(this.baseUrl + this.APIUrl + userId);
         // /api/user/:uid
     }
 
@@ -47,9 +47,9 @@ export class UserService {
      * find the user by their username.
      * @param username the username we are looking for.
      */
-    findUserByUsername(username) {
+    findUserByUsername(username: String) {
         console.log('Calling findUserByUsername from user client service');
-        return this.http.get(this.baseUrl + this.APIUrl + '?username=' + username);
+        return this.http.get(this.baseUrl + '/api/user?username=' + username);
     }
 
     /**
@@ -69,8 +69,8 @@ export class UserService {
      * @param userId the _id we are looking for.
      * @param user the user information we want to use as the update.
      */
-    updateUserById(user) {
-        return this.http.put(this.baseUrl + this.APIUrl + user._id, user);
+    updateUserById(userId, user) {
+        return this.http.put<User>(this.baseUrl + this.APIUrl + userId, user);
     }
 
     /**

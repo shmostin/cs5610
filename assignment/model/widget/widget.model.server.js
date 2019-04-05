@@ -8,9 +8,9 @@ module.exports = widgetModel;
 
 widgetModel.createWidget = createWidget;
 widgetModel.findAllWidgetsForPage = findAllWidgetsForPage;
-widgetModel.findWidgetById = findWidgetById;
-widgetModel.updateWidget = updateWidget;
-widgetModel.deleteWidget = deleteWidget;
+// widgetModel.findWidgetById = findWidgetById;
+// widgetModel.updateWidget = updateWidget;
+// widgetModel.deleteWidget = deleteWidget;
 widgetModel.updatePosition = updatePosition;
 widgetModel.reorderWidget = reorderWidget;
 
@@ -39,19 +39,19 @@ function findAllWidgetsForPage(pageId) {
 
 // TODO: findById????
 
-function findWidgetById(widgetId) {
-    return widgetModel.findById(widgetId);
-}
-
-//TODO: findByIdAndUpdate????
-function updateWidget(widgetId, widget) {
-    return widgetModel.findByIdAndUpdate(widgetId, widget);
-}
-
-//TODO: findByIdAndRemove???
-function deleteWidget(widgetId) {
-    return widgetModel.findByIdAndRemove(widgetId);
-}
+// function findWidgetById(widgetId) {
+//     return widgetModel.findById(widgetId);
+// }
+//
+// //TODO: findByIdAndUpdate????
+// function updateWidget(widgetId, widget) {
+//     return widgetModel.findByIdAndUpdate(widgetId, widget);
+// }
+//
+// //TODO: findByIdAndRemove???
+// function deleteWidget(widgetId) {
+//     return widgetModel.findByIdAndRemove(widgetId);
+// }
 
 function updatePosition(pageId, position) {
     //TODO: sort out impl

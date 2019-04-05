@@ -1,78 +1,125 @@
-<!DOCTYPE html>
-<!--<nav class="navbar cl-blue-navbar fixed-top">-->
+<!--<!DOCTYPE html>-->
+<!--&lt;!&ndash;<nav class="navbar cl-blue-navbar fixed-top">&ndash;&gt;-->
+  <!--&lt;!&ndash;<div class="container-fluid">&ndash;&gt;-->
+    <!--&lt;!&ndash;<a routerLink="/user/{{userId}}" class="navbar-link ">&ndash;&gt;-->
+      <!--&lt;!&ndash;<span class="cl-text-white fas fa-chevron-left"></span>&ndash;&gt;-->
+    <!--&lt;!&ndash;</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;<a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding" href="#">&ndash;&gt;-->
+      <!--&lt;!&ndash;Websites&ndash;&gt;-->
+    <!--&lt;!&ndash;</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;<a [routerLink]="['../../' + 'user/' + userId + '/website' + '/new']" class="navbar-link cl-text-white">&ndash;&gt;-->
+      <!--&lt;!&ndash;<span class="cl-text-white fas fa-plus fontawesome_icon cl-icon-padding"></span>&ndash;&gt;-->
+    <!--&lt;!&ndash;</a>&ndash;&gt;-->
+  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</nav>&ndash;&gt;-->
+
+<!--<nav class="navbar navbar-fixed-top cl-blue-navbar">-->
   <!--<div class="container-fluid">-->
-    <!--<a routerLink="/user/{{userId}}" class="navbar-link ">-->
-      <!--<span class="cl-text-white fas fa-chevron-left"></span>-->
-    <!--</a>-->
-    <!--<a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding" href="#">-->
-      <!--Websites-->
-    <!--</a>-->
-    <!--<a [routerLink]="['../../' + 'user/' + userId + '/website' + '/new']" class="navbar-link cl-text-white">-->
-      <!--<span class="cl-text-white fas fa-plus fontawesome_icon cl-icon-padding"></span>-->
-    <!--</a>-->
-  <!--</div>-->
-<!--</nav>-->
+          <!--<a routerLink="/user/{{uid}}/website" class="navbar-link cl-text-white">-->
+            <!--<span class="fas fa-chevron-left fontawsome_icon"></span>-->
+          <!--</a>-->
 
-<nav class="navbar navbar-fixed-top cl-blue-navbar">
-  <div class="container-fluid">
-          <a routerLink="/user/{{uid}}/website" class="navbar-link cl-text-white">
-            <span class="fas fa-chevron-left fontawsome_icon"></span>
-          </a>
-
-        <a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding" routerLink="/user/{{uid}}/website">
-          Websites
-        </a>
-        <a routerLink="/user/{{uid}}/website/new" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
-          <span class="fas fa-plus fontawsome_icon text-white"></span>
-        </a>
-    </div>
-    <!--<div class="col-xs-8">-->
-      <!--<div class="container-fluid">-->
-        <!--<a class="cl-text=white navbar-brand cl-text-bold" href="#">-->
-          <!--Edit Websites-->
+        <!--<a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding" routerLink="/user/{{uid}}/website">-->
+          <!--Websites-->
         <!--</a>-->
         <!--<a (click)="update()" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">-->
-          <!--<span class="fas fa-check fontawsome_icon"></span>-->
+          <!--<span class="fas fa-plus fontawsome_icon text-white"></span>-->
         <!--</a>-->
-      <!--</div>-->
     <!--</div>-->
-</nav>
+    <!--&lt;!&ndash;<div class="col-xs-8">&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="container-fluid">&ndash;&gt;-->
+        <!--&lt;!&ndash;<a class="cl-text=white navbar-brand cl-text-bold" href="#">&ndash;&gt;-->
+          <!--&lt;!&ndash;Edit Websites&ndash;&gt;-->
+        <!--&lt;!&ndash;</a>&ndash;&gt;-->
+        <!--&lt;!&ndash;<a (click)="update()" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">&ndash;&gt;-->
+          <!--&lt;!&ndash;<span class="fas fa-check fontawsome_icon"></span>&ndash;&gt;-->
+        <!--&lt;!&ndash;</a>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--</nav>-->
 
-<div class="row container-fluid pt-2">
-  <div class="col-md-4 d-none d-md-block border-right">
-    <ul *ngFor="let website of websites" class="list-group list-group-flush">
-      <li class="list-group-item">
-        <a routerLink="/user/{{uid}}/website/{{wid}}">
-          <i class="fas fa-cog fontawsome_icon float-right"></i></a>
-        <a routerLink="/user/{{uid}}/website/{{wid}}/page">{{website.name}}</a>
-      </li>
-    </ul>
+<!--<div class="row container-fluid pt-2">-->
+  <!--<div class="col-md-4 d-none d-md-block border-right">-->
+    <!--<ul *ngFor="let website of websites" class="list-group list-group-flush">-->
+      <!--<li class="list-group-item">-->
+        <!--<a routerLink="/user/{{uid}}/website/{{wid}}">-->
+          <!--<i class="fas fa-cog fontawsome_icon float-right"></i></a>-->
+        <!--<a routerLink="/user/{{uid}}/website/{{wid}}/page">{{website.name}}</a>-->
+      <!--</li>-->
+    <!--</ul>-->
+  <!--</div>-->
+  <!--<div class="col-md-8">-->
+    <!--<form #f="ngForm">-->
+
+      <!--<div class="form-group">-->
+        <!--<label for="website-name">Website Name</label>-->
+        <!--<input [(ngModel)]="website.name"-->
+               <!--[ngModelOptions]="{standalone: true}"-->
+               <!--type="text" class="form-control"-->
+               <!--id="website-name"-->
+               <!--placeholder="{{website.name}}">-->
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<label for="website-description">Website Description</label>-->
+        <!--<textarea [(ngModel)]="website.description"-->
+                  <!--[ngModelOptions]="{standalone: true}"-->
+                  <!--id="website-description"-->
+                  <!--class="form-control"-->
+                  <!--rows="5"-->
+                  <!--placeholder="{{website.description}}">-->
+        <!--</textarea>-->
+      <!--</div>-->
+
+      <!--<a class="btn btn-danger btn-block text-white"-->
+         <!--(click)="delete()">Delete</a>-->
+    <!--</form>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+
+<div class="row">
+  <div class="col-md-4 d-none d-md-block border-right pr-0">
+    <app-website-list></app-website-list>
   </div>
-  <div class="col-md-8">
-    <form #f="ngForm">
+  <div class="col-md-8 pl-0">
+    <nav class="navbar navbar-dark bg-primary">
+      <div class="navbar-brand font-weight-bold">Edit Website</div>
+      <a class="ml-auto" (click)="updateWebsite()" >
+            <span>
+              <i class="fas fa-check fa-inverse"></i>
+            </span>
+      </a>
+    </nav>
+    <div class="container-fluid pt-2">
+      <form #f="ngForm">
+        <div class="form-group">
+          <label for="name" class="font-weight-bold">Website Name</label>
+          <input name="newName"
+                 type="text"
+                 class="form-control"
+                 id="name"
+                 [ngModel]="getOldWebName()"
+                 ngModel
+                 #newName="ngModel">
+        </div> <!-- form-group// -->
 
-      <div class="form-group">
-        <label for="website-name">Website Name</label>
-        <input [(ngModel)]="website.name"
-               [ngModelOptions]="{standalone: true}"
-               type="text" class="form-control"
-               id="website-name"
-               placeholder="{{website.name}}">
-      </div>
-      <div class="form-group">
-        <label for="website-description">Website Description</label>
-        <textarea [(ngModel)]="website.description"
-                  [ngModelOptions]="{standalone: true}"
-                  id="website-description"
-                  class="form-control"
-                  rows="5"
-                  placeholder="{{website.description}}">
-        </textarea>
-      </div>
+        <div class="form-group">
+          <label for="description" class="font-weight-bold">Website Description</label>
+          <textarea name="newDescription"
+                    class="form-control"
+                    id="description"
+                    rows="5"
+                    [ngModel]="getOldWebDescriptoin()"
+                    ngModel
+                    #newDescription="ngModel"></textarea>
+        </div> <!-- form-group// -->
+        <div class="form-group">
+          <a class="btn btn-danger btn-block" (click)="delete()" role="button">Delete</a>
+        </div>
 
-      <a class="btn btn-danger btn-block text-white"
-         (click)="delete()">Delete</a>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
 
@@ -85,3 +132,4 @@
     </div>
   </div>
 </nav>
+

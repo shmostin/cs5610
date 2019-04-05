@@ -2,13 +2,13 @@ module.exports = function(app) {
 
     app.put("/api/user/:uid", updateUserById);
     app.post("/api/user", createUser);
+    app.get("/api/username", findByUsername);
 
-    // app.get("/api/user", findUserByCredentials);
+    app.get("/api/user", findUserByCredentials);
     app.get("api/user/hello", helloUser);
     app.get("/api/user/:uid", findUserById);
     app.get("/api/user", findUsers);
     app.delete("/api/user/:uid", deleteUser);
-    app.get("/api/username", findByUsername);
 
     app.post('/api/register', register);
 
@@ -71,7 +71,7 @@ module.exports = function(app) {
     function findByUsername(req, res) {
         console.log('server service findByUserName was called');
         const username = req.query["username"];
-        console.log(username);
+        console.log('username found in query: ' + username);
         userModel.findUserByUserName(username)
             .then(
                 function (user) {
@@ -147,33 +147,33 @@ module.exports = function(app) {
             });
     }
 
-    // function findUserByCredentials(req, res) {
-    //     console.log("calling findUserByCredentials on the server side");
-    //     var username = req.query['username'];
-    //     var password = req.query['password'];
-    //     console.log("username from server request: " + username);
-    //     console.log("password from server request: " + password);
-    //     console.log("about to check the users");
-    //     console.log("users: " + users.toString());
-    //     // for (var i = 0; i < users.length; i++) {
-    //     //     console.log("checking " + users[i].username);
-    //     //     if (users[i].username === username && users[i].password === password) {
-    //     //         console.log("we found " + username);
-    //     //         res.json(users[i]);
-    //     //         return;
-    //     //     } else {
-    //     //         console.log("not " + username);
-    //     //     }
-    //     // }
-    //
-    //     userModel.findByCredential(username, password)
-    //         .then(
-    //             function(user) {
-    //                 res.send(user);
-    //             }, function (error) {
-    //                 res.status(400).send("User not found by Credentials")
-    //             });
-    // }
+    function findUserByCredentials(req, res) {
+        console.log("calling findUserByCredentials on the server side");
+        var username = req.query['username'];
+        var password = req.query['password'];
+        console.log("username from server request: " + username);
+        console.log("password from server request: " + password);
+        console.log("about to check the users");
+        console.log("users: " + users.toString());
+        // for (var i = 0; i < users.length; i++) {
+        //     console.log("checking " + users[i].username);
+        //     if (users[i].username === username && users[i].password === password) {
+        //         console.log("we found " + username);
+        //         res.json(users[i]);
+        //         return;
+        //     } else {
+        //         console.log("not " + username);
+        //     }
+        // }
+
+        userModel.findByCredential(username, password)
+            .then(
+                function(user) {
+                    res.send(user);
+                }, function (error) {
+                    res.status(400).send("User not found by Credentials")
+                });
+    }
 
     function findAllUsers(req, res){
         res.json(users);
