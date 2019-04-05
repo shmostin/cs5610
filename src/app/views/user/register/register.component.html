@@ -34,14 +34,14 @@
             <input type="password"
                    class="form-control"
                    placeholder="Verify Password"
-                   id="v_password"
-                   name="v_password"
+                   id="vpassword"
+                   name="vpassword"
                    ngModel
                    required
                    #v_password="ngModel"/>
         </div>
 
-        <div *ngIf="pwdErrorFlaf" class="alert alert-danger">
+        <div *ngIf="pwdErrorFlag" class="alert alert-danger">
             {{pwdErrorMsg}}
         </div>
 

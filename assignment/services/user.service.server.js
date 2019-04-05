@@ -3,7 +3,7 @@ module.exports = function(app) {
     app.put("/api/user/:uid", updateUserById);
     app.post("/api/user", createUser);
 
-    app.get("/api/user", findUserByCredentials);
+    // app.get("/api/user", findUserByCredentials);
     app.get("api/user/hello", helloUser);
     app.get("/api/user/:uid", findUserById);
     app.get("/api/user", findUsers);
@@ -27,6 +27,29 @@ module.exports = function(app) {
         ];
 
 
+    function register(req, res) {
+        //grab the username and password
+        var user = req.body;
+
+        return userModel.createUser(user)
+            .then(
+                function (user) {
+                    //if a user is found go to login
+                    if (user) {
+                        req.login(user, function (err) {
+                            if (err) {
+                                res.status(400).send(err);
+                            } else {
+                                //otherwise create the user on the db
+                                res.json(user);
+                            }
+                        });
+                    }
+                });
+    }
+
+
+
     function populateUsers(req,res) {
         console.log("populating the DB!");
         //res.send("pop DB!");
@@ -46,7 +69,9 @@ module.exports = function(app) {
     }
 
     function findByUsername(req, res) {
+        console.log('server service findByUserName was called');
         const username = req.query["username"];
+        console.log(username);
         userModel.findUserByUserName(username)
             .then(
                 function (user) {
@@ -56,21 +81,36 @@ module.exports = function(app) {
                 });
     }
 
+    function createUser(req, res){
+        var newuser = req.body;
+        // console.log('newUser from the req body: ' + newuser);
+        userModel.createUser(newuser).
+        then(function(user){
+            res.send(user);
 
-    function createUser(req, res) {
-        var newUser = req.body;
-        console.log("at create user");
-        userModel
-            .createUser(newUser)
-            .then(
-                function(user) {
-                    console.log('User Created!');
-                    res.sendStatus(200).send(user)
-        },
-                function(error) {
-        console.log("create user error: " + error);
-        res.status(400).send(error);
+        }, function(error){
+            console.log("create user error:" + error);
+            res.status(400);
+
         });
+    }
+    // function createUser(req, res) {
+    //     var newUser = req.body;
+    //     console.log(newUser);
+    //     console.log("at create user");
+    //     userModel
+    //         .createUser(newUser)
+    //         .then(
+    //             function(user) {
+    //                 console.log('User Created!');
+    //                 return res.send(user);
+    //                  //needs to be returned or it keeps calling itself again
+    //     },
+    //             function(error) {
+    //     console.log("create user error: " + error);
+    //
+    //     return res.status(400).send(error);
+    //     });
 
         // for (var i = 0; i < users.length; i++) {
         //     if (users[i].username === user["username"]) {
@@ -81,7 +121,7 @@ module.exports = function(app) {
         // user._id = Math.random().toString();
         // users.push(user);
         // res.json(user);
-    };
+    // };
 
 
     function helloUser(req, res) {
@@ -107,33 +147,33 @@ module.exports = function(app) {
             });
     }
 
-    function findUserByCredentials(req, res) {
-        console.log("calling findUserByCredentials on the server side");
-        var username = req.query['username'];
-        var password = req.query['password'];
-        console.log("username from server request: " + username);
-        console.log("password from server request: " + password);
-        console.log("about to check the users");
-        console.log("users: " + users.toString());
-        // for (var i = 0; i < users.length; i++) {
-        //     console.log("checking " + users[i].username);
-        //     if (users[i].username === username && users[i].password === password) {
-        //         console.log("we found " + username);
-        //         res.json(users[i]);
-        //         return;
-        //     } else {
-        //         console.log("not " + username);
-        //     }
-        // }
-
-        userModel.findByCredential(username, password)
-            .then(
-                function(user) {
-                    res.send(user);
-                }, function (error) {
-                    res.status(400).send("User not found by Credentials")
-                });
-    }
+    // function findUserByCredentials(req, res) {
+    //     console.log("calling findUserByCredentials on the server side");
+    //     var username = req.query['username'];
+    //     var password = req.query['password'];
+    //     console.log("username from server request: " + username);
+    //     console.log("password from server request: " + password);
+    //     console.log("about to check the users");
+    //     console.log("users: " + users.toString());
+    //     // for (var i = 0; i < users.length; i++) {
+    //     //     console.log("checking " + users[i].username);
+    //     //     if (users[i].username === username && users[i].password === password) {
+    //     //         console.log("we found " + username);
+    //     //         res.json(users[i]);
+    //     //         return;
+    //     //     } else {
+    //     //         console.log("not " + username);
+    //     //     }
+    //     // }
+    //
+    //     userModel.findByCredential(username, password)
+    //         .then(
+    //             function(user) {
+    //                 res.send(user);
+    //             }, function (error) {
+    //                 res.status(400).send("User not found by Credentials")
+    //             });
+    // }
 
     function findAllUsers(req, res){
         res.json(users);

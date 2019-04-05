@@ -345,32 +345,6 @@ var Page = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/models/user.model.client.ts":
-/*!*********************************************!*\
-  !*** ./src/app/models/user.model.client.ts ***!
-  \*********************************************/
-/*! exports provided: User */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "User", function() { return User; });
-var User = /** @class */ (function () {
-    function User(_id, username, password, firstName, lastName, email) {
-        this._id = _id;
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
-    return User;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/models/website.model.client.ts":
 /*!************************************************!*\
   !*** ./src/app/models/website.model.client.ts ***!
@@ -653,7 +627,9 @@ var UserService = /** @class */ (function () {
      * @param user is the user we want to add to the array.
      */
     UserService.prototype.createUser = function (user) {
-        return this.http.post(this.baseUrl + this.APIUrl, user);
+        console.log('The user we are sending with the post req: ' + user);
+        var userBody = { username: user.username, password: user.password };
+        return this.http.post(this.baseUrl + this.APIUrl, userBody);
     };
     /**
      * find the user by their _id.
@@ -669,6 +645,7 @@ var UserService = /** @class */ (function () {
      * @param username the username we are looking for.
      */
     UserService.prototype.findUserByUsername = function (username) {
+        console.log('Calling findUserByUsername from user client service');
         return this.http.get(this.baseUrl + this.APIUrl + '?username=' + username);
     };
     /**
@@ -1140,7 +1117,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n\n\n<div class=\"container\">\n<div *ngIf=\"errorFlag\";\n     class=\"alert alert-danger\">\n  {{errorMsg}}\n</div>\n\n\n  <h1>Login</h1>\n\n  <form (ngSubmit)=\"login()\" #f=\"ngForm\">\n    <div class=\"form-group\">\n      <input placeholder=\"username\"\n             name=\"username\"\n             type=\"text\"\n             class=\"form-control\"\n             ngModel\n             required\n             #username=\"ngModel\"/>\n\n\n    </div> <!-- form-group// -->\n    <div class =\"help-block\" *ngIf=\"!username.valid && username.touched\">\n      Please enter a username\n    </div>\n\n    <div class=\"form-group\">\n      <input placeholder=\"password\"\n             name=\"password\"\n             type=\"password\"\n             class=\"form-control\"\n             ngModel\n             required\n             #password=\"ngModel\">\n    </div> <!-- form-group// -->\n\n    <div class=\"form-group\">\n      <button [disabled]=\"!f.valid\"\n              class=\"btn btn-primary btn-block\"\n              type=\"submit\">Login\n      </button>\n    </div>\n\n    <div class=\"form-group\">\n      <a class=\"btn btn-success btn-block\" routerLink=\"/register\" role=\"button\">Register</a>\n    </div>\n  </form>\n\n</div>"
+module.exports = "<!DOCTYPE html>\n\n\n<div class=\"container\">\n<div *ngIf=\"errorFlag\"\n     class=\"alert alert-danger\">\n  {{errorMsg}}\n</div>\n\n\n  <h1>Login</h1>\n\n  <form (ngSubmit)=\"login()\" #f=\"ngForm\">\n    <div class=\"form-group\">\n      <input placeholder=\"username\"\n             name=\"username\"\n             type=\"text\"\n             class=\"form-control\"\n             ngModel\n             required\n             #username=\"ngModel\"/>\n\n\n    </div> <!-- form-group// -->\n    <div class =\"help-block\" *ngIf=\"!username.valid && username.touched\">\n      Please enter a username\n    </div>\n\n    <div class=\"form-group\">\n      <input placeholder=\"password\"\n             name=\"password\"\n             type=\"password\"\n             class=\"form-control\"\n             ngModel\n             required\n             #password=\"ngModel\">\n    </div> <!-- form-group// -->\n\n    <div class=\"form-group\">\n      <button [disabled]=\"!f.valid\"\n              class=\"btn btn-primary btn-block\"\n              type=\"submit\">Login\n      </button>\n    </div>\n\n    <div class=\"form-group\">\n      <a class=\"btn btn-success btn-block\" routerLink=\"/register\" role=\"button\">Register</a>\n    </div>\n  </form>\n\n</div>"
 
 /***/ }),
 
@@ -1346,7 +1323,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n\n<div class=\"container\">\n    <h1 class=\"text-center\">Register</h1>\n\n    <div *ngIf=\"userErrorFlag\" class=\"alert alert-danger\">\n        {{userErrorMsg}}\n    </div>\n\n    <form (ngSubmit)=\"register()\" #f=\"ngForm\">\n        <div class=\"form-group\">\n            <input type=\"text\"\n                   class=\"form-control\"\n                   placeholder=\"username\"\n                   name=\"username\"\n                   id=\"username\"\n                   ngModel\n                   required\n                   #username=\"ngModel\"/>\n        </div>\n\n        <div class=\"form-group\">\n            <input type=\"password\"\n                   class=\"form-control\"\n                   placeholder=\"Password\"\n                   name=\"password\"\n                   id=\"password\"\n                   ngModel\n                   required\n                   #password=\"ngModel\"/>\n        </div>\n\n        <div class=\"form-group\">\n            <input type=\"password\"\n                   class=\"form-control\"\n                   placeholder=\"Verify Password\"\n                   id=\"v_password\"\n                   name=\"v_password\"\n                   ngModel\n                   required\n                   #v_password=\"ngModel\"/>\n        </div>\n\n        <div *ngIf=\"pwdErrorFlaf\" class=\"alert alert-danger\">\n            {{pwdErrorMsg}}\n        </div>\n\n        <button class=\"btn btn-primary btn-block\"\n                type=\"submit\"\n                [disabled]=\"!f.valid\">Register\n        </button>\n\n        <button class=\"btn btn-primary btn-block\"\n                type=\"submit\"\n                routerLink=\"/login\">Cancel\n        </button>\n    </form>\n</div>\n"
+module.exports = "<!DOCTYPE html>\n\n<div class=\"container\">\n    <h1 class=\"text-center\">Register</h1>\n\n    <div *ngIf=\"userErrorFlag\" class=\"alert alert-danger\">\n        {{userErrorMsg}}\n    </div>\n\n    <form (ngSubmit)=\"register()\" #f=\"ngForm\">\n        <div class=\"form-group\">\n            <input type=\"text\"\n                   class=\"form-control\"\n                   placeholder=\"username\"\n                   name=\"username\"\n                   id=\"username\"\n                   ngModel\n                   required\n                   #username=\"ngModel\"/>\n        </div>\n\n        <div class=\"form-group\">\n            <input type=\"password\"\n                   class=\"form-control\"\n                   placeholder=\"Password\"\n                   name=\"password\"\n                   id=\"password\"\n                   ngModel\n                   required\n                   #password=\"ngModel\"/>\n        </div>\n\n        <div class=\"form-group\">\n            <input type=\"password\"\n                   class=\"form-control\"\n                   placeholder=\"Verify Password\"\n                   id=\"vpassword\"\n                   name=\"vpassword\"\n                   ngModel\n                   required\n                   #v_password=\"ngModel\"/>\n        </div>\n\n        <div *ngIf=\"pwdErrorFlag\" class=\"alert alert-danger\">\n            {{pwdErrorMsg}}\n        </div>\n\n        <button class=\"btn btn-primary btn-block\"\n                type=\"submit\"\n                [disabled]=\"!f.valid\">Register\n        </button>\n\n        <button class=\"btn btn-primary btn-block\"\n                type=\"submit\"\n                routerLink=\"/login\">Cancel\n        </button>\n    </form>\n</div>\n"
 
 /***/ }),
 
@@ -1365,8 +1342,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _services_user_service_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/user.service.client */ "./src/app/services/user.service.client.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _models_user_model_client__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../models/user.model.client */ "./src/app/models/user.model.client.ts");
-
 
 
 
@@ -1377,36 +1352,90 @@ var RegisterComponent = /** @class */ (function () {
         this._userService = _userService;
         this.router = router;
     }
+    // register() {
+    //     console.log('Attempting Registration');
+    //     this.username = this.registerForm.value.username;
+    //     this.password = this.registerForm.value.password;
+    //     this.vpassword = this.registerForm.value.vpassword;
+    //     // this.user = new User(this.username, this.password, '', '', '');
+    //     const newUser = {username: this.username, password: this.password};
+    //     this.userErrorFlag = false;
+    //     this.pwdErrorFlag = false;
+    //
+    //     // call user service only if passwords match else show the same error
+    //     console.log('Comparing given passwords: ');
+    //     console.log(this.password);
+    //     console.log(this.vpassword);
+    //     if (this.password === this.vpassword) {
+    //         console.log('Passwords Matched!');
+    //         console.log('Calling findUserByUsername() to check if already exists');
+    //         this._userService.findUserByUsername(this.username)
+    //             .subscribe(
+    //                 (user: any) => {
+    //                     console.log('what was found on the database: ' + user);
+    //                     if (user != null) {
+    //                         this.userErrorFlag = true;
+    //                     } else {
+    //                         console.log('calling createUser from register component');
+    //                         this._userService.createUser(newUser)
+    //                             .subscribe(
+    //                                 (resUser: any) => {
+    //                                     console.log('newUser returned from the database req: ' + resUser);
+    //                                     this.router.navigate(['/', 'login']);
+    //                                 },
+    //                                 (error: any) => {
+    //                                     console.log(error);
+    //                                 });
+    //                     }
+    //                 });
+    //     } else {
+    //         this.pwdErrorFlag = true;
+    //     }
+    // }
     RegisterComponent.prototype.register = function () {
         var _this = this;
+        console.log('I am here to register a new user');
         this.username = this.registerForm.value.username;
         this.password = this.registerForm.value.password;
         this.vpassword = this.registerForm.value.vpassword;
         this.userErrorFlag = false;
-        this.pwdErrorFlaf = false;
-        // call user service only if passwords match else show the same error
-        if (this.password === this.vpassword) {
-            this._userService.findUserByUsername(this.username)
-                .subscribe(function (user) {
-                if (user != null) {
-                    _this.userErrorFlag = true;
-                }
-                else {
-                    return _this._userService.createUser(_this.user)
-                        .subscribe(function (newUser) {
-                        _this.router.navigate(['/user', newUser._id]);
-                    });
-                }
+        this.pwdErrorFlag = false;
+        if (this.vpassword !== this.password) {
+            this.userErrorFlag = true;
+            return;
+        }
+        this._userService.findUserByUsername(this.username).subscribe(function (user) {
+            if (user) {
+                _this.userErrorFlag = true;
+            }
+            else {
+                console.log('I am in the right place');
+                var curuser = { username: _this.username, password: _this.password };
+                _this._userService.createUser(curuser).subscribe(function (newUser) {
+                    console.log(newUser);
+                });
+                alert('Registration succeed!');
+                _this.router.navigate(['/', 'login']);
+            }
+        }, function (error) {
+            console.log('I am in the right place');
+            var curuser = { username: _this.username, password: _this.password };
+            _this._userService.createUser(curuser).subscribe(function (newUser) {
+                console.log(newUser);
             });
-        }
-        else {
-            this.pwdErrorFlaf = true;
-        }
+            alert('Registration succeed!');
+            _this.router.navigate(['/', 'login']);
+        });
     };
     RegisterComponent.prototype.ngOnInit = function () {
         this.pwdErrorMsg = 'Those passwords do not match!';
         this.userErrorMsg = 'That username is already in use, please select another';
-        this.user = new _models_user_model_client__WEBPACK_IMPORTED_MODULE_5__["User"](undefined, undefined, undefined, undefined, undefined, undefined);
+        // this.user = new User(undefined,
+        //     undefined,
+        //     undefined,
+        //     undefined,
+        //     undefined,
+        // );
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('f'),

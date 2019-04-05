@@ -17,6 +17,8 @@ userModel.populateUsers = populateUsers;
 
 //functions
 function createUser(user) {
+    console.log('creating the user from the server model');
+    console.log('model: ' + user);
    return userModel.create(user);
 }
 
