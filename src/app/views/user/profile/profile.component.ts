@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
     constructor(private userService: UserService,
                 private activatedRoute: ActivatedRoute,
                 private router: Router) {
-        this.user = new User('', '', '', '');
+        this.user = new User('', '', '', '', '');
     }
 
     ngOnInit() {
@@ -36,9 +36,11 @@ export class ProfileComponent implements OnInit {
 
     saveInfoAndGetWebsites() {
         const username = this.profileForm.value.username;
-        const firstname = this.profileForm.value.firstName;
-        const lastname = this.profileForm.value.lastName;
-        const newUser = new User(username, this.user.password, firstname, lastname);
+        const firstName = this.profileForm.value.firstName;
+        const lastName = this.profileForm.value.lastName;
+        const email = this.profileForm.value.email;
+        const newUser = new User(username, this.user.password, firstName, lastName, email);
+        console.log('newUser info: ' + JSON.stringify(newUser));
         this.userService.updateUserById(this.user._id, newUser)
             .subscribe(
                 () => this.router.navigate(['/user', this.uid, 'website']));

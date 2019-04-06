@@ -27,9 +27,9 @@ export class UserService {
      * @param user is the user we want to add to the array.
      */
     createUser(user: any) {
-        console.log('The user we are sending with the post req: ' + user);
-        const userBody = {username: user.username, password: user.password};
-        return this.http.post(this.baseUrl + this.APIUrl, userBody);
+        console.log('The user we are sending with the post req: ' + JSON.stringify(user));
+        // const userBody = {username: user.username, password: user.password};
+        return this.http.post(this.baseUrl + this.APIUrl, user);
     }
 
 

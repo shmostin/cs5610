@@ -33,7 +33,13 @@ export class RegisterComponent implements OnInit {
         this.password = this.registerForm.value.password;
         this.vpassword = this.registerForm.value.vpassword;
         // this.user = new User(this.username, this.password, '', '', '');
-        const newUser = {username: this.username, password: this.password};
+        const newUser = {
+            username: this.username,
+            password: this.password,
+            firstName: null,
+            lastName: null,
+            email: null
+        };
         this.userErrorFlag = false;
         this.pwdErrorFlag = false;
 
@@ -52,6 +58,7 @@ export class RegisterComponent implements OnInit {
                             this.userErrorFlag = true;
                         } else {
                             console.log('calling createUser from register component');
+                            console.log('user being sent to the db: ' + JSON.stringify(newUser));
                             this._userService.createUser(newUser)
                                 .subscribe(
                                     (resUser: any) => {

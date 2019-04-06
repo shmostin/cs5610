@@ -200,22 +200,13 @@ module.exports = function(app) {
         console.log(req.body);
         console.log("update user: " + userId + " " + user.firstName + " " + user.lastName);
 
-        // for(var i = 0; i < users.length; i++) {
-        //     if (users[i]._id === userId) {
-        //         users[i].firstName = user.firstName;
-        //         users[i].lastName = user.lastName;
-        //
-        //         res.status(200).send(user);
-        //         return;
-        //     }
-        // }
-
         userModel.updateUser(userId, user)
-            .then(
-                function (user) {
-                    res.send(user);
-                }, function (error) {
-                    res.status(400).send("user update failure");
+            .exec(
+                function (err, user) {
+                    if (err) {
+                        return res.sendStatus(400).send(err);
+                    }
+                    return res.status(200).send(user);
                 });
     }
 
