@@ -6,6 +6,7 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const app = express();
 
+
 // Body parsing
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,7 +36,7 @@ server.listen( port , () => console.log('Running on port 3200'));
 
 var localConnectionString = 'mongodb://localhost:27017/webdev';
 
-var connectionString = 'mongodb://shmostin:wexkaj-wakqyz-7Vazje@ds145790.mlab.com:45790/heroku_g477qtmg';
+var connectionString = 'mongodb://shmostin:shmostin1234@ds145790.mlab.com:45790/heroku_g477qtmg';
 var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 const client = mongoose.connect( connectionString, { useNewUrlParser: true });
