@@ -29,6 +29,7 @@ import { WidgetListComponent } from './views/widget/widget-list/widget-list.comp
 import { WidgetHeaderComponent } from './views/widget/widget-edit/widget-header/widget-header.component';
 import { WidgetImageComponent } from './views/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
+import {WidgetHtmlComponent} from './views/widget/widget-html/widget-html.component';
 
 // services
 import {UserService} from './services/user.service.client';
@@ -59,7 +60,8 @@ import {SortableDirective} from './directives/sortable.directive';
     WidgetListComponent,
     WidgetHeaderComponent,
     WidgetImageComponent,
-    WidgetYoutubeComponent
+    WidgetYoutubeComponent,
+      WidgetHtmlComponent
   ],
   imports: [
     BrowserModule,
