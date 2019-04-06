@@ -24,16 +24,9 @@ export class PageService {
         return this.http.post<Page>(this.base_url + '/api/website/' + websiteId + '/page', page);
     }
 
-    findAllPagesForWebsite(websiteId: string) {
-        // const listOfPages = [];
-        // for (let i = 0; i < this.pages.length; i++) {
-        //     if (this.pages[i].websiteId === websiteId) {
-        //         listOfPages.push(this.pages[i]);
-        //     }
-        // }
-        // return listOfPages;
+    findPagesByWebsite(websiteId: string) {
         console.log('calling page.service.server from page.service.client');
-        return this.http.get(this.base_url + '/api/website/' + websiteId + '/page');
+        return this.http.get<Page[]>(this.base_url + '/api/website/' + websiteId + '/page');
     }
 
 

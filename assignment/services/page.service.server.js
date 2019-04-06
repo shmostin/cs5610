@@ -28,7 +28,7 @@ module.exports = function(app) {
                    return page;
                },
                function (err) {
-                   console.log('create page error! ' + err);
+                   console.log('ERROR ' + err);
                    res.sendStatus(400);
                    return err;
 
@@ -36,15 +36,17 @@ module.exports = function(app) {
     }
 
     function findAllPagesForWebsite(req, res) {
-       var websiteId = req.params.wid;
-       console.log('current wid: ' + websiteId);
-       var pagesFound = [];
-       for (var i = 0; i < pages.length; i++) {
-           if (pages[i].websiteId === websiteId) {
-               pagesFound.push(pages[i]);
-           }
-       }
-       res.json(pagesFound);
+       var wid = req.params['wid'];
+       console.log('current wid: ' + wid);
+       pageModel.findAllPagesForWebsite(wid)
+           .then(
+               function (foundPages) {
+                   res.send(foundPages);
+                   console.log('PAGES FOUND: ' + JSON.stringify(foundPages));
+               }, function (error) {
+                   console.log('NO PAGES FOUND FOR THIS WEBSITE');
+                   res.status(400).send(error);
+               });
     }
 
 

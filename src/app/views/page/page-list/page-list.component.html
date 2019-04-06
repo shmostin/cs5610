@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <nav class="navbar cl-blue-navbar fixed-top">
     <div class="container-fluid">
-        <a routerLink="../../" class="navbar-link ">
+        <a (click)="backOnePage()" class="navbar-link ">
             <span class="cl-text-white fas fa-chevron-left"></span>
         </a>
         <a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding" href="#">
             Pages
         </a>
 
-        <a [routerLink]="['./new']"
+        <a (click)="createNewPage()"
            class="navbar-link cl-text-white">
             <span class="cl-text-white fas fa-plus fontawesome_icon cl-icon-padding"></span>
         </a>
@@ -78,10 +78,10 @@
 <!--</div>-->
 
 
-<div class="container">
+<div class="container scrollable-body">
     <div class="form-control" *ngFor="let page of pages">
-        <a [routerLink]="['./' + page._id + '/widget']" class="text-blue">{{ page.name }}</a>
-        <a [routerLink]="['./' + page._id]" class="text-blue float-right">
+        <a (click)="getWidgetList(page._id)" class="text-blue">{{ page.name }}</a>
+        <a (click)="getEditPage(page._id)" class="text-blue float-right">
             <i class="fas fa-cog"></i>
         </a>
     </div>

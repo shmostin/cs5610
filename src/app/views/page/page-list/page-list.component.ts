@@ -11,8 +11,8 @@ import {Page} from '../../../models/page.model.client';
 export class PageListComponent implements OnInit {
 
     uid: string;
-    webId: string;
-    pages: Page[] = [];
+    wid: string;
+    pages: Page[];
 
 
     constructor(private pageServices: PageService , private activatedRoute: ActivatedRoute, private router: Router) { }
@@ -21,15 +21,29 @@ export class PageListComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.params.subscribe( (params: any) => {
                 console.log('this website id: ' + params['wid']);
-                this.webId = params['wid'];
+                this.wid = params['wid'];
                 this.uid = params['uid'];
-            }
-        );
-        this.pageServices.findAllPagesForWebsite(this.webId)
-            .subscribe((data: any) => {
-                this.pages = data;
             });
-        console.log('pages length from component: ' + this.pages.length);
+        this.pageServices.findPagesByWebsite(this.wid)
+            .subscribe(
+                pages => this.pages = pages);
+        // console.log('pages length from component: ' + this.pages.length);
+    }
+
+    createNewPage() {
+        this.router.navigate(['user', this.uid, 'website', this.wid, 'page', 'new']);
+    }
+
+    backOnePage() {
+        this.router.navigate(['user', this.uid, 'website']);
+    }
+
+    getEditPage(pageId) {
+        this.router.navigate(['user', this.uid, 'website', this.wid, 'page', pageId]);
+    }
+
+    getWidgetList(pageId) {
+        this.router.navigate(['user', this.uid, 'website', this.wid, 'page', pageId, 'widget']);
     }
 
 }
