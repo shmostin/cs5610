@@ -49,6 +49,7 @@ module.exports = function (app) {
 
         websiteModel.findAllWebsitesForUser(uid)
             .then(function (websitesfound) {
+                console.log('A WEBSITE WAS FOUND BY THIS ID');
                 res.status(200).json(websitesfound);
             }, function (err) {
                 console.log('ERROR in find all websites for user: ' + err);
@@ -58,6 +59,7 @@ module.exports = function (app) {
     }
 
     function findWebsiteById(req, res) {
+        console.log('FIND WEBSITE BY WID');
         var wid = req.params['wid'];
         websiteModel.findWebsiteById(wid).exec(
             function (err, website) {
@@ -73,9 +75,11 @@ module.exports = function (app) {
     }
 
     function updateWebsite(req, res) {
-        var websiteId = req.params['websiteId'];
+        console.log('UPDATE WEBSITE BY WID');
+        var websiteId = req.params['wid'];
         var website = req.body;
-
+        console.log('THE NEW WEBSITE: ' + JSON.stringify(website));
+        console.log('THE WID: ' + JSON.stringify(websiteId));
         websiteModel.updateWebsite(websiteId, website).exec(
             function (err, website) {
                 if (err) {

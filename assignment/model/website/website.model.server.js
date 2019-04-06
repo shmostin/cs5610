@@ -6,10 +6,10 @@ var websiteModel = mongoose.model("Website", websiteSchema);
 var userModel = require('../user/user.model.server');
 
 websiteModel.createWebsite = createWebsite;
-// websiteModel.findWebsiteById = findWebsiteById;
+websiteModel.findWebsiteById = findWebsiteById;
 websiteModel.findAllWebsitesForUser = findAllWebsitesForUser;
-// websiteModel.updateWebsite = updateWebsite;
-// websiteModel.deleteWebsite = deleteWebsite;
+websiteModel.updateWebsite = updateWebsite;
+websiteModel.deleteWebsite = deleteWebsite;
 
 module.exports = websiteModel;
 
@@ -40,20 +40,21 @@ function findAllWebsitesForUser(userId) {
     return websiteModel.find({developerId: userId});
 }
 
-// //TODO: findById????
-// function findWebsiteById(id) {
-//     return websiteModel.findById(id);
-// }
-//
-// //TODO: findByIdAndUpdate???
-// function updateWebsite(id, website) {
-//     return websiteModel.findByIdAndUpdate(id, website);
-// }
-//
-// //TODO: findByIdAndRemove???
-// function deleteWebsite(id) {
-//     return websiteModel.findByIdAndRemove(id);
-// }
+//TODO: findById????
+function findWebsiteById(id) {
+    return websiteModel.findById(id);
+}
+
+//TODO: findByIdAndUpdate???
+function updateWebsite(id, website) {
+    console.log('UPDATE WEBSITE FROM THE MODEL');
+    return websiteModel.updateOne({_id: id}, website);
+}
+
+//TODO: findByIdAndRemove???
+function deleteWebsite(id) {
+    return websiteModel.findByIdAndRemove(id);
+}
 
 
 

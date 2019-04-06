@@ -34,6 +34,7 @@ export class WebsiteService {
     }
 
     findWebsiteById(userId, websiteId) {
+        console.log('looking for websiteById');
         return this.http.get<Website>(this.baseUrl + '/api/user/' + userId + '/website/' + websiteId);
     }
 

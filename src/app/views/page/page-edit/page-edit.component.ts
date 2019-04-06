@@ -21,7 +21,7 @@ export class PageEditComponent implements OnInit {
   }
 
   updatePage() {
-    const newPage = new Page(this.pid, this.name, this.wid, this.description);
+    const newPage = new Page(this.name, this.wid, this.description);
     this.pageService.updatePage(this.pid, newPage);
     this.router.navigateByUrl('/user/' + this.uid + '/website/' + this.wid + '/page');
   }

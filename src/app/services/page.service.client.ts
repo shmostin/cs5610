@@ -21,15 +21,7 @@ export class PageService {
 
 
     createPage(websiteId: string, page: Page) {
-        // const newPage = {
-        //     _id: (new Date()).getTime() + ' ',
-        //     name: page.name,
-        //     websiteId: page.websiteId,
-        //     title: page.title
-        // };
-        //
-        // this.pages.push(newPage);
-        return this.http.post(this.base_url + '/api/website/' + websiteId + '/page', page);
+        return this.http.post<Page>(this.base_url + '/api/website/' + websiteId + '/page', page);
     }
 
     findAllPagesForWebsite(websiteId: string) {

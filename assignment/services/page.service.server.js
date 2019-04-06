@@ -1,4 +1,7 @@
 module.exports = function(app) {
+
+    const pageModel = require('../model/page/page.model.server');
+
     app.post("/api/website/:wid/page", createPage);
     app.get("/api/website/:wid/page", findAllPagesForWebsite);
     app.get("/api/page/:pid", findPageById);
@@ -14,20 +17,22 @@ module.exports = function(app) {
 
 
    function createPage(req, res) {
-       var websiteId = req.params.wid;
-       var newPage = req.body;
+       var page = req.body;
+       var websiteId = req.params['wid'];
 
-       for (var i = 0; i < pages.length; i++) {
-           if (pages[i].websiteId === newPage.websiteId && pages[i].name === newPage.name) {
-               res.status(404).send("This page has already existed.");
-               return;
-           }
-       }
+       page.website = websiteId;
+       // delete page._id;
+       pageModel.createPage(websiteId, page)
+           .then(function (page) {
+                   res.status(200).send(page);
+                   return page;
+               },
+               function (err) {
+                   console.log('create page error! ' + err);
+                   res.sendStatus(400);
+                   return err;
 
-       newPage._id = Math.random().toString();
-       newPage.websiteId = websiteId;
-       pages.push(newPage);
-       res.json(newPage);
+               });
     }
 
     function findAllPagesForWebsite(req, res) {

@@ -26,7 +26,7 @@ export class WebsiteEditComponent implements OnInit {
 
     ngOnInit() {
         this.activatedRoute.params.subscribe((params: any) => {
-            console.log('params from web-edit page: ' + params);
+            console.log('params from web-edit page: ' + JSON.stringify(params));
             this.uid = params['uid'];
             this.wid = params['wid'];
         });

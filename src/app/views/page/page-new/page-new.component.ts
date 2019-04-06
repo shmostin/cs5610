@@ -17,17 +17,28 @@ export class PageNewComponent implements OnInit {
   description: string;
   pages: Page[] = [];
 
-  constructor(private pageservice: PageService, private route: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private pageService: PageService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(
         (params: any) => {
           this.uid = params['uid'];
           this.wid = params['wid'];
-        }
-    );
+        });
+  }
+
+  backOnePage() {
+    this.router.navigate(['user', this.uid, 'website', this.wid, 'page']);
   }
 
   // TODO: createPage function????
-
+  newPage() {
+      const name = this.pageForm.value.pageName;
+      const title = this.pageForm.value.pageTitle;
+      const page = new Page(name, this.wid, title);
+      this.pageService.createPage(this.wid, page)
+          .subscribe(
+          page => this.backOnePage()
+      );
+  }
 }

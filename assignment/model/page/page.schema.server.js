@@ -9,7 +9,7 @@ pageSchema = new mongoose.Schema(
         description: String,
         widgets: [widgetSchema],
         dateCreated: {type: Date, default: Date.now()}
-    }, {collection: "Pages"}
+    }, {collection: 'page'}
 );
 
 module.exports = pageSchema;

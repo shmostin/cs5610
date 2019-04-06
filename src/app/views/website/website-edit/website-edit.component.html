@@ -84,8 +84,11 @@
   </div>
   <div class="col-md-8 pl-0">
     <nav class="navbar navbar-dark bg-primary">
+      <a routerLink="/user/{{uid}}/" class="navbar-link text-white">
+        <i class="fas fa-chevron-left fontawsome_icon"></i>
+      </a>
       <div class="navbar-brand font-weight-bold">Edit Website</div>
-      <a class="ml-auto" (click)="updateWebsite()" >
+      <a class="ml-auto" (click)="update()" >
             <span>
               <i class="fas fa-check fa-inverse"></i>
             </span>
