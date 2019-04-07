@@ -48,6 +48,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_widget_widget_chooser_widget_chooser_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./views/widget/widget-chooser/widget-chooser.component */ "./src/app/views/widget/widget-chooser/widget-chooser.component.ts");
 /* harmony import */ var _views_widget_widget_list_widget_list_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./views/widget/widget-list/widget-list.component */ "./src/app/views/widget/widget-list/widget-list.component.ts");
 /* harmony import */ var _views_widget_widget_edit_widget_edit_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./views/widget/widget-edit/widget-edit.component */ "./src/app/views/widget/widget-edit/widget-edit.component.ts");
+/* harmony import */ var _services_auth_gaurd_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./services/auth-gaurd.service */ "./src/app/services/auth-gaurd.service.ts");
+
 
 
 
@@ -68,7 +70,7 @@ __webpack_require__.r(__webpack_exports__);
 var appRoutes = [
     { path: 'login', component: _views_user_login_login_component__WEBPACK_IMPORTED_MODULE_3__["LoginComponent"] },
     { path: 'register', component: _views_user_register_register_component__WEBPACK_IMPORTED_MODULE_5__["RegisterComponent"] },
-    { path: 'user/:uid', component: _views_user_profile_profile_component__WEBPACK_IMPORTED_MODULE_4__["ProfileComponent"] },
+    { path: 'user/:uid', component: _views_user_profile_profile_component__WEBPACK_IMPORTED_MODULE_4__["ProfileComponent"], canActivate: [_services_auth_gaurd_service__WEBPACK_IMPORTED_MODULE_15__["AuthGuard"]] },
     { path: 'user/:uid/website', component: _views_website_website_list_website_list_component__WEBPACK_IMPORTED_MODULE_10__["WebsiteListComponent"] },
     { path: 'user/:uid/website/new', component: _views_website_website_new_website_new_component__WEBPACK_IMPORTED_MODULE_11__["WebsiteNewComponent"] },
     { path: 'user/:uid/website/:wid', component: _views_website_website_edit_website_edit_component__WEBPACK_IMPORTED_MODULE_9__["WebsiteEditComponent"] },
@@ -80,7 +82,7 @@ var appRoutes = [
     { path: 'user/:uid/website/:wid/page/:pid/widget/:widgetId', component: _views_widget_widget_edit_widget_edit_component__WEBPACK_IMPORTED_MODULE_14__["WidgetEditComponent"] },
 ];
 var AppRoutingModule = /** @class */ (function () {
-    // export const routing = RouterModule.forRoot(appRoutes)
+    // export const routing = RouterModule.forRoot(appRoutes, {useHash: true});
     function AppRoutingModule() {
     }
     AppRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -88,7 +90,7 @@ var AppRoutingModule = /** @class */ (function () {
             imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(appRoutes)],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
         })
-        // export const routing = RouterModule.forRoot(appRoutes)
+        // export const routing = RouterModule.forRoot(appRoutes, {useHash: true});
     ], AppRoutingModule);
     return AppRoutingModule;
 }());
@@ -500,6 +502,43 @@ var Widget = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/services/auth-gaurd.service.ts":
+/*!************************************************!*\
+  !*** ./src/app/services/auth-gaurd.service.ts ***!
+  \************************************************/
+/*! exports provided: AuthGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGuard", function() { return AuthGuard; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _user_service_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./user.service.client */ "./src/app/services/user.service.client.ts");
+
+
+
+
+var AuthGuard = /** @class */ (function () {
+    function AuthGuard(userService, router) {
+        this.userService = userService;
+        this.router = router;
+    }
+    AuthGuard.prototype.canActivate = function () {
+        return this.userService.loggedIn();
+    };
+    AuthGuard = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_user_service_client__WEBPACK_IMPORTED_MODULE_3__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    ], AuthGuard);
+    return AuthGuard;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/page.service.client.ts":
 /*!*************************************************!*\
   !*** ./src/app/services/page.service.client.ts ***!
@@ -628,14 +667,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // import { User } from '../models/user.model.client';
+// let options;
+// options = new RequestOptions();
 var UserService = /** @class */ (function () {
     function UserService(http, router, sharedService) {
         this.http = http;
         this.router = router;
         this.sharedService = sharedService;
+        this.options = {
+            withCredentials: false
+        };
         this.baseUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl;
         this.APIUrl = '/api/user/';
     }
+    UserService.prototype.login = function (username, password) {
+        console.log('client side user service login() called');
+        this.options.withCredentials = true;
+        var body = {
+            username: username,
+            password: password
+        };
+        return this.http.post(this.baseUrl + '/api/login', body, this.options).map(function (res) {
+            console.log('Inside login() response, res is ' + res);
+            var data = res.json();
+            return data;
+        });
+    };
+    UserService.prototype.loggedIn = function () {
+        var _this = this;
+        return this.http.get(this.baseUrl + '/api/loggedIn', this.options)
+            .map(function (res) {
+            var user = JSON.stringify(res);
+            console.log('Checking for logged in with: ' + user);
+            if (user !== '0') {
+                console.log(_this.sharedService);
+                _this.sharedService.user = user;
+                return true;
+            }
+            else {
+                _this.router.navigate(['/login']);
+                return false;
+            }
+        });
+    };
     /**
      * adds a user to the users array
      * @param user is the user we want to add to the array.
@@ -688,16 +762,23 @@ var UserService = /** @class */ (function () {
         return this.http.delete(this.baseUrl + this.APIUrl + userId);
     };
     UserService.prototype.register = function (username, password) {
-        // this.options.withCredentials = true;
+        this.options.withCredentials = true;
         var body = {
             username: username,
             password: password
         };
-        return this.http.post(this.baseUrl + '/api/register', body);
+        return this.http.post(this.baseUrl + '/api/register', body, this.options)
+            .map(function (res) {
+            var data = res.json();
+            return data;
+        });
     };
     UserService.prototype.logout = function () {
         // this.options.withCredentials = true;
-        return this.http.post(this.baseUrl + '/api/logout', '');
+        return this.http.post(this.baseUrl + '/api/logout', '', this.options)
+            .map(function (res) {
+            return res;
+        });
     };
     UserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({ providedIn: 'root' }),
@@ -1151,7 +1232,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n\n\n<div class=\"container\">\n<div *ngIf=\"errorFlag\"\n     class=\"alert alert-danger\">\n  {{errorMsg}}\n</div>\n\n\n  <h1>Login</h1>\n\n  <form (ngSubmit)=\"login()\" #f=\"ngForm\">\n    <div class=\"form-group\">\n      <input placeholder=\"username\"\n             name=\"username\"\n             type=\"text\"\n             class=\"form-control\"\n             ngModel\n             required\n             #username=\"ngModel\"/>\n\n\n    </div> <!-- form-group// -->\n    <div class =\"help-block\" *ngIf=\"!username.valid && username.touched\">\n      Please enter a username\n    </div>\n\n    <div class=\"form-group\">\n      <input placeholder=\"password\"\n             name=\"password\"\n             type=\"password\"\n             class=\"form-control\"\n             ngModel\n             required\n             #password=\"ngModel\">\n    </div> <!-- form-group// -->\n\n    <div class=\"form-group\">\n      <button [disabled]=\"!f.valid\"\n              class=\"btn btn-primary btn-block\"\n              type=\"submit\">Login\n      </button>\n    </div>\n\n    <div class=\"form-group\">\n      <a class=\"btn btn-success btn-block\" routerLink=\"/register\" role=\"button\">Register</a>\n    </div>\n  </form>\n\n</div>"
+module.exports = "<!DOCTYPE html>\n\n\n<div class=\"container\">\n<div *ngIf=\"errorFlag\"\n     class=\"alert alert-danger\">\n  {{errorMsg}}\n</div>\n\n\n  <h1>Login</h1>\n\n  <form (ngSubmit)=\"login()\" #f=\"ngForm\">\n    <div class=\"form-group\">\n      <input placeholder=\"username\"\n             name=\"username\"\n             type=\"text\"\n             class=\"form-control\"\n             ngModel\n             required\n             #username=\"ngModel\"/>\n\n\n    </div> <!-- form-group// -->\n    <div class =\"help-block\" *ngIf=\"!username.valid && username.touched\">\n      Please enter a username\n    </div>\n\n    <div class=\"form-group\">\n      <input placeholder=\"password\"\n             name=\"password\"\n             type=\"password\"\n             class=\"form-control\"\n             ngModel\n             required\n             #password=\"ngModel\">\n    </div> <!-- form-group// -->\n\n    <div class=\"form-group\">\n      <button [disabled]=\"!f.valid\"\n              class=\"btn btn-primary btn-block\"\n              type=\"submit\">Login\n      </button>\n    </div>\n    <div class=\"form-group\">\n      <a href=\"/facebook/login\" class=\"btn btn-primary btn-block\">\n        <span class=\"fa fa-facebook\"></span>\n        Facebook\n      </a>\n    </div>\n\n    <div class=\"form-group\">\n      <a class=\"btn btn-success btn-block\" routerLink=\"/register\" role=\"button\">Register</a>\n    </div>\n  </form>\n\n</div>"
 
 /***/ }),
 
@@ -1171,6 +1252,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var rxjs_Rx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/Rx */ "./node_modules/rxjs-compat/_esm5/Rx.js");
 /* harmony import */ var _services_user_service_client__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../services/user.service.client */ "./src/app/services/user.service.client.ts");
+/* harmony import */ var _services_shared_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../services/shared.service */ "./src/app/services/shared.service.ts");
+
 
 
 
@@ -1178,9 +1261,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(userService, router) {
+    function LoginComponent(userService, router, sharedService) {
         this.userService = userService;
         this.router = router;
+        this.sharedService = sharedService;
         this.errorMsg = 'Invalid username or password';
         this.errorFlag = false;
     }
@@ -1190,19 +1274,12 @@ var LoginComponent = /** @class */ (function () {
         this.password = this.loginForm.value.password;
         console.log('username: ' + this.username);
         console.log('password: ' + this.password);
-        this.userService.findUserByCredentials(this.username, this.password)
+        this.userService.login(this.username, this.password)
             .subscribe(function (user) {
-            if (user) {
-                console.log('made it to the login component.ts');
-                console.log('The subscribe res from the server: ' + user);
-                _this.user = user;
-                console.log('this.user_id: ' + _this.user._id);
-                _this.router.navigate(['/user', _this.user._id]);
-            }
-            else {
-                console.log('That password was incorrect');
-                _this.errorFlag = true;
-            }
+            _this.sharedService.user = user;
+            _this.router.navigate(['/user', user._id]);
+        }, function (error) {
+            console.log(error);
         });
     };
     LoginComponent.prototype.ngOnInit = function () {
@@ -1218,7 +1295,7 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/views/user/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/views/user/login/login.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service_client__WEBPACK_IMPORTED_MODULE_5__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service_client__WEBPACK_IMPORTED_MODULE_5__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _services_shared_service__WEBPACK_IMPORTED_MODULE_6__["SharedService"]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -1370,7 +1447,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n\n<div class=\"container\">\n    <h1 class=\"text-center\">Register</h1>\n\n    <div *ngIf=\"userErrorFlag\" class=\"alert alert-danger\">\n        {{userErrorMsg}}\n    </div>\n\n    <form (ngSubmit)=\"register()\" #f=\"ngForm\">\n        <div class=\"form-group\">\n            <input type=\"text\"\n                   class=\"form-control\"\n                   placeholder=\"username\"\n                   name=\"username\"\n                   id=\"username\"\n                   ngModel\n                   required\n                   #username=\"ngModel\"/>\n        </div>\n\n        <div class=\"form-group\">\n            <input type=\"password\"\n                   class=\"form-control\"\n                   placeholder=\"Password\"\n                   name=\"password\"\n                   id=\"password\"\n                   ngModel\n                   required\n                   #password=\"ngModel\"/>\n        </div>\n\n        <div class=\"form-group\">\n            <input type=\"password\"\n                   class=\"form-control\"\n                   placeholder=\"Verify Password\"\n                   id=\"vpassword\"\n                   name=\"vpassword\"\n                   ngModel\n                   required\n                   #v_password=\"ngModel\"/>\n        </div>\n\n        <div *ngIf=\"pwdErrorFlag\" class=\"alert alert-danger\">\n            {{pwdErrorMsg}}\n        </div>\n\n        <button class=\"btn btn-primary btn-block\"\n                type=\"submit\"\n                [disabled]=\"!f.valid\">Register\n        </button>\n\n        <button class=\"btn btn-primary btn-block\"\n                type=\"submit\"\n                routerLink=\"/login\">Cancel\n        </button>\n    </form>\n</div>\n"
+module.exports = "<!DOCTYPE html>\n\n<div class=\"container\">\n    <h1 class=\"text-center\">Register</h1>\n\n    <div *ngIf=\"userErrorFlag\" class=\"alert alert-danger\">\n        {{userErrorMsg}}\n    </div>\n\n    <form (ngSubmit)=\"createUser()\" #f=\"ngForm\">\n        <div class=\"form-group\">\n            <input type=\"text\"\n                   class=\"form-control\"\n                   placeholder=\"username\"\n                   name=\"username\"\n                   id=\"username\"\n                   ngModel\n                   required\n                   #username=\"ngModel\"/>\n        </div>\n\n        <div class=\"form-group\">\n            <input type=\"password\"\n                   class=\"form-control\"\n                   placeholder=\"Password\"\n                   name=\"password\"\n                   id=\"password\"\n                   ngModel\n                   required\n                   #password=\"ngModel\"/>\n        </div>\n\n        <div class=\"form-group\">\n            <input type=\"password\"\n                   class=\"form-control\"\n                   placeholder=\"Verify Password\"\n                   id=\"vpassword\"\n                   name=\"vpassword\"\n                   ngModel\n                   required\n                   #v_password=\"ngModel\"/>\n        </div>\n\n        <div *ngIf=\"pwdErrorFlag\" class=\"alert alert-danger\">\n            {{pwdErrorMsg}}\n        </div>\n\n        <button class=\"btn btn-primary btn-block\"\n                type=\"submit\"\n                [disabled]=\"!f.valid\">Register\n        </button>\n\n        <button class=\"btn btn-primary btn-block\"\n                type=\"submit\"\n                routerLink=\"/login\">Cancel\n        </button>\n    </form>\n</div>\n"
 
 /***/ }),
 
@@ -1389,6 +1466,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _services_user_service_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/user.service.client */ "./src/app/services/user.service.client.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _models_user_model_client__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../models/user.model.client */ "./src/app/models/user.model.client.ts");
+
 
 
 
@@ -1399,101 +1478,27 @@ var RegisterComponent = /** @class */ (function () {
         this._userService = _userService;
         this.router = router;
     }
-    RegisterComponent.prototype.register = function () {
-        var _this = this;
-        console.log('Attempting Registration');
-        this.username = this.registerForm.value.username;
-        this.password = this.registerForm.value.password;
-        this.vpassword = this.registerForm.value.vpassword;
-        // this.user = new User(this.username, this.password, '', '', '');
-        var newUser = {
-            username: this.username,
-            password: this.password,
-            firstName: null,
-            lastName: null,
-            email: null
-        };
-        this.userErrorFlag = false;
-        this.pwdErrorFlag = false;
-        // call user service only if passwords match else show the same error
-        console.log('Comparing given passwords: ');
-        console.log(this.password);
-        console.log(this.vpassword);
-        if (this.password === this.vpassword) {
-            console.log('Passwords Matched!');
-            console.log('Calling findUserByUsername() to check if already exists');
-            this._userService.findUserByUsername(this.username)
-                .subscribe(function (user) {
-                console.log('what was found on the database: ' + user);
-                if (user != null) {
-                    _this.userErrorFlag = true;
-                }
-                else {
-                    console.log('calling createUser from register component');
-                    console.log('user being sent to the db: ' + JSON.stringify(newUser));
-                    _this._userService.createUser(newUser)
-                        .subscribe(function (resUser) {
-                        console.log('newUser returned from the database req: ' + resUser);
-                        _this.router.navigate(['/', 'login']);
-                    }, function (error) {
-                        console.log(error);
-                    });
-                }
-            });
-        }
-        else {
-            this.pwdErrorFlag = true;
-        }
-    };
-    // register() {
-    //     console.log('I am here to register a new user');
-    //     this.username = this.registerForm.value.username;
-    //     this.password = this.registerForm.value.password;
-    //     this.vpassword = this.registerForm.value.vpassword;
-    //     this.userErrorFlag = false;
-    //     this.pwdErrorFlag = false;
-    //     if (this.vpassword !== this.password) {
-    //         this.userErrorFlag = true;
-    //         return;
-    //     }
-    //     this._userService.findUserByUsername(this.username).subscribe(
-    //         (user: User) => {
-    //             if (user) {
-    //                 this.userErrorFlag = true;
-    //             } else {
-    //                 console.log('I am in the right place');
-    //                 const curuser = {username: this.username, password: this.password};
-    //                 this._userService.createUser(curuser).subscribe(
-    //                     (newUser: any) => {
-    //                         console.log(newUser);
-    //                     }
-    //                 );
-    //                 alert('Registration succeed!');
-    //                 this.router.navigate(['/', 'login']);
-    //             }
-    //         },
-    //         (error: any) => {
-    //             console.log('I am in the right place');
-    //             const curuser = {username: this.username, password: this.password};
-    //             this._userService.createUser(curuser).subscribe(
-    //                 (newUser: User) => {
-    //                     console.log(newUser);
-    //                 }
-    //             );
-    //             alert('Registration succeed!');
-    //             this.router.navigate(['/', 'login']);
-    //         }
-    //     );
-    // }
     RegisterComponent.prototype.ngOnInit = function () {
         this.pwdErrorMsg = 'Those passwords do not match!';
         this.userErrorMsg = 'That username is already in use, please select another';
-        // this.user = new User(undefined,
-        //     undefined,
-        //     undefined,
-        //     undefined,
-        //     undefined,
-        // );
+    };
+    RegisterComponent.prototype.createUser = function () {
+        var _this = this;
+        var username = this.registerForm.value.username;
+        var password = this.registerForm.value.password;
+        var user = new _models_user_model_client__WEBPACK_IMPORTED_MODULE_5__["User"](username, password, '', '', '');
+        // this.userService.createUser(user)
+        //   .subscribe(
+        //     (user) => this.router.navigate(['/user', user._id]));
+        this._userService.register(username, password)
+            .subscribe(function (user) {
+            // console.log(data);
+            _this.router.navigate(['/user', user._id]);
+            return;
+        }, function (error) {
+            // this.error = error._body;
+            console.log(error);
+        });
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('f'),

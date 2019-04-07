@@ -1,5 +1,26 @@
 module.exports = function(app) {
 
+    //PASSPORT
+    var passport = require('passport');
+    var LocalStrategy = require('passport-local').Strategy;
+    var FacebookStrategy = require('passport-facebook').Strategy;
+
+    const appId = '459575981452298';
+    const secret = '030f28a32feef8d416e3291bc786b3e7';
+    //may need to add to callback with my base url for heroku production
+    var facebookConfig = {
+        clientID: appId,
+        clientSecret: secret,
+        callbackURL: '/auth/facebook/callback/'
+    };
+
+
+    //local login stratedy
+    app.post('/api/login', passport.authenticate('local'), login);
+    app.post('/api/logout', logout);
+    app.post('/api/register', register);
+    app.get('/api/loggedIn', loggedin);
+
     app.put("/api/user/:uid", updateUserById);
     app.post("/api/user", createUser);
     app.get("/api/username", findByUsername);
@@ -10,10 +31,98 @@ module.exports = function(app) {
     app.get("/api/user", findUsers);
     app.delete("/api/user/:uid", deleteUser);
 
-    app.post('/api/register', register);
+
 
     // please delete when pushed to heroku
     app.get("/api/populate", populateUsers);
+
+
+    //facebook strategy
+    app.get('/facebook/login', passport.authenticate('facebook', {scope: 'email'}));
+
+    //facebook callback to their website
+    app.get('/auth/facebook/callback',
+        passport.authenticate('facebook',
+            {failureRedirect: '/login'}),
+        function (req, res) {
+           //redirect to the profile page with our userId
+            const id = req.user._id;
+            return res.redirect('/user/' + id);
+        });
+
+
+
+
+    passport.serializeUser(serializeUser);
+
+    function serializeUser(user, done) {
+        return done(null, user);
+    }
+
+    passport.deserializeUser(deserializeUser);
+
+    function deserializeUser(user, done) {
+        userModel
+            .findUserById(user._id)
+            .then(
+                function (user) {
+                    done(null, user);
+                },
+                function (err) {
+                    done(err, null);
+                });
+    }
+
+    //IMPLEMENT LOCAL STRATEGY
+    passport.use(new LocalStrategy(localStrategy));
+
+    function localStrategy(username, password, done) {
+        userModel.findUserByUsername(username).then(
+            function (user) {
+                if (user.username === username && user.password === password) {
+                    console.log('password valid!');
+                    return done(null, user);
+                } else {
+                    console.log('password failed.');
+                    return done(null, false);
+                }
+            }, function (err){
+                console.log('err is ' + err);
+                return done(err);
+            });
+    }
+
+    //IMPLEMENT FACEBOOK STRATEGY
+    passport.use('facebookStrategy', new FacebookStrategy(facebookConfig, facebookStrategy));
+
+    function facebookStrategy(token, refreshToken, profile, done) {
+        console.log('Backend: facebook strategy called');
+        userModel.findUserByFacebookId(profile.id)
+            .then(function (user) {
+                if (user) {
+                    return done(null, user);
+                } else {
+                    var names = profile.displayName.split(" ");
+                    var newFacebookUser = {
+                        lastName: names[1],
+                        firstName: names[0],
+                        email: profile.emails ? profile.emails[0].value : "",
+                        facebook: {
+                            id: profile.id,
+                            token: token
+                        }
+                    };
+                    return userModel.createUser(newFacebookUser);
+
+                }
+            }, function (err) {
+                if (err) {
+                    return done(err);
+                }
+            });
+    }
+
+
 
 
     var userModel = require('../model/user/user.model.server');
@@ -25,6 +134,24 @@ module.exports = function(app) {
             {_id: "345", username: "charly",   password: "charly",   firstName: "Charly", lastName: "Garcia"  },
             {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }
         ];
+
+    function login(req, res) {
+        console.log('server side login called');
+        var user = req.user;
+        res.json(user);
+    }
+
+    function loggedin(req, res) {
+        console.log('server side loggedIn called');
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function logout(req, res) {
+        console.log('Server side logout() called');
+        req.logOut();
+        res.status(200).send({});
+    }
+
 
 
     function register(req, res) {

@@ -4,6 +4,7 @@ import {NgForm} from '@angular/forms';
 import 'rxjs/Rx';
 import {User} from '../../../models/user.model.client';
 import {UserService} from '../../../services/user.service.client';
+import {SharedService} from '../../../services/shared.service';
 
 @Component({
     selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
     disabledFlag: boolean;
     inputText: string;
 
-    constructor(private userService: UserService, private router: Router) {
+    constructor(private userService: UserService, private router: Router, private sharedService: SharedService) {
 
        this.errorFlag = false;
     }
@@ -36,21 +37,14 @@ export class LoginComponent implements OnInit {
         console.log('username: ' + this.username);
         console.log('password: ' + this.password);
 
-        this.userService.findUserByCredentials(this.username, this.password)
+        this.userService.login(this.username, this.password)
             .subscribe(
-                (user: User) => {
-                if (user) {
-                    console.log('made it to the login component.ts');
-                    console.log('The subscribe res from the server: ' + user);
-                    this.user = user;
-                    console.log('this.user_id: ' + this.user._id);
-                    this.router.navigate(['/user', this.user._id]);
-                } else {
-                    console.log('That password was incorrect');
-                    this.errorFlag = true;
-                }
-            }
-            );
+                (user: any) => {
+                    this.sharedService.user = user;
+                    this.router.navigate(['/user', user._id]);
+                }, (error: any) => {
+                    console.log(error);
+                });
     }
 
     ngOnInit() {

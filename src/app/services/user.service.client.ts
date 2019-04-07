@@ -6,11 +6,13 @@ import {SharedService} from './shared.service';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../models/user.model.client';
+import {RequestOptions} from '@angular/http';
 
 
 // import { User } from '../models/user.model.client';
 
-
+// let options;
+// options = new RequestOptions();
 
 
 @Injectable({providedIn: 'root'})
@@ -18,9 +20,44 @@ export class UserService {
 
     constructor(private http: HttpClient, private router: Router, private sharedService: SharedService) {}
 
+    options = {
+        withCredentials: false
+    };
     baseUrl = environment.baseUrl;
     APIUrl = '/api/user/';
 
+
+    login(username: String, password: String) {
+        console.log('client side user service login() called');
+        this.options.withCredentials = true;
+        const body = {
+            username: username,
+            password: password
+        };
+        return this.http.post(this.baseUrl + '/api/login', body, this.options).map(
+            (res: Response) => {
+                console.log('Inside login() response, res is ' + res);
+                const data = res.json();
+                return data;
+            });
+    }
+
+    loggedIn() {
+        return this.http.get(this.baseUrl + '/api/loggedIn', this.options)
+            .map((res: Response) => {
+                const user = JSON.stringify(res);
+                console.log('Checking for logged in with: ' + user);
+
+                if (user !== '0') {
+                    console.log(this.sharedService);
+                    this.sharedService.user = user;
+                    return true;
+                } else {
+                    this.router.navigate(['/login']);
+                    return false;
+                }
+            });
+    }
 
     /**
      * adds a user to the users array
@@ -83,18 +120,27 @@ export class UserService {
 
     register(username: String, password: String) {
 
-        // this.options.withCredentials = true;
+        this.options.withCredentials = true;
         const body = {
             username : username,
             password : password
         };
 
-        return this.http.post(this.baseUrl + '/api/register', body);
+        return this.http.post(this.baseUrl + '/api/register', body, this.options)
+            .map(
+                (res: Response) => {
+                    const data = res.json();
+                    return data;
+                }
+            );
     }
 
 
     logout() {
         // this.options.withCredentials = true;
-        return this.http.post(this.baseUrl + '/api/logout', '');
+        return this.http.post(this.baseUrl + '/api/logout', '', this.options)
+            .map((res: Response) => {
+                return res;
+            });
     }
 }

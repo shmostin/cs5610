@@ -8,6 +8,7 @@ userModel.findUserById = findUserById;
 userModel.findUserByUserName = findUserByUserName;
 userModel.findByCredential = findByCredential;
 userModel.updateUser = updateUser;
+userModel.findUserByFacebookId = findUserByFacebookId;
 // userModel.deleteUser = deleteUser;
 
 module.exports = userModel;
@@ -21,6 +22,13 @@ function createUser(user) {
     console.log('model: ' + JSON.stringify(user));
    return userModel.create(user);
 }
+
+function findUserByFacebookId(facebookId) {
+    console.log('mongoose find user by facebookId');
+    return userModel.findOne({'facebook.id': facebookId});
+}
+
+
 
 function populateUsers(users) {
    return userModel.insertMany(users);

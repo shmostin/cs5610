@@ -13,7 +13,7 @@ import {WebsiteNewComponent} from './views/website/website-new/website-new.compo
 import {WidgetChooserComponent} from './views/widget/widget-chooser/widget-chooser.component';
 import {WidgetListComponent} from './views/widget/widget-list/widget-list.component';
 import {WidgetEditComponent} from './views/widget/widget-edit/widget-edit.component';
-
+import {AuthGuard} from './services/auth-gaurd.service';
 
 // /profile/{{user._id}}/website
 // user/234/website/456/page/new
@@ -21,7 +21,7 @@ import {WidgetEditComponent} from './views/widget/widget-edit/widget-edit.compon
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
-    {path: 'user/:uid', component: ProfileComponent},
+    {path: 'user/:uid', component: ProfileComponent, canActivate: [AuthGuard]},
 
     {path: 'user/:uid/website', component: WebsiteListComponent},
     {path: 'user/:uid/website/new', component: WebsiteNewComponent},
@@ -42,5 +42,5 @@ const appRoutes: Routes = [
   exports: [RouterModule]
 })
 
-// export const routing = RouterModule.forRoot(appRoutes)
+// export const routing = RouterModule.forRoot(appRoutes, {useHash: true});
 export class AppRoutingModule { }

@@ -5,6 +5,12 @@ const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 const app = express();
+const passport = require('passport');
+
+
+//PASSPORT
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 // Body parsing
@@ -13,6 +19,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Point static path to dist -- For building -- REMOVE
 app.use(express.static(path.join(__dirname, 'dist/my-project')));
+
+
+// EXPRESS SESSION SUPPORT
+var cookieParser = require('cookie-parser');
+var session      = require('express-session');
+app.use(cookieParser());
+app.use(session({ secret: process.env.SESSION_SECRET }));
+
 
 // CORS
 app.use(function(req, res, next) {
@@ -36,7 +50,7 @@ server.listen( port , () => console.log('Running on port 3200'));
 
 var localConnectionString = 'mongodb://localhost:27017/webdev';
 
-var connectionString = 'mongodb://shmostin:shmostin1234@ds145790.mlab.com:45790/heroku_g477qtmg';
+var connectionString = 'mongodb://shmostin:shmostin1234@ds123971.mlab.com:23971/heroku_k7qk2jt8';
 var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 const client = mongoose.connect( connectionString, { useNewUrlParser: true });
