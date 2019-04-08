@@ -77,7 +77,8 @@ module.exports = function(app) {
     passport.use(new LocalStrategy(localStrategy));
 
     function localStrategy(username, password, done) {
-        userModel.findUserByUsername(username).then(
+        console.log('CALLING LOCAL STRATEGY FOR LOGIN');
+        userModel.findUserByUserName(username).then(
             function (user) {
                 if (user.username === username && user.password === password) {
                     console.log('password valid!');

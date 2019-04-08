@@ -691,8 +691,8 @@ var UserService = /** @class */ (function () {
         };
         return this.http.post(this.baseUrl + '/api/login', body, this.options).map(function (res) {
             console.log('Inside login() response, res is ' + res);
-            var data = res.json();
-            return data;
+            // const data = res.json();
+            return res;
         });
     };
     UserService.prototype.loggedIn = function () {

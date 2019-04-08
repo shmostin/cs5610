@@ -37,8 +37,8 @@ export class UserService {
         return this.http.post(this.baseUrl + '/api/login', body, this.options).map(
             (res: Response) => {
                 console.log('Inside login() response, res is ' + res);
-                const data = res.json();
-                return data;
+                // const data = res.json();
+                return res;
             });
     }
 
