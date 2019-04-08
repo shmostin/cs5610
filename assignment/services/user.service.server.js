@@ -8,11 +8,12 @@ module.exports = function(app) {
 
     const appId = '459575981452298';
     const secret = '030f28a32feef8d416e3291bc786b3e7';
+    // '/auth/facebook/callback/'
     //may need to add to callback with my base url for heroku production
     var facebookConfig = {
-        clientID: appId,
-        clientSecret: secret,
-        callbackURL: '/auth/facebook/callback/'
+        clientID: process.env.FACEBOOK_CLIENT_ID || appId,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET || secret,
+        callbackURL: process.env.FACEBOOK_CLIENT_SECRET || 'http://localhost:3200/auth/facebook/callback/'
     };
 
 
@@ -43,11 +44,11 @@ module.exports = function(app) {
 
     //facebook callback to their website
     app.get('/auth/facebook/callback', passport.authenticate('facebook',
-            {failureRedirect: '/login'}),
+            {failureRedirect: '/#/login'}),
         function (req, res) {
            //redirect to the profile page with our userId
             const id = req.user._id;
-            return res.redirect('/user/' + id);
+            return res.redirect('/#/user/' + id);
         });
 
 
@@ -94,7 +95,7 @@ module.exports = function(app) {
     }
 
     //IMPLEMENT FACEBOOK STRATEGY
-    passport.use('facebookStrategy', new FacebookStrategy(facebookConfig, facebookStrategy));
+    passport.use('facebook', new FacebookStrategy(facebookConfig, facebookStrategy));
 
     function facebookStrategy(token, refreshToken, profile, done) {
         console.log('Backend: facebook strategy called');
