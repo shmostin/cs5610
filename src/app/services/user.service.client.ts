@@ -129,8 +129,8 @@ export class UserService {
         return this.http.post(this.baseUrl + '/api/register', body, this.options)
             .map(
                 (res: Response) => {
-                    const data = res.json();
-                    return data;
+                    // const data = res.json();
+                    return res;
                 }
             );
     }

@@ -194,6 +194,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _services_shared_service__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./services/shared.service */ "./src/app/services/shared.service.ts");
 /* harmony import */ var _directives_sortable_directive__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./directives/sortable.directive */ "./src/app/directives/sortable.directive.ts");
+/* harmony import */ var _services_auth_gaurd_service__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./services/auth-gaurd.service */ "./src/app/services/auth-gaurd.service.ts");
 
 
 
@@ -224,6 +225,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // services
+
 
 
 
@@ -264,7 +266,7 @@ var AppModule = /** @class */ (function () {
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
                 ngx_quill__WEBPACK_IMPORTED_MODULE_6__["QuillModule"]
             ],
-            providers: [_services_user_service_client__WEBPACK_IMPORTED_MODULE_24__["UserService"], _services_website_service_client__WEBPACK_IMPORTED_MODULE_26__["WebsiteService"], _services_page_service_client__WEBPACK_IMPORTED_MODULE_25__["PageService"], _services_widget_service_client__WEBPACK_IMPORTED_MODULE_27__["WidgetService"], _services_shared_service__WEBPACK_IMPORTED_MODULE_29__["SharedService"]],
+            providers: [_services_user_service_client__WEBPACK_IMPORTED_MODULE_24__["UserService"], _services_website_service_client__WEBPACK_IMPORTED_MODULE_26__["WebsiteService"], _services_page_service_client__WEBPACK_IMPORTED_MODULE_25__["PageService"], _services_widget_service_client__WEBPACK_IMPORTED_MODULE_27__["WidgetService"], _services_shared_service__WEBPACK_IMPORTED_MODULE_29__["SharedService"], _services_auth_gaurd_service__WEBPACK_IMPORTED_MODULE_31__["AuthGuard"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
@@ -769,8 +771,8 @@ var UserService = /** @class */ (function () {
         };
         return this.http.post(this.baseUrl + '/api/register', body, this.options)
             .map(function (res) {
-            var data = res.json();
-            return data;
+            // const data = res.json();
+            return res;
         });
     };
     UserService.prototype.logout = function () {

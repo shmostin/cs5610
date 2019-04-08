@@ -40,6 +40,7 @@ import {WidgetService} from './services/widget.service.client';
 import {FormsModule} from '@angular/forms';
 import {SharedService} from './services/shared.service';
 import {SortableDirective} from './directives/sortable.directive';
+import {AuthGuard} from './services/auth-gaurd.service';
 
 
 
@@ -72,7 +73,7 @@ import {SortableDirective} from './directives/sortable.directive';
       HttpClientModule,
       QuillModule
   ],
-  providers: [UserService, WebsiteService, PageService, WidgetService, SharedService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, SharedService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
