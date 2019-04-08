@@ -1,149 +1,89 @@
 <nav class="navbar cl-blue-navbar fixed-top">
     <div class="container-fluid">
-        <a routerLink="../../" class="navbar-link ">
+        <a (click)="backOnePage()" class="navbar-link ">
             <span class="cl-text-white fas fa-chevron-left"></span>
         </a>
         <a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding" href="#">
             Widgets
         </a>
 
-        <a [routerLink]="['./new']"
+        <a (click)="widgetChoose()"
            class="navbar-link cl-text-white">
             <span class="cl-text-white fas fa-plus fontawesome_icon cl-icon-padding"></span>
         </a>
     </div>
 </nav>
 
+<!--appSortable (newIndexes)="reorderWidgets($event)-->
+
 <div class="container cl-container-padding">
-    <div class="widget-list" appSortable (newIndexes)="reorderWidgets($event)">
-        <div *ngFor="let widget of widgets">
-            <div [ngSwitch]="widget.widgetType">
-                <div class="float-right">
-                    <a routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}/widget/{{widget._id}}">
-                        <i class="fas fa-cog fontawsome_icon"></i>
-                    </a>
-                </div>
-                <div *ngSwitchCase="'HEADING'">
-                    <div [ngSwitch]="widget.size">
-                        <div *ngSwitchCase="1">
-                            <h1>{{widget.text}}</h1>
-                        </div>
-                        <div *ngSwitchCase="2">
-                            <h2>{{widget.text}}</h2>
-                        </div>
-                        <div *ngSwitchCase="3">
-                            <h3>{{widget.text}}</h3>
-                        </div>
-                        <div *ngSwitchCase="4">
-                            <h4>{{widget.text}}</h4>
-                        </div>
-                        <div *ngSwitchCase="5">
-                            <h5>{{widget.text}}</h5>
-                        </div>
-                        <div *ngSwitchCase="6">
-                            <h6>{{widget.text}}</h6>
-                        </div>
+
+    <div *ngFor="let widget of widgets">
+        <div [ngSwitch]="widget.type">
+            <div class="float-right">
+                <a (click)="widgetEdit()">
+                    <i class="fas fa-cog fontawsome_icon"></i>
+                </a>
+            </div>
+
+
+            <div *ngSwitchCase="'HEADING'">
+                <div [ngSwitch]="widget.size">
+                    <div *ngSwitchCase="1">
+                        <h1>{{widget.text}}</h1>
+                    </div>
+                    <div *ngSwitchCase="2">
+                        <h2>{{widget.text}}</h2>
+                    </div>
+                    <div *ngSwitchCase="3">
+                        <h3>{{widget.text}}</h3>
+                    </div>
+                    <div *ngSwitchCase="4">
+                        <h4>{{widget.text}}</h4>
+                    </div>
+                    <div *ngSwitchCase="5">
+                        <h5>{{widget.text}}</h5>
+                    </div>
+                    <div *ngSwitchCase="6">
+                        <h6>{{widget.text}}</h6>
                     </div>
                 </div>
-                <div *ngSwitchCase="'IMAGE'">
-                    <img  src="widget.url" width="widget.width"/>
-                </div>
+            </div>
 
-                <div *ngSwitchCase="'YOUTUBE'" class = "youtube-widget">
-                    <iframe width="560" height="315" [src]='convertToSafeYoutubeUrl.widget.url' frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
+            <div *ngSwitchCase="'IMAGE'">
+                <div>
+                    <img class="img-responsive img-rounded cl-widget-images"
+                         src="{{widget.url}}">
                 </div>
-                <div *ngSwitchCase="'HTML'" class="html-widget">
-                    <span>{{widget.text}}</span>
-                </div>
-                <div *ngSwitchCase="'TEXT'">
-                    <div *ngIf="widget.formatted">
-                        <quill-editor [(ngModel)]="widget.text" name="text"></quill-editor>
-                    </div>
-                    <input *ngIf="!widget.formatted && (!widget.rows || widget.rows===1)"
-                           placeholder="{{widget.placeholder}}" class="form-control"/>
+            </div>
 
-                    <textarea *ngIf="!widget.formatted && (widget.rows > 1)"
-                              rows="{{widget.rows}}" placeholder="{{widget.placeholder}}"
-                              class="form-control">{{widget.text}}</textarea>
+            <div *ngSwitchCase="'YOUTUBE'" class="youtube-widget">
+                <iframe width="560" height="315" [src]='makeSafeUrl(widget.url)' frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+            </div>
+
+
+            <div *ngSwitchCase="'HTML'" class="html-widget">
+                <span>{{widget.text}}</span>
+            </div>
+
+
+            <div *ngSwitchCase="'TEXT'">
+                <div *ngIf="widget.formatted">
+                    <quill-editor [(ngModel)]="widget.text" name="text"></quill-editor>
                 </div>
-                <p *ngSwitchDefault><br></p>
+                <input *ngIf="!widget.formatted && (!widget.rows || widget.rows===1)"
+                       placeholder="{{widget.placeholder}}" class="form-control"/>
+
+                <textarea *ngIf="!widget.formatted && (widget.rows > 1)"
+                          rows="{{widget.rows}}" placeholder="{{widget.placeholder}}"
+                          class="form-control">{{widget.text}}</textarea>
             </div>
         </div>
     </div>
 </div>
 
-<!--<body>-->
-<!--<div class="container cl-container-padding">-->
-    <!--<div class="widget-list" appSortable (newIndexes)="reorderWidgets($event)">-->
-        <!--<div *ngFor="let widget of widgets">-->
-            <!--<div [ngSwitch]="widget.widgetType">-->
-                    <!--<div class="float-right">-->
-                        <!--<a routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}/widget/{{widget._id}}">-->
-                            <!--<span class="fas fa-cog"></span>-->
-                        <!--</a>-->
-                    <!--</div>-->
-                <!--<div *ngSwitchCase="'HADING'">-->
-                    <!--<div [ngSwitch]="widget.size">-->
-                        <!--<div *ngSwitchCase="1">-->
-                            <!--<h1>{{ widget.text }}</h1>-->
-                        <!--</div>-->
-                        <!--<div *ngSwitchCase="2">-->
-                            <!--<h2>{{ widget.text }}</h2>-->
-                        <!--</div>-->
-                        <!--<div *ngSwitchCase="3">-->
-                            <!--<h3>{{ widget.text }}</h3>-->
-                        <!--</div>-->
-                        <!--<div *ngSwitchCase="4">-->
-                            <!--<h4>{{ widget.text }}</h4>-->
-                        <!--</div>-->
-                        <!--<div *ngSwitchCase="5">-->
-                            <!--<h5>{{ widget.text }}</h5>-->
-                        <!--</div>-->
-                        <!--<div *ngSwitchCase="6">-->
-                            <!--<h6>{{ widget.text }}</h6>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-                <!--<img *ngSwitchCase="'IMAGE'" src="{{widget.url}}">-->
-                <!--&lt;!&ndash;<div *ngSwitchCase="'IMAGE'">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="float-right">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<a routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}/widget/{{widget._id}}">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<span class="fas fa-cog"></span>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<img class="img-responsive img-rounded cl-widget-images"&ndash;&gt;-->
-                         <!--&lt;!&ndash;src="{{widget.url}}">&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-
-                <!--<div *ngSwitchCase="'YOUTUBE'">-->
-                    <!--&lt;!&ndash;<div class="embed-responsive embed-responsive-16by9">&ndash;&gt;-->
-                        <!--<iframe class="embed-responsive-item" width="640" height="360"-->
-                                <!--[src]="sanitizer.bypassSecurityTrustResourceUrl(widget.url)"-->
-                                <!--frameborder="0"-->
-                                <!--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
-                                <!--allowfullscreen>-->
-                        <!--</iframe>-->
-                        <!--&lt;!&ndash;<div class="overlay cl-relative-position">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<a routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}/widget"&ndash;&gt;-->
-                               <!--&lt;!&ndash;class="float-right overlay cl-relative-position">&ndash;&gt;-->
-
-                                <!--&lt;!&ndash;<span class="fas fa-bars cl-white-background"></span>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<a routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}/widget/{{widget._id}}"&ndash;&gt;-->
-                               <!--&lt;!&ndash;class="float-right overlay cl-relative-position">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<span class="fas fa-cog cl-relative-position cl-white-background"></span>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
 
 <nav class="navbar navbar-inverse navbar-light bg-light fixed-bottom float-right col-12">
     <div class="float-left navbar-text">

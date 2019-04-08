@@ -1,8 +1,8 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Widget} from '../../../models/widget.model.client';
+import {Widget} from '../../../../models/widget.model.client';
 import {Router} from '@angular/router';
-import {WidgetService} from '../../../services/widget.service.client';
+import {WidgetService} from '../../../../services/widget.service.client';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class WidgetHtmlComponent implements OnInit {
         this.widget.text = text;
         this.widget.name = name;
 
-        this.widgetService.updateWidget(this.widgetId, this.widget).subscribe(
+        this.widgetService.updateWidget(this.pid, this.widgetId, this.widget).subscribe(
             (widget) => {
                 console.log('update widget called on client side' + widget);
                 this.backOnePage();
@@ -43,7 +43,7 @@ export class WidgetHtmlComponent implements OnInit {
 
     /** Calls widget service to delete the widget and back us up one page */
     deleteWidget() {
-        this.widgetService.deleteWidget(this.widgetId)
+        this.widgetService.deleteWidget(this.pid, this.widgetId)
             .subscribe(
                 () => this.backOnePage()
             );

@@ -37,7 +37,7 @@ export class PageService {
 
     updatePage(pageId: string, websiteId: string, page: Page) {
         console.log('AT UPDATE PAGE ON CLIENT SIDE');
-        return this.http.put<Page>(this.base_url + '/api/page/' + pageId, Page);
+        return this.http.put<Page>(this.base_url + '/api/website/' + websiteId + '/page/' + pageId, page);
     }
 
    deletePage(pageId) {

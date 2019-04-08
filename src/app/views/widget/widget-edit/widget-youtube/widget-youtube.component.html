@@ -3,14 +3,14 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid row">
     <div class="navbar-text pull-left">
-      <a routerLink="user/{{uid}}/website/{{wid}}/page/{{pid}}/widget" class="cl-text-black cl-icon-padding">
-                <span class="glyphicon glyphicon-cheveron-left">
+      <a (click)="backOnePage()" class="cl-text-black cl-icon-padding">
+                <span class="fas fa-chevron-left dark">
                 </span>
       </a>
     </div>
     <div class="navbar-text pull-right">
-      <a routerLink="user/{{uid}}/website/{{wid}}/page/{{pid}}/widget" class="cl-icon-padding cl-text-black">
-                <span class="glyphicon glyphicon-ok">
+      <a (click)="updateWidget()" class="cl-icon-padding cl-text-black">
+                <span class="fas fa-check dark">
                 </span>
       </a>
     </div>
@@ -21,11 +21,12 @@
 </nav>
 
 <div class="container">
-  <form>
+  <form #f="ngForm">
     <div class="form-group">
       <label for="youtube-name">Name</label>
-      <input [(ngModel)]="widgetName"
+      <input [ngModel]="widgetName"
              type="text"
+             name="newName"
              class="form-control"
              id="youtube-name"
              required
@@ -33,18 +34,39 @@
     </div>
     <div class="form-group">
       <label for="youtube-text">Text</label>
-      <input [(ngModel)]="widgetText" type="text" class="form-control" id="youtube-text" placeholder="Text">
+      <input [ngModel]="getWidgetText()"
+             type="text"
+             name="newText"
+             class="form-control"
+             id="youtube-text"
+             ngModel
+             #newText="ngModel"
+             placeholder="Text">
     </div>
     <div class="form-group">
       <label for="youtube-URL">URL</label>
-      <input [(ngModel)]="widgetUrl" type="text" class="form-control" id="youtube-URL" placeholder="URL">
+      <input [ngModel]="getWidgetUrl()"
+             type="text"
+             name="newUrl"
+             class="form-control"
+             id="youtube-URL"
+             ngModel
+             #newUrl="ngModel"
+             placeholder="URL">
     </div>
     <div class="form-group">
       <label for="youtube-width">Width</label>
-      <input [(ngModel)]="widgetWidth" type="text" class="form-control" id="youtube-width" placeholder="100%">
+      <input [ngModel]="getWidgetWidth()"
+             type="text"
+             name="newWidth"
+             class="form-control"
+             id="youtube-width"
+             ngModel
+             #newWidth="ngModel"
+             placeholder="100%">
     </div>
   </form>
-  <a class="btn btn-danger btn-block" routerLink="user/{{uid}}/website/{{wid}}/page/{{pid}}/widget">Delete</a>
+  <a class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">

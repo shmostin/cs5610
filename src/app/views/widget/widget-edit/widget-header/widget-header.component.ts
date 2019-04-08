@@ -44,7 +44,7 @@ export class WidgetHeaderComponent implements OnInit {
             }
         );
 
-    this.widgetService.findWidgetsById(this.widgetId)
+    this.widgetService.findWidgetById(this.pid, this.widgetId)
         .subscribe(
             (data: any) => this.widget = data,
             (error: any) => console.log(error)
@@ -65,7 +65,7 @@ export class WidgetHeaderComponent implements OnInit {
         this.widget.size = this.widget.size + size;
 
         // this.newWidget = new WidgetHeading(this.widgetName, undefined, 'HEADING', this.pid, this.widgetSize, this.widgetText);
-        this.widgetService.updateWidget(this.widgetId, this.newWidget)
+        this.widgetService.updateWidget(this.pid, this.widgetId, this.widget)
             .subscribe(
                 (widget) => {
                     console.log(widget);
@@ -77,7 +77,7 @@ export class WidgetHeaderComponent implements OnInit {
     deleteWidget() {
 
         // call delete widget function from widget client service
-        this.widgetService.deleteWidget(this.widgetId)
+        this.widgetService.deleteWidget(this.pid, this.widgetId)
             .subscribe(
                 () => this.backOnePage()
             );

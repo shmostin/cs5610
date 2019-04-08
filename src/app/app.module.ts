@@ -29,7 +29,7 @@ import { WidgetListComponent } from './views/widget/widget-list/widget-list.comp
 import { WidgetHeaderComponent } from './views/widget/widget-edit/widget-header/widget-header.component';
 import { WidgetImageComponent } from './views/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
-import {WidgetHtmlComponent} from './views/widget/widget-html/widget-html.component';
+import {WidgetHtmlComponent} from './views/widget/widget-edit/widget-html/widget-html.component';
 import {WidgetTextComponent} from './views/widget/widget-edit/widget-text/widget-text.component';
 
 // services
@@ -39,7 +39,7 @@ import {WebsiteService} from './services/website.service.client';
 import {WidgetService} from './services/widget.service.client';
 import {FormsModule} from '@angular/forms';
 import {SharedService} from './services/shared.service';
-import {SortableDirective} from './directives/sortable.directive';
+// import {SortableDirective} from './directives/sortable.directive';
 import {AuthGuard} from './services/auth-gaurd.service';
 
 
@@ -56,7 +56,7 @@ import {AuthGuard} from './services/auth-gaurd.service';
     PageNewComponent,
     PageEditComponent,
     PageListComponent,
-      SortableDirective,
+      // SortableDirective,
     WidgetChooserComponent,
     WidgetEditComponent,
     WidgetListComponent,

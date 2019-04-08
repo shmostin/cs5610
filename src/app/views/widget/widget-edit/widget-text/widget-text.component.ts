@@ -28,14 +28,14 @@ export class WidgetTextComponent implements OnInit {
     }
 
     updateWidget() {
-        this.widgetService.updateWidget(this.widgetId, this.widget)
+        this.widgetService.updateWidget(this.pid, this.widgetId, this.widget)
             .subscribe(
                 () => this.backOnePage()
             );
     }
 
     deleteWidget() {
-        this.widgetService.deleteWidget(this.widgetId)
+        this.widgetService.deleteWidget(this.pid, this.widgetId)
             .subscribe(
                 () => this.backOnePage()
             );

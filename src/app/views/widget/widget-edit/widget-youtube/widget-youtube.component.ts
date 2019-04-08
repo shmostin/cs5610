@@ -49,7 +49,7 @@ export class WidgetYoutubeComponent implements OnInit {
             );
 
         // fetch widget values as created on widget-new component
-        this.widgetService.findWidgetsById(this.widgetId)
+        this.widgetService.findWidgetById(this.pid, this.widgetId)
             .subscribe(
                 (data: any) => this.widget = data,
                 (error: any) => console.log(error)
@@ -68,7 +68,7 @@ export class WidgetYoutubeComponent implements OnInit {
         this.widget.text = text;
         this.widget.url = url;
         this.widget.width = width;
-        this.widgetService.updateWidget(this.widgetId, this.widget)
+        this.widgetService.updateWidget(this.pid, this.widgetId, this.widget)
             .subscribe(
                 () => this.backOnePage()
             );
@@ -77,7 +77,7 @@ export class WidgetYoutubeComponent implements OnInit {
     deleteWidget() {
 
         // call delete widget function from widget client service
-        this.widgetService.deleteWidget(this.widgetId)
+        this.widgetService.deleteWidget(this.pid, this.widgetId)
             .subscribe(
                 () => this.backOnePage()
             );

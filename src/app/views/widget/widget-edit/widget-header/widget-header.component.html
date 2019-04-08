@@ -3,13 +3,13 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid row">
     <div class="navbar-text pull-left">
-      <a routerLink="user/{{uid}}/website/{{wid}}/page/{{pid}}/widget" class="cl-text-black cl-icon-padding">
+      <a (click)="backOnePage()" class="cl-text-black cl-icon-padding">
                 <span class="fas fa-chevron-left fontawsome_icon">
                 </span>
       </a>
     </div>
     <div class="navbar-text pull-right">
-      <a routerLink="user/{{uid}}/website/{{wid}}/page/{{pid}}/widget" class="cl-icon-padding cl-text-black">
+      <a (click)="updateWidget()" class="cl-icon-padding cl-text-black">
         <span class="fas fa-plus fontawsome_icon"></span>
       </a>
     </div>
@@ -20,26 +20,44 @@
 </nav>
 
 <div class="container">
-  <form>
+  <form #f="ngForm">
     <div class="form-group">
-      <label for="heading-name">Name</label>
-      <input [(ngModel)]="widgetName"
+      <label for="headername" class="font-weight-bold">Name</label>
+      <input id="headername"
+             name="newName"
              type="text"
              class="form-control"
-             id="heading-name"
-             required
-             placeholder="Name">
-    </div>
+             placeholder="Header Name">
+    </div> <!-- form-group// -->
+
     <div class="form-group">
-      <label for="heading-text">Name</label>
-      <input [(ngModel)]="widgetText" type="text" class="form-control" id="heading-text" placeholder="Text">
-    </div>
+      <label for="headertext" class="font-weight-bold">Text</label>
+      <input id="headertext"
+             type="text"
+             class="form-control"
+             placeholder="Header Text"
+             name="newText"
+             [ngModel]="getWidgetText()"
+             ngModel
+             #newText="ngModel">
+    </div> <!-- form-group// -->
+
     <div class="form-group">
-      <label for="heading-size">Name</label>
-      <input [(ngModel)]="widgetSize" type="text" class="form-control" id="heading-size" placeholder="3">
+      <label for="headersize" class="font-weight-bold">Size</label>
+      <input id="headersize"
+             type="text"
+             class="form-control"
+             placeholder="Header Size"
+             name="newSize"
+             [ngModel]="getWidgetSize()"
+             ngModel
+             #newSize="ngModel">
+    </div> <!-- form-group// -->
+
+    <div class="form-group">
+      <a class="btn btn-danger btn-block" (click)="deleteWidget()" role="button">Delete</a>
     </div>
   </form>
-  <a class="btn btn-danger btn-block" routerLink="user/{{uid}}/website/{{wid}}/page/{{pid}}/widget">Delete</a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">

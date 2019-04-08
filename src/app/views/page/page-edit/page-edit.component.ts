@@ -41,6 +41,7 @@ export class PageEditComponent implements OnInit {
 
   updatePage() {
     const newPage = new Page(this.pageForm.value.pageName, this.wid, this.pageForm.value.pageTitle);
+    console.log('new name and title of page: ' + this.pageForm.value.pageName + ' ' + this.pageForm.value.pageName);
     this.pageService.updatePage(this.pid, this.wid, newPage)
         .subscribe(
             () => this.backOnePage()

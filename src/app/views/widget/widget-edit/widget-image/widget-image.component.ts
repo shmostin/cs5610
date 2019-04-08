@@ -46,7 +46,7 @@ export class WidgetImageComponent implements OnInit {
                }
            );
 
-       this.widgetService.findWidgetsById(this.widgetId)
+       this.widgetService.findWidgetById(this.pid, this.widgetId)
            .subscribe(
                (data: any) => this.widget = data,
                (error: any) => console.log(error)
@@ -69,14 +69,14 @@ export class WidgetImageComponent implements OnInit {
         // this.newWidget = new WidgetImage(this.widgetName, undefined, 'IMAGE', this.pageId, this.widgetWidth, this.widgetUrl);
         // this.router.navigate(['../'], {relativeTo: this.activatedRouter});
 
-        this.widgetService.updateWidget(this.widgetId, this.newWidget)
+        this.widgetService.updateWidget(this.pid, this.widgetId, this.widget)
             .subscribe(
                 () => this.backOnePage()
             );
     }
 
     deleteWidget() {
-        this.widgetService.deleteWidget(this.widgetId)
+        this.widgetService.deleteWidget(this.pid, this.widgetId)
             .subscribe(
                 () => this.backOnePage()
             );

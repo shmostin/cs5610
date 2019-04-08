@@ -5,7 +5,7 @@ module.exports = function (app) {
     app.post("/api/website/:wid/page", createPage);
     app.get("/api/website/:wid/page", findAllPagesForWebsite);
     app.get("/api/website/:wid/page/:pid", findPageById);
-    app.put("/api/page/:pid", updatePage);
+    app.put("/api/website/:wid/page/:pid", updatePage);
     app.delete("/api/page/:pid", deletePage);
 
     let pages =
@@ -75,7 +75,7 @@ module.exports = function (app) {
     }
 
     function updatePage(req, res) {
-        var pid = req.params.pageId;
+        var pid = req.params['pid'];
         var updatedPage = req.body;
 
         pageModel.updatePage(pid, updatedPage).exec(

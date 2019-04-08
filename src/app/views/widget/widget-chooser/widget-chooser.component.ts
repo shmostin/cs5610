@@ -10,8 +10,9 @@ import {WidgetService} from '../../../services/widget.service.client';
 })
 export class WidgetChooserComponent implements OnInit {
 
-    wgid: string;
-    widgets: Widget[] = [];
+    widgetId: string;
+    widget: {type: String};
+    widgets: Widget[];
     uid: string;
     wid: string;
     pid: string;
@@ -20,7 +21,7 @@ export class WidgetChooserComponent implements OnInit {
     width: string;
     url: string;
 
-  constructor(private activateRoute: ActivatedRoute, private widgetService: WidgetService, private router: Router) { }
+  constructor(private activateRoute: ActivatedRoute, private widgetService: WidgetService, private router: Router) {}
 
   ngOnInit() {
     this.activateRoute.params.subscribe(
@@ -30,7 +31,7 @@ export class WidgetChooserComponent implements OnInit {
           this.uid = params['uid'];
           this.wid = params['wid'];
           this.pid = params['pid'];
-          this.wgid = params['wgid'];
+          this.widgetId = params['widgetId'];
         });
   }
 
@@ -43,8 +44,9 @@ export class WidgetChooserComponent implements OnInit {
   findWidgetEdit(widget) {
     this.widgetService.createWidget(this.pid, widget)
         .subscribe(
-            (widget) => {
-                this.router.navigate(['user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']);
+            (resWidget) => {
+                console.log('response widget: ' + JSON.stringify(resWidget));
+                this.router.navigate(['user', this.uid, 'website', this.wid, 'page', this.pid, 'widget', resWidget._id]);
             }
         );
   }

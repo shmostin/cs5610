@@ -12,7 +12,8 @@ export class WidgetService {
     }
 
     createWidget(pageId, widget) {
-        return this.http.post(this.baseUrl + '/api/page/' + pageId + '/widget', widget);
+        console.log('Inside create widget on the client side');
+        return this.http.post<Widget>(this.baseUrl + '/api/page/' + pageId + '/widget', widget);
     }
 
     // findWidgetsByPageId(pageId) {
@@ -25,8 +26,9 @@ export class WidgetService {
     //     return widgets;
     // }
 
-    findwidgetsByPageId(pageId) {
-        return this.http.get(this.baseUrl + '/api/page/' + pageId + '/widget');
+    findWidgetsByPageId(pageId) {
+        console.log('findWidgetsByPageId called in the client');
+        return this.http.get<Widget[]>(this.baseUrl + '/api/page/' + pageId + '/widget');
     }
 
 
@@ -38,8 +40,8 @@ export class WidgetService {
     //     }
     // }
 
-    findWidgetsById(widgetId) {
-        return this.http.get(this.baseUrl + '/api/widget/' + widgetId);
+    findWidgetById(pageId, widgetId) {
+        return this.http.get<Widget>(this.baseUrl + '/api/page/' + pageId + '/widget/' + widgetId);
     }
 
     // updateWidget(widgetId, widget) {
@@ -69,9 +71,9 @@ export class WidgetService {
     //     return false;
     // }
 
-    updateWidget(widgetId, widget) {
+    updateWidget(pageId, widgetId, widget) {
         console.log('Client widget service: updateWidget()');
-        return this.http.put(this.baseUrl + '/api/widget/' + widgetId, widget);
+        return this.http.put(this.baseUrl + '/api/page/' + pageId + '/widget/' + widgetId, widget);
     }
     // deleteWidget(widgetId) {
     //     for (let i = 0; i < this.widgets.length; i++) {
@@ -82,8 +84,8 @@ export class WidgetService {
     //     }
     // }
 
-    deleteWidget(widgetId) {
-        return this.http.delete(this.baseUrl + '/api/widget/' + widgetId);
+    deleteWidget(pageId, widgetId) {
+        return this.http.delete(this.baseUrl + '/api/page/' + pageId + '/widget/' + widgetId);
     }
 
     reorderWidgets(startIndex, endIndex, pageId) {

@@ -36,7 +36,9 @@ function findAllPagesForWebsite(websiteId) {
 
 // TODO: findById????
 function findPageById(pageId) {
-    return pageModel.findById(pageId);
+    console.log('mongoose find page by id called');
+    console.log('looking for pageId:' + JSON.stringify(pageId));
+    return pageModel.findOne({_id: pageId});
 }
 
 //TODO: findByIdAndUpdate????
