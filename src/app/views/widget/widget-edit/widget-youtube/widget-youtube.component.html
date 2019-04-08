@@ -24,7 +24,12 @@
   <form>
     <div class="form-group">
       <label for="youtube-name">Name</label>
-      <input [(ngModel)]="widgetName" type="text" class="form-control" id="youtube-name" placeholder="Name">
+      <input [(ngModel)]="widgetName"
+             type="text"
+             class="form-control"
+             id="youtube-name"
+             required
+             placeholder="Name">
     </div>
     <div class="form-group">
       <label for="youtube-text">Text</label>

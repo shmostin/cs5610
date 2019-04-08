@@ -23,7 +23,13 @@
     <input [(ngModel)]="widget.rows" class="form-control" type="number"/>
     <label for="Name">Name</label>
     <div>
-        <input [(ngModel)]="widget.name" type="text" class="form-control" id="Name" name="name" placeholder="Name">
+        <input [(ngModel)]="widget.name"
+               type="text"
+               class="form-control"
+               id="Name"
+               name="name"
+               required
+               placeholder="Name">
     </div>
     Placeholder
     <input [(ngModel)]="widget.placeHolder" class="form-control" required/>
