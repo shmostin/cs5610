@@ -13,7 +13,7 @@ import {Website} from '../../../models/website.model.client';
 export class WebsiteListComponent implements OnInit {
 
     userId: String;
-    websites: Website[] = [];
+    websites: Website[];
 
 
     constructor(private websiteService: WebsiteService,

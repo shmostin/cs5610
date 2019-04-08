@@ -3,7 +3,8 @@ var widgetSchema = require('../widget/widget.schema.server');
 
 pageSchema = new mongoose.Schema(
     {
-        website:{type: mongoose.Schema.Types.ObjectId, ref: 'Website'},
+        websiteId: {type: mongoose.Schema.Types.ObjectId, ref: 'websiteModel'},
+        // website:{type: mongoose.Schema.Types.ObjectId, ref: 'Website'},
         name: String,
         title: String,
         description: String,

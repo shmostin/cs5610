@@ -49,7 +49,7 @@ module.exports = function (app) {
 
         websiteModel.findAllWebsitesForUser(uid)
             .then(function (websitesfound) {
-                console.log('A WEBSITE WAS FOUND BY THIS ID');
+                console.log('A WEBSITE WAS FOUND BY THIS ID :' + JSON.stringify(websitesfound));
                 res.status(200).json(websitesfound);
             }, function (err) {
                 console.log('ERROR in find all websites for user: ' + err);

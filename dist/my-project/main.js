@@ -1667,7 +1667,6 @@ var WebsiteListComponent = /** @class */ (function () {
         this.websiteService = websiteService;
         this.activatedRoute = activatedRoute;
         this.router = router;
-        this.websites = [];
     }
     WebsiteListComponent.prototype.ngOnInit = function () {
         var _this = this;

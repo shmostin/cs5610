@@ -29,6 +29,7 @@ function createPage(websiteId, page) {
 
 function findAllPagesForWebsite(websiteId) {
     console.log('AT MONGOOSE FIND ALL PAGES FOR WEBSITE');
+    console.log('websiteId looking for pages: ' + JSON.stringify(websiteId));
     return pageModel.find({websiteId: websiteId})
         .populate('website', '_id');
 }
