@@ -579,21 +579,12 @@ var PageService = /** @class */ (function () {
         console.log('calling page.service.server from page.service.client');
         return this.http.get(this.base_url + '/api/website/' + websiteId + '/page');
     };
-    PageService.prototype.findPageById = function (pageId) {
-        // for (let i = 0; i < this.pages.length; i++) {
-        //     if (this.pages[i]._id === pageId) {
-        //         return this.pages[i];
-        //     }
-        // }
-        return this.http.get(this.base_url + '/api/page/' + pageId);
+    PageService.prototype.findPageById = function (pageId, websiteId) {
+        console.log('calling findPageById on client side');
+        return this.http.get(this.base_url + '/api/website/' + websiteId + '/page/' + pageId);
     };
-    PageService.prototype.updatePage = function (pageId, page) {
-        // for (let i = 0; i < this.pages.length; i++) {
-        //     if (this.pages[i]._id === pageId) {
-        //        this.pages[i].name = page.name;
-        //        this.pages[i].title = page.title;
-        //     }
-        // }
+    PageService.prototype.updatePage = function (pageId, websiteId, page) {
+        console.log('AT UPDATE PAGE ON CLIENT SIDE');
         return this.http.put(this.base_url + '/api/page/' + pageId, _models_page_model_client__WEBPACK_IMPORTED_MODULE_2__["Page"]);
     };
     PageService.prototype.deletePage = function (pageId) {
@@ -844,8 +835,8 @@ var WebsiteService = /** @class */ (function () {
         return this.http.put(url, website);
     };
     WebsiteService.prototype.deleteWebsite = function (websiteId) {
-        var url = this.baseUrl + '/api/website' + websiteId;
-        return this.http.delete(url);
+        // var url = this.baseUrl + '/api/website' + websiteId;
+        return this.http.delete(this.baseUrl + '/api/website/' + websiteId);
     };
     WebsiteService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
@@ -980,7 +971,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n\n\n<nav class=\"navbar cl-blue-navbar fixed-top\">\n  <div class=\"container-fluid\">\n    <a routerLink=\"../\" class=\"navbar-link \">\n      <span class=\"cl-text-white fas fa-chevron-left\"></span>\n    </a>\n\n    <a class=\"cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding\" href=\"#\">\n      Edit-Page\n    </a>\n\n    <a [routerLink]=\"['../']\" class=\"navbar-link cl-text-white\">\n      <span class=\"cl-text-white fas fa-check fontawesome_icon cl-icon-padding\"></span>\n    </a>\n  </div>\n</nav>\n\n<div class=\"container\">\n  <form>\n    <div class=\"form-group\">\n      <label for=\"page-name\">Name</label>\n      <input type=\"text\"\n             class=\"form-control\"\n             name=\"websiteName\"\n             id=\"page-name\"\n             placeholder=\"Page Name\"\n             required\n             [(ngModel)]='page.name'>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"page-title\">Title</label>\n      <input type=\"text\"\n             class=\"form-control\"\n             name=\"websiteName\"\n             id=\"page-title\"\n             placeholder=\"Page Title\"\n             [(ngModel)]='page.title'>\n    </div>\n  </form>\n  <a (click)=\"deletePage()\" class=\"btn btn-danger btn-block\">Delete</a>\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container-fluid\">\n    <a class=\"align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding\"\n       routerLink=\"/user/{{uid}}\">\n    </a>\n  </div>\n</nav>\n\n\n\n"
+module.exports = "<!DOCTYPE html>\n\n\n<nav class=\"navbar cl-blue-navbar fixed-top\">\n    <div class=\"container-fluid\">\n        <a (click)=\"backOnePage()\" class=\"navbar-link \">\n            <span class=\"cl-text-white fas fa-chevron-left\"></span>\n        </a>\n\n        <a class=\"cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding\" href=\"#\">\n            Edit-Page\n        </a>\n\n        <a (click)=\"updatePage()\" class=\"navbar-link cl-text-white\">\n            <span class=\"cl-text-white fas fa-check fontawesome_icon cl-icon-padding\"></span>\n        </a>\n    </div>\n</nav>\n\n<div class=\"container-fluid pt-2\">\n    <form #f=\"ngForm\">\n        <div class=\"form-group\">\n            <label for=\"pagename\" class=\"font-weight-bold\">Name</label>\n            <input id=\"pagename\"\n                   name=\"pageName\"\n                   type=\"text\"\n                   class=\"form-control\"\n                   placeholder=\"Page Name\"\n                   [ngModel]=\"getOldPageName()\"\n                   ngModel\n                   #pageName=\"ngModel\">\n        </div> <!-- form-group// -->\n\n        <div class=\"form-group\">\n            <label for=\"pagetitle\" class=\"font-weight-bold\">Title</label>\n            <input id=\"pagetitle\"\n                   name=\"pageTitle\"\n                   type=\"text\"\n                   class=\"form-control\"\n                   placeholder=\"Page Title\"\n                   [ngModel]=\"getOldPageTitle()\"\n                   ngModel\n                   #pageTitle=\"ngModel\">\n        </div> <!-- form-group// -->\n\n        <div class=\"form-group\">\n            <a class=\"btn btn-danger btn-block\" (click)=\"deletePage()\" role=\"button\">Delete</a>\n        </div>\n    </form>\n\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n    <div class=\"container-fluid\">\n        <a class=\"align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding\"\n           routerLink=\"/user/{{uid}}\">\n        </a>\n    </div>\n</nav>\n\n\n\n"
 
 /***/ }),
 
@@ -999,6 +990,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models_page_model_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../models/page.model.client */ "./src/app/models/page.model.client.ts");
 /* harmony import */ var _services_page_service_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/page.service.client */ "./src/app/services/page.service.client.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
 
 
 
@@ -1009,25 +1002,46 @@ var PageEditComponent = /** @class */ (function () {
         this.pageService = pageService;
         this.activatedRoute = activatedRoute;
         this.router = router;
-        this.pages = [];
+        this.oldPage = new _models_page_model_client__WEBPACK_IMPORTED_MODULE_2__["Page"]('', '', '');
     }
-    PageEditComponent.prototype.updatePage = function () {
-        var newPage = new _models_page_model_client__WEBPACK_IMPORTED_MODULE_2__["Page"](this.name, this.wid, this.description);
-        this.pageService.updatePage(this.pid, newPage);
-        this.router.navigateByUrl('/user/' + this.uid + '/website/' + this.wid + '/page');
-    };
-    PageEditComponent.prototype.deletePage = function () {
-        this.pageService.deletePage(this.pid);
-        this.router.navigateByUrl('/user/' + this.uid + '/website/' + this.wid + '/page');
-    };
     PageEditComponent.prototype.ngOnInit = function () {
         var _this = this;
+        console.log('edit page ngOnInit');
         this.activatedRoute.params.subscribe(function (params) {
             _this.uid = params['uid'];
             _this.wid = params['wid'];
             _this.pid = params['pid'];
         });
+        this.pageService.findPageById(this.pid, this.wid)
+            .subscribe(function (page) { return _this.oldPage = page; });
+        console.log('page found on the server: ' + JSON.stringify(this.oldPage));
     };
+    PageEditComponent.prototype.updatePage = function () {
+        var _this = this;
+        var newPage = new _models_page_model_client__WEBPACK_IMPORTED_MODULE_2__["Page"](this.pageForm.value.pageName, this.wid, this.pageForm.value.pageTitle);
+        this.pageService.updatePage(this.pid, this.wid, newPage)
+            .subscribe(function () { return _this.backOnePage(); });
+    };
+    PageEditComponent.prototype.deletePage = function () {
+        var _this = this;
+        this.pageService.deletePage(this.pid)
+            .subscribe(function () { return _this.backOnePage(); });
+    };
+    PageEditComponent.prototype.backOnePage = function () {
+        this.router.navigate(['/user', this.uid, 'website', this.wid, 'page']);
+    };
+    PageEditComponent.prototype.getOldPageName = function () {
+        console.log('calling get old page name');
+        return this.oldPage.name;
+    };
+    PageEditComponent.prototype.getOldPageTitle = function () {
+        console.log('calling get old page title');
+        return this.oldPage.title;
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('f'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_5__["NgForm"])
+    ], PageEditComponent.prototype, "pageForm", void 0);
     PageEditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-page-edit',
@@ -1592,6 +1606,7 @@ var WebsiteEditComponent = /** @class */ (function () {
         this.websiteService.updateWebsite(this.uid, this.wid, website)
             .subscribe(function () { return _this.backOnePage(); });
     };
+    // TODO: should probably make this delete the pages associated with it as well
     WebsiteEditComponent.prototype.delete = function () {
         var _this = this;
         this.websiteService.deleteWebsite(this.wid)
@@ -1640,7 +1655,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar cl-blue-navbar fixed-top\">\n  <div class=\"container-fluid\">\n    <a (click)=\"backOnePage()\" class=\"navbar-link \">\n      <span class=\"cl-text-white fas fa-chevron-left\"></span>\n    </a>\n\n    <span class=\"cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding\">\n      Websites\n    </span>\n\n\n    <a (click)=\"createNewWebsite()\" class=\"navbar-link cl-text-white\">\n      <span class=\"cl-text-white fas fa-plus fontawesome_icon cl-icon-padding\"></span>\n    </a>\n  </div>\n</nav>\n\n<!--user/:uid/website/new-->\n<!--<div class=\"container-fluid scrollable-body\"-->\n     <!--*ngFor=\"let website of websites\">-->\n  <!--<table class=\"table table-borderless\">-->\n    <!--<tbody>-->\n    <!--<tr>-->\n      <!--<td>-->\n        <!--<div (click)=\"goToPageList(website._id)\">{{website.name}}</div>-->\n      <!--</td>-->\n      <!--<td align=\"right\">-->\n        <!--<a (click)=\"goToEditWebsite(website._id)\"><i class=\"fas fa-cog\"></i></a>-->\n      <!--</td>-->\n    <!--</tr>-->\n    <!--</tbody>-->\n  <!--</table>-->\n<!--</div>-->\n\n<main>\n  <div class=\"container above-below-space\">\n    <ul class=\"list-group list-borderless\">\n      <li class=\"list-group-item list-borderless\" *ngFor=\"let website of websites\">\n        <a routerLink=\"/user/{{userId}}/website/{{website._id}}/page\">{{website.name}}</a>\n        <a routerLink=\"/user/{{userId}}/website/{{website._id}}\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n      </li>\n    </ul>\n  </div>\n</main>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container-fluid\">\n    <a class=\"align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding\" [routerLink]=\"['../../' + 'user/' + userId]\">\n    </a>\n  </div>\n</nav>\n\n\n"
+module.exports = "\n<nav class=\"navbar cl-blue-navbar fixed-top\">\n  <div class=\"container-fluid\">\n    <a (click)=\"backOnePage()\" class=\"navbar-link \">\n      <span class=\"cl-text-white fas fa-chevron-left\"></span>\n    </a>\n\n    <span class=\"cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding\">\n      Websites\n    </span>\n\n\n    <a (click)=\"createNewWebsite()\" class=\"navbar-link cl-text-white\">\n      <span class=\"cl-text-white fas fa-plus fontawesome_icon cl-icon-padding\"></span>\n    </a>\n  </div>\n</nav>\n\n<!--user/:uid/website/new-->\n<!--<div class=\"container-fluid scrollable-body\"-->\n     <!--*ngFor=\"let website of websites\">-->\n  <!--<table class=\"table table-borderless\">-->\n    <!--<tbody>-->\n    <!--<tr>-->\n      <!--<td>-->\n        <!--<div (click)=\"goToPageList(website._id)\">{{website.name}}</div>-->\n      <!--</td>-->\n      <!--<td align=\"right\">-->\n        <!--<a (click)=\"goToEditWebsite(website._id)\"><i class=\"fas fa-cog\"></i></a>-->\n      <!--</td>-->\n    <!--</tr>-->\n    <!--</tbody>-->\n  <!--</table>-->\n<!--</div>-->\n\n<main>\n  <div class=\"container above-below-space\">\n    <ul class=\"list-group list-borderless\">\n      <li class=\"list-group-item list-borderless\" *ngFor=\"let website of websites\">\n        <a routerLink=\"/user/{{userId}}/website/{{website._id}}/page\">{{website.name}}</a>\n        <a routerLink=\"/user/{{userId}}/website/{{website._id}}\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n      </li>\n    </ul>\n  </div>\n</main>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container-fluid\">\n    <a class=\"align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding\" [routerLink]=\"['../../' + userId]\">\n    </a>\n  </div>\n</nav>\n\n\n"
 
 /***/ }),
 

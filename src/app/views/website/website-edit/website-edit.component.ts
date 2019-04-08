@@ -47,6 +47,7 @@ export class WebsiteEditComponent implements OnInit {
             );
     }
 
+    // TODO: should probably make this delete the pages associated with it as well
     delete() {
         this.websiteService.deleteWebsite(this.wid)
             .subscribe(

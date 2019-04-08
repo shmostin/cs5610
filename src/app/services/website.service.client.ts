@@ -46,7 +46,7 @@ export class WebsiteService {
     }
 
     deleteWebsite(websiteId) {
-        var url = this.baseUrl + '/api/website' + websiteId;
-        return this.http.delete(url);
+        // var url = this.baseUrl + '/api/website' + websiteId;
+        return this.http.delete<Website>(this.baseUrl + '/api/website/' + websiteId);
     }
 }

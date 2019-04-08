@@ -30,23 +30,14 @@ export class PageService {
     }
 
 
-    findPageById(pageId: string) {
-        // for (let i = 0; i < this.pages.length; i++) {
-        //     if (this.pages[i]._id === pageId) {
-        //         return this.pages[i];
-        //     }
-        // }
-        return this.http.get(this.base_url + '/api/page/' + pageId);
+    findPageById(pageId: string, websiteId: string) {
+        console.log('calling findPageById on client side');
+        return this.http.get<Page>(this.base_url + '/api/website/' + websiteId + '/page/' + pageId);
     }
 
-    updatePage(pageId: string, page: Page) {
-        // for (let i = 0; i < this.pages.length; i++) {
-        //     if (this.pages[i]._id === pageId) {
-        //        this.pages[i].name = page.name;
-        //        this.pages[i].title = page.title;
-        //     }
-        // }
-        return this.http.put(this.base_url + '/api/page/' + pageId, Page);
+    updatePage(pageId: string, websiteId: string, page: Page) {
+        console.log('AT UPDATE PAGE ON CLIENT SIDE');
+        return this.http.put<Page>(this.base_url + '/api/page/' + pageId, Page);
     }
 
    deletePage(pageId) {

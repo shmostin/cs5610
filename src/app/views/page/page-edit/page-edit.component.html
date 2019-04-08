@@ -2,52 +2,60 @@
 
 
 <nav class="navbar cl-blue-navbar fixed-top">
-  <div class="container-fluid">
-    <a routerLink="../" class="navbar-link ">
-      <span class="cl-text-white fas fa-chevron-left"></span>
-    </a>
+    <div class="container-fluid">
+        <a (click)="backOnePage()" class="navbar-link ">
+            <span class="cl-text-white fas fa-chevron-left"></span>
+        </a>
 
-    <a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding" href="#">
-      Edit-Page
-    </a>
+        <a class="cl-text-white navbar-brand mb-0 h5 mr-auto cl-header-padding" href="#">
+            Edit-Page
+        </a>
 
-    <a [routerLink]="['../']" class="navbar-link cl-text-white">
-      <span class="cl-text-white fas fa-check fontawesome_icon cl-icon-padding"></span>
-    </a>
-  </div>
+        <a (click)="updatePage()" class="navbar-link cl-text-white">
+            <span class="cl-text-white fas fa-check fontawesome_icon cl-icon-padding"></span>
+        </a>
+    </div>
 </nav>
 
-<div class="container">
-  <form>
-    <div class="form-group">
-      <label for="page-name">Name</label>
-      <input type="text"
-             class="form-control"
-             name="websiteName"
-             id="page-name"
-             placeholder="Page Name"
-             required
-             [(ngModel)]='page.name'>
-    </div>
-    <div class="form-group">
-      <label for="page-title">Title</label>
-      <input type="text"
-             class="form-control"
-             name="websiteName"
-             id="page-title"
-             placeholder="Page Title"
-             [(ngModel)]='page.title'>
-    </div>
-  </form>
-  <a (click)="deletePage()" class="btn btn-danger btn-block">Delete</a>
+<div class="container-fluid pt-2">
+    <form #f="ngForm">
+        <div class="form-group">
+            <label for="pagename" class="font-weight-bold">Name</label>
+            <input id="pagename"
+                   name="pageName"
+                   type="text"
+                   class="form-control"
+                   placeholder="Page Name"
+                   [ngModel]="getOldPageName()"
+                   ngModel
+                   #pageName="ngModel">
+        </div> <!-- form-group// -->
+
+        <div class="form-group">
+            <label for="pagetitle" class="font-weight-bold">Title</label>
+            <input id="pagetitle"
+                   name="pageTitle"
+                   type="text"
+                   class="form-control"
+                   placeholder="Page Title"
+                   [ngModel]="getOldPageTitle()"
+                   ngModel
+                   #pageTitle="ngModel">
+        </div> <!-- form-group// -->
+
+        <div class="form-group">
+            <a class="btn btn-danger btn-block" (click)="deletePage()" role="button">Delete</a>
+        </div>
+    </form>
+
 </div>
 
 <nav class="navbar fixed-bottom cl-blue-navbar">
-  <div class="container-fluid">
-    <a class="align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding"
-       routerLink="/user/{{uid}}">
-    </a>
-  </div>
+    <div class="container-fluid">
+        <a class="align-right fas fa-user fa-inverse fontawesome_icon cl-icon-padding"
+           routerLink="/user/{{uid}}">
+        </a>
+    </div>
 </nav>
 
 

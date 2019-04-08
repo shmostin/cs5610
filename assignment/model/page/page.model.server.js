@@ -41,10 +41,22 @@ function findPageById(pageId) {
 
 //TODO: findByIdAndUpdate????
 function updatePage(pageId, page) {
-    return pageModel.findByIdAndUpdate(pageIde, page);
+    console.log('AT UPDATE PAGE IN MODEL');
+    return pageModel.updateOne({_id: pageId}, page);
 }
 
-//TODO: findByIdAndRemove???
-function deletePage(pageId) {
-    return pageModel.findByIdAndRemove(pageId);
+
+function deletePage(pageId, websiteId) {
+    console.log('AT MONGOOSE DELET PAGE');
+    pageModel.findOne({_id: pageId})
+        .then(function (resPage) {
+            websiteModel.findWebsiteById(websiteId)
+                .then(function (website) {
+                    website.pages.pull({ _id: resPage._id });
+                    return website.save();
+                });
+            return resPage;
+        });
+    // then, delete this page
+    return pageModel.deleteOne({_id: pageId});
 }

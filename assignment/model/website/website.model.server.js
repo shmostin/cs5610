@@ -52,8 +52,18 @@ function updateWebsite(id, website) {
 }
 
 //TODO: findByIdAndRemove???
-function deleteWebsite(id) {
-    return websiteModel.findByIdAndRemove(id);
+function deleteWebsite(uid, wid) {
+    console.log('AT DELETE WEBSITE');
+    websiteModel.findOne({_id: wid})
+        .then(function (resWebsite) {
+            userModel.findUserById(uid)
+                .then(function (user) {
+                    user.website.pull({_id: resWebsite._id});
+                    return user.save();
+                });
+            return resWebsite;
+        });
+    return websiteModel.deleteOne({_id: wid});
 }
 
 
